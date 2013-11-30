@@ -1,0 +1,37 @@
+10
+
+dir
+274
+http://gesture-recognition-toolkit.googlecode.com/svn/GRT/ClusteringModules
+http://gesture-recognition-toolkit.googlecode.com/svn
+
+
+
+2013-11-05T17:25:08.833960Z
+273
+nickgillian@gmail.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+b7119413-dbb8-8e7e-ee4e-9c4485486526
+
+GaussianMixtureModels
+dir
+
+KMeans
+dir
+
+HierarchicalClustering
+dir
+

@@ -1,0 +1,40 @@
+10
+
+dir
+274
+http://gesture-recognition-toolkit.googlecode.com/svn/GRT/RegressionModules
+http://gesture-recognition-toolkit.googlecode.com/svn
+
+
+
+2013-11-04T21:48:13.804764Z
+272
+nickgillian@gmail.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+b7119413-dbb8-8e7e-ee4e-9c4485486526
+
+LinearRegression
+dir
+
+ArtificialNeuralNetworks
+dir
+
+LogisticRegression
+dir
+
+MultidimensionalRegression
+dir
+

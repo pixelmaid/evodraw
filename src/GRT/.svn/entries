@@ -1,0 +1,95 @@
+10
+
+dir
+274
+http://gesture-recognition-toolkit.googlecode.com/svn/GRT
+http://gesture-recognition-toolkit.googlecode.com/svn
+
+
+
+2013-11-05T17:42:02.793782Z
+274
+nickgillian@gmail.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+b7119413-dbb8-8e7e-ee4e-9c4485486526
+
+GRT.h
+file
+
+
+
+
+2013-11-05T18:34:44.000000Z
+58a479fb6137dd84f0d209884d62573c
+2013-11-03T23:56:42.268817Z
+270
+nickgillian@gmail.com
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6053
+
+CoreAlgorithms
+dir
+
+ClassificationModules
+dir
+
+FeatureExtractionModules
+dir
+
+GestureRecognitionPipeline
+dir
+
+ClusteringModules
+dir
+
+RegressionModules
+dir
+
+PostProcessingModules
+dir
+
+PreProcessingModules
+dir
+
+Util
+dir
+
+ContextModules
+dir
+
+DataStructures
+dir
+

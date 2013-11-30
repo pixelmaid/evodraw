@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/!svn/ver/272/GRT/DataStructures
+END
+LabelledRegressionData.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/272/GRT/DataStructures/LabelledRegressionData.cpp
+END
+LabelledContinuousTimeSeriesClassificationData.h
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/229/GRT/DataStructures/LabelledContinuousTimeSeriesClassificationData.h
+END
+LabelledRegressionData.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/272/GRT/DataStructures/LabelledRegressionData.h
+END
+LabelledTimeSeriesClassificationData.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/236/GRT/DataStructures/LabelledTimeSeriesClassificationData.cpp
+END
+LabelledRegressionSample.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/169/GRT/DataStructures/LabelledRegressionSample.cpp
+END
+LabelledTimeSeriesClassificationData.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/236/GRT/DataStructures/LabelledTimeSeriesClassificationData.h
+END
+LabelledClassificationData.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/262/GRT/DataStructures/LabelledClassificationData.cpp
+END
+LabelledTimeSeriesClassificationSample.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/169/GRT/DataStructures/LabelledTimeSeriesClassificationSample.cpp
+END
+LabelledRegressionSample.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/272/GRT/DataStructures/LabelledRegressionSample.h
+END
+UnlabelledClassificationData.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/236/GRT/DataStructures/UnlabelledClassificationData.cpp
+END
+LabelledClassificationData.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/262/GRT/DataStructures/LabelledClassificationData.h
+END
+TimeSeriesPositionTracker.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/229/GRT/DataStructures/TimeSeriesPositionTracker.h
+END
+LabelledTimeSeriesClassificationSample.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/229/GRT/DataStructures/LabelledTimeSeriesClassificationSample.h
+END
+UnlabelledClassificationData.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/229/GRT/DataStructures/UnlabelledClassificationData.h
+END
+LabelledClassificationSample.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/169/GRT/DataStructures/LabelledClassificationSample.cpp
+END
+LabelledClassificationSample.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/229/GRT/DataStructures/LabelledClassificationSample.h
+END
+LabelledContinuousTimeSeriesClassificationData.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/215/GRT/DataStructures/LabelledContinuousTimeSeriesClassificationData.cpp
+END
