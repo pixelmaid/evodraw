@@ -12,17 +12,42 @@
 #include <iostream>
 #include "ofMain.h"
 #include "Shape.h"
+#include "Geom2D.h"
+#include <math.h>
+#include "GRT.h"
 class ProbModel{
 
 public:
     
-    bool analyzeDrawing(vector<Shape*> &shapes);
+    ProbModel();
+    
+    ~ProbModel();
+    
+    bool evalKeystone(vector< vector<Shape*> > &drawings);
+    vector <double> generateKeystoneValues();
+    vector <vector <double> > generateShapeValues();
+    bool evalRelativeDrawing(vector<double> keystoneV,vector< vector<Shape*> > &drawings);
+    
+    vector <vector <double> >   analyzeDrawing(vector <vector <Shape*> > &drawings);
+    
+    //stores average features for keystone
+    vector <double> keystoneValues;
+    
+    //total number of shapes in a drawing
+    int shapeNum;
+    //total number of shapes in drawing minus keystone
+    int nonKNum;
+    //number of features in the keystone
+    int keystoneFeatureNum;
+    
+    GRT::Random random;
+    
+    //stores probabilities for lookup table
+    vector< vector< double > > lookup;
     
     //stores values for drawing
     vector<int> dType;
-    //stores probabilities for lookup table
-    vector<vector<double>> lookup;
-    
+        
 private:
     
 };

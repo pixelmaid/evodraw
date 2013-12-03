@@ -68,7 +68,17 @@ public:
         return bb;
     }
     
-    void size(double _x, double _y){
+    virtual vector<double> getParams(){
+        vector<double> params;
+        params.push_back(x1);
+        params.push_back(y1);
+        params.push_back(x2);
+        params.push_back(y2);
+        return params;
+        
+    }
+    
+   virtual void size(double _x, double _y){
         x2 = _x;
         y2 = _y;
         
@@ -80,6 +90,7 @@ public:
         output.setColor(0x000000);
         output.noFill();
         output.line(x1, y1, x2,y2);
+        
         // cout << "draw ellipse at " << x << " ," <<y << " ," << width << " ," <<height << endl;
     }
     

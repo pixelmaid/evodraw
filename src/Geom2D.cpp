@@ -114,7 +114,7 @@ bool Geom2D::isTop(double y1, double y2){
 }
 
 //calculates mean and standard deviation
-vector<double> Geom2D::meanSd(vector<double> values){
+vector<double> Geom2D::meanSd(vector<double> values, bool forcesd){
     vector<double> result;
     double sum=0;
     double sd_sum=0;
@@ -130,6 +130,9 @@ vector<double> Geom2D::meanSd(vector<double> values){
     double sd = sd_sum/values.size();
 
     result.push_back(mean);
+    if(values.size()<10 && forcesd) result.push_back(20);
+       else  result.push_back(sd);
+
     result.push_back(sd);
     
     return result;

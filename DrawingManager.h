@@ -181,18 +181,43 @@ public:
     }
     
     void saveDrawing(){
-        savedShapes.push_back(currentShapes);
+        savedDrawings.push_back(currentShapes);
         currentShapes.clear();
     }
     
+    void generateKeystone(vector<double>values){
+        Shape* s = new Line(values[0],values[1]);
+        s->size(values[2],values[3]);
+        currentShapes.push_back(s);
+    }
+    
+    void generateShapes(vector <vector <double> > values){
+       
+        vector<double> k = values[0];
+        generateKeystone(k);
+        vector<double> kc = Geom2D::getMidpoint(k[0],k[1],k[2],k[3]);
+        for(int i=1;i<values.size();i++){
+            double  x1 = kc[0]+values[i][0];
+            double  y1= kc[1]+values[i][1];
+            double x2= kc[0]+values[i][2];
+            double y2= kc[1]+values[i][3];
+            Shape* s = new Line(x1,y1);
+            s->size(x2,y2);
+            currentShapes.push_back(s);
+
+        }
+       
+        
+    }
+    
     void deleteShapes(){
-        for (int i=0;i<savedShapes.size();i++){
-            for(int j=0;j<savedShapes[i].size();j++){
-                delete(savedShapes[i][j]);
-                    savedShapes[i][j]=NULL;
+        for (int i=0;i<savedDrawings.size();i++){
+            for(int j=0;j<savedDrawings[i].size();j++){
+                delete(savedDrawings[i][j]);
+                    savedDrawings[i][j]=NULL;
             }
         }
-        savedShapes.clear();
+        savedDrawings.clear();
 
         for (int i=0;i<currentShapes.size();i++){
             delete(currentShapes[i]);
@@ -202,10 +227,10 @@ public:
     }
 
     vector<Shape*> currentShapes;
+    vector<vector<Shape*>> savedDrawings;
 
     
      private:
-vector<vector<Shape*>> savedShapes;
     int mode;
     bool shapeStart;
 };

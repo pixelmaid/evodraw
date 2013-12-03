@@ -74,6 +74,9 @@ void testApp::setDrawTools()
     drawTools->addWidgetDown(new ofxUIImageButton(dim, dim, true, "GUI/images/darrow.png","DARROWBTN"));
     drawTools->addSpacer(dim, 1);
     drawTools->addWidgetDown(new ofxUIImageButton(dim, dim, true, "GUI/images/ind.png","INDBTN"));
+    drawTools->addSpacer(dim, 1);
+    drawTools->addWidgetDown(new ofxUIImageButton(dim, dim, true, "GUI/images/gen.png","GENBTN"));
+
 
     /*
     drawTools->addWidgetDown(new ofxUILabel("IMAGE TOGGLE", OFX_UI_FONT_MEDIUM));
@@ -147,7 +150,25 @@ void testApp::guiEvent(ofxUIEventArgs &e)
         if(trigger ==1) saveIndividual();
         
 		
-	}/*
+	}
+    else if(name == "GENBTN")
+	{
+        ofxUIImageButton *btn = (ofxUIImageButton *)e.widget;
+        int trigger = btn->getValue();
+        cout << "trigger was: " << trigger << endl;
+        if(trigger ==1){
+            
+           // probModel.evalKeystone(d.savedDrawings);
+            //probModel.generateKeystoneValues();
+           vector <vector <double> > values = probModel.analyzeDrawing(d.savedDrawings);
+            
+            
+           cout << "total vals:" <<values.size()<<endl;
+            d.generateShapes(values);
+        }
+
+	}
+    /*
 	else if(name == "DRAW GRID")
 	{
 		ofxUIButton *button = (ofxUIButton *) e.widget;
@@ -194,8 +215,6 @@ void testApp::saveIndividual(){
     canvases->addSpacer(150, 1);
 
     snapCounter++;
-    probModel.analyzeDrawing(d.currentShapes);
-
     d.saveDrawing();
     
 }
@@ -219,7 +238,19 @@ void testApp::draw(){
     ofSetRectMode(OF_RECTMODE_CENTER);
     
     d.draw(output);
+    ofSetHexColor(0x000000);
+    ostringstream convertx;   // stream used for the conversion
+    convertx << mouseX;
     
+    string xString = convertx.str();
+    ostringstream converty;   // stream used for the conversion
+    converty << mouseY;
+
+  
+    string yString = converty.str();
+    ofDrawBitmapString(xString+","+yString, mouseX,mouseY);
+
+        
     /*bool quantize = true;
     
     ofBackground(0, 0, 0);
@@ -312,6 +343,7 @@ void testApp::keyReleased(int key){
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y ){
     d.mouseMove(x,y);
+   
 }
 
 //--------------------------------------------------------------

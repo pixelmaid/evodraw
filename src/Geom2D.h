@@ -35,7 +35,7 @@ static bool isLeft(double x1, double x2);
     
 static bool isTop(double y1, double y2);
     
-static vector<double> meanSd(vector<double> values);
+static vector<double> meanSd(vector<double> values, bool forcesd);
 
 static double angle(double x1, double y1, double x2, double y2);
     

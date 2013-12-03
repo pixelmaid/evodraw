@@ -59,6 +59,12 @@
             bb.push_back(0);
             return bb;
         }
+        	
+        virtual vector<double> getParams(){
+            vector<double> params;
+            return params;
+            
+        }
         
         virtual void size(double _x, double _y){
         

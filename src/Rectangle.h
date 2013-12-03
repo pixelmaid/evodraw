@@ -64,6 +64,16 @@ public:
         bb.push_back(height);
         return bb;
     }
+    
+    virtual vector<double> getParams(){
+        vector<double> params;
+        params.push_back(x);
+        params.push_back(y);
+        params.push_back(width);
+        params.push_back(height);
+        return params;
+        
+    }
 
     
     virtual void size(double _x, double _y){

@@ -66,7 +66,17 @@ public:
         return bb;
     }
    
-    void size(double _x, double _y){
+    virtual vector<double> getParams(){
+        vector<double> params;
+        params.push_back(x);
+        params.push_back(y);
+        params.push_back(width);
+        params.push_back(height);
+        return params;
+        
+    }
+    
+    virtual void size(double _x, double _y){
         width = std::abs(x-_x)*2;
         height = std::abs(y-_y)*2;
         
