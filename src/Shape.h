@@ -140,13 +140,13 @@
         }
       
        
-        virtual void draw(ofxVectorGraphics &output, bool dselect){
+        virtual void draw(ofxVectorGraphics &output, bool dselect, int color){
             cout << "draw shape " <<  endl;
             if( points.size() > 0 ){
                 
                 int numPts = points.size();
                 
-                output.setColor(0x0088EE);
+                output.setColor(color);
                 if(selected){
                     output.setColor(0xF20606);
 

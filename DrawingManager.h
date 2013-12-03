@@ -15,6 +15,8 @@
 #include "Line.h"
 #include "Rectangle.h"
 #include "ofxVectorGraphics.h"
+#include "ofMain.h"
+
     
 #define DRAW_M 0
 #define SELECT_M 1
@@ -77,13 +79,30 @@ public:
      
      void draw(ofxVectorGraphics &output){
          bool dselect = false;
+         int rv=100;
          if (mode == SELECT_M ||mode == DIRECT_M ) dselect = true;
-         
-     for(int i=0;i<currentShapes.size();i++){
-            currentShapes[i]->draw(output,dselect);
+        
+         for(int i = savedDrawings.size()-1;i>=0;i--){
+              int color = createRGB(rv,rv,rv);
+             for(int j=0;j<savedDrawings[i].size();j++){
+                savedDrawings[i][j]->draw(output,dselect,color);
+             }
+             rv+=50;
+             if(rv>255){
+                 rv=255;
+             }
+         }
+
+         for(int i=0;i<currentShapes.size();i++){
+            currentShapes[i]->draw(output,dselect,0x000000);
      }
      }
     
+    
+    unsigned long createRGB(int r, int g, int b)
+    {
+        return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
+    }
     
     //these methods control the creation of regular shapes
     

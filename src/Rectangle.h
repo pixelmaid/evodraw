@@ -84,8 +84,8 @@ public:
 
     }
     
-   virtual void draw(ofxVectorGraphics &output, bool dselect) {
-        output.setColor(0x000000);
+   virtual void draw(ofxVectorGraphics &output, bool dselect, int color) {
+        output.setColor(color);
         output.noFill();
         output.rect(x, y, width, height);
        // cout << "draw Rect at " << x << " ," <<y << " ," << width << " ," <<height << endl;

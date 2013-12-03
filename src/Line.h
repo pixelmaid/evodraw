@@ -86,11 +86,15 @@ public:
         
     }
     
-    virtual void draw(ofxVectorGraphics &output, bool dselect) {
-        output.setColor(0x000000);
+    virtual void draw(ofxVectorGraphics &output, bool dselect, int color) {
+        output.setColor(color);
         output.noFill();
         output.line(x1, y1, x2,y2);
-        
+        output.setColor(0x00FF00);
+        output.fill();
+        output.rect(x1,y1,3,3);
+        output.setColor(0xFF0000);
+        output.rect(x2,y2,3,3);
         // cout << "draw ellipse at " << x << " ," <<y << " ," << width << " ," <<height << endl;
     }
     
