@@ -54,6 +54,20 @@ public:
         c.push_back(y+height/2);
         return c;
     }
+    
+    
+    virtual void checkSelect(double px, double py){
+        double k = Geom2D::inRect(px, py, x, y, x+width, y, x+width, y+height, x, y+height,0.01);
+        selected = false;
+        cout <<"actual rectArea="<<width*height<<endl;
+
+        cout<<"select val="<<k<<endl;
+        if(k==0){
+            selected = true;
+        }
+        relX = px-x;
+        relY= py-y;
+    }
    
     //returns bounding box as a vector (x,y,width,height)
     virtual vector<double>boundingbox(){
@@ -84,8 +98,18 @@ public:
 
     }
     
+    virtual void move(double px, double py){
+        if(selected){
+            x = px-relX;
+            y= py-relY;
+        }
+    }
+
+    
    virtual void draw(ofxVectorGraphics &output, bool dselect, int color) {
         output.setColor(color);
+       if(selected) output.setColor(selectedColor);
+
         output.noFill();
         output.rect(x, y, width, height);
        // cout << "draw Rect at " << x << " ," <<y << " ," << width << " ," <<height << endl;

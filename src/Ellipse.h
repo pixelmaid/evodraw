@@ -65,7 +65,25 @@ public:
         bb.push_back(height);
         return bb;
     }
+    
+    virtual void checkSelect(double px, double py){
+        double k = Geom2D::inEllipse(px,py,x,y,width/2,height/2);
+        selected = false;
+        //cout<<"select val="<<k<<endl;
+        if(k<=1.05&&k>=0.95){
+            selected = true;
+        }
+        relX = px-x;
+        relY= py-y;
+    }
    
+    virtual void move(double px, double py){
+        if(selected){
+            x = px-relX;
+            y= py-relY;
+        }
+    }
+    
     virtual vector<double> getParams(){
         vector<double> params;
         params.push_back(x);
@@ -86,6 +104,8 @@ public:
     
    virtual void draw(ofxVectorGraphics &output, bool dselect,int color) {
         output.setColor(color);
+       if(selected) output.setColor(selectedColor);
+
         output.noFill();
         output.ellipse(x, y, width, height);
        // cout << "draw ellipse at " << x << " ," <<y << " ," << width << " ," <<height << endl;

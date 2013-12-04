@@ -111,7 +111,7 @@
           
         }
         
-        void checkSelect(double x, double y, bool dselect){
+       virtual void checkSelect(double x, double y){
             selected=false;
             selectedP = -1;
             int numPts = points.size();
@@ -134,6 +134,10 @@
             
         }
         
+        virtual void move(double x, double y){
+            
+        }
+        
         void deselect(){
             selected = false;
             dselected = false;
@@ -148,7 +152,7 @@
                 
                 output.setColor(color);
                 if(selected){
-                    output.setColor(0xF20606);
+                    output.setColor(selected);
 
                 }
                // if(!closed)
@@ -201,7 +205,9 @@
         bool dselected;
         int selectedP;
         string type; 
-        
+        int selectedColor= 0xF20606;
+        double relX;
+        double relY;
 
 
 };

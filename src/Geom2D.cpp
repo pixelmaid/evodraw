@@ -25,47 +25,47 @@ double Geom2D::euclidDist(double x1,double y1, double x2, double y2){
     
 }
 
-bool Geom2D::pointOnLine(double sx, double sy, double ex, double ey, double x, double y, double gap){
-    double m = getSlope(sx,sy,ex,ey);
+int Geom2D::pointOnLine(double pX, double pY, double x1, double y1, double x2, double y2, double gap){
+    double m = getSlope(x1,y1,x2,y2);
     /*if (m>BIG){
         std::cout<<INFINITY<<std::endl;
         return false;
 
     }*/
-    double b = getYIntercept(sx,sy,m);
-    double yc = m*x+b;
-    double diff = abs(yc-y);
+    double b = getYIntercept(x1,y1,m);
+    double yc = m*pX+b;
+    double diff = abs(yc-pY);
     
     double left =0;
     double right= 0;
     double top = 0;
     double bottom =0;
     
-    if( isLeft(sx,ex)){
-        left = sx;
-        right = ex;
+    if( isLeft(x1,x2)){
+        left = x1;
+        right = x2;
     }
     else{
-        left = ex;
-        right = sx;
+        left = x2;
+        right = x1;
 
     }
     
-    if( isTop(sy,ey)){
-        top = sy;
-        bottom = ey;
+    if( isTop(y1,y2)){
+        top = y1;
+        bottom = y2;
     }
     else{
-        top = ey;
-        bottom = sy;
+        top = y1;
+        bottom = y2;
         
     }
     
     bool inBox = false;
-    if(x>=left && x<=right && y>=top && y<=bottom) inBox=true;
+    if(pX>=left && pX<=right && pY>=top && pY<=bottom) inBox=true;
     
-    if (diff <=gap && diff !=-2147483648 && inBox)return true;
-    else return false;
+    if (diff <=gap && diff !=-2147483648 && inBox)return 0;
+    else return -1;
     
 }
 
@@ -140,8 +140,60 @@ vector<double> Geom2D::meanSd(vector<double> values, bool forcesd){
     
 }
 
+vector<double> Geom2D::normalize(vector<double> values){
+    vector<double> result;
+    double sum=0;
+    for(int i=0;i<values.size();i++){
+        sum+=values[i];
+        
+    }
+    for(int i=0;i<values.size();i++){
+        result.push_back(values[i]/sum);
+        
+    }
+    return result;
+    
+}
+
 double Geom2D::angle(double x1, double y1, double x2, double y2){
   double xDiff = x2- x1;
    double yDiff = y2 - y1;
     return atan2(yDiff, xDiff) * (180 / PI);
+}
+
+double Geom2D::inEllipse(double x, double y, double ex, double ey, double ew, double eh){
+    double val = pow((x-ex),2)/pow(ew,2)+pow((y-ey),2)/pow(eh,2);
+    return val;
+}
+
+double Geom2D::inRect(double pX, double pY, double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY, double m){
+    double a1 =triangleArea(aX,aY,pX,pY,dX,dY);
+    double a2 =triangleArea(dX,dY,pX,pY,cX,cY);
+    double a3 = triangleArea(cX,cY,pX,pY,bX,bY);
+    double a4 = triangleArea(pX,pY,bX,bY,aX,aY);
+    double rA = abs((bX-aX))*abs((cY-bY));
+    double sA = a1+a2+a3+a4;
+    cout <<"sum of triangles="<<sA<<" rectArea ="<<rA<<endl;
+    double margin=m*rA;
+    if ((m!=0)&&(margin<100)){
+        margin = 100;
+    }
+    if ((m!=0)&&(margin>300)){
+        margin = 300;
+    }
+    if(abs(sA-rA)>margin){
+        return -1;
+    }
+    else {
+        if((a1>=-margin && a1<=margin)||(a2>=-margin && a2<=margin)||(a3>=-margin && a3<=margin)||(a4>=-margin && a4<=margin)){
+            return 0;
+        }
+        return 1;
+    }
+    
+}
+
+double Geom2D::triangleArea(double aX, double aY, double bX, double bY, double cX, double cY){
+    return abs((aX*(bY-cY)+bX*(cY-aY)+cX*(aY-bY))/2);
+
 }

@@ -28,7 +28,7 @@ bool ProbModel::evalKeystone(vector< vector<Shape*> > &drawings){
         for(int j=0;j<drawings.size();j++){
             //assume that keystone is always first shape in drawing array
             vector<double> params = drawings[j][0]->getParams();
-            
+            cout << "param at "<<i<<"="<<params[i]<<endl;
             v.push_back(params[i]);
         }
 
@@ -39,6 +39,10 @@ bool ProbModel::evalKeystone(vector< vector<Shape*> > &drawings){
         keystoneValues.push_back(ms[1]);
     
     }
+    if(drawings[0][0]->type=="ellipse") keystoneValues.push_back(0);
+    else if(drawings[0][0]->type=="rect") keystoneValues.push_back(1);
+    else if(drawings[0][0]->type=="line") keystoneValues.push_back(2);
+
     cout << "evaluated keystone!"<<endl;
 
     return true;
@@ -54,7 +58,7 @@ vector <double> ProbModel::generateKeystoneValues(){
         cout << "gaussian v="<<v<<endl;
         gKeystone.push_back(v);
     }
-    
+    gKeystone.push_back(keystoneValues[keystoneValues.size()-1]);
     return gKeystone;
     
 }
@@ -160,6 +164,8 @@ vector<double> kc = Geom2D::getMidpoint(keystoneV[0], keystoneV[1], keystoneV[2]
 
 
 vector <vector <double> > ProbModel::analyzeDrawing(vector <vector <Shape*> > &drawings){
+    lookup.clear();
+    keystoneValues.clear();
     shapeNum=drawings[0].size();
     //total number of shapes in drawing minus keystone
     nonKNum = shapeNum-1;

@@ -206,16 +206,21 @@ void testApp::guiEvent(ofxUIEventArgs &e)
 
 void testApp::saveIndividual(){
     // grab a rectangle at 200,200, width and height of 300,180
-    snapshot.grabScreen(canvasX,canvasY,canvasWidth,canvasHeight);
    
+    
+    snapCounter++;
+  
+    ofBackground(255);
+    d.draw(output, false);
+    snapshot.grabScreen(canvasX,canvasY,canvasWidth,canvasHeight);
+
+    d.saveDrawing();
     string fileName = "snapshot_"+ofToString(10000+snapCounter)+".png";
     snapshot.saveImage(fileName);
     //sprintf(snapString, "saved %s", fileName.c_str());
     canvases->addWidgetDown(new ofxUIImageToggle(150,150, true, fileName,"snapCounter"));
     canvases->addSpacer(150, 1);
 
-    snapCounter++;
-    d.saveDrawing();
     
 }
 
@@ -230,14 +235,14 @@ void testApp::draw(){
     
 	ofBackground(255);
 	
-	ofPushStyle();
+	/*ofPushStyle();
 	ofEnableBlendMode(OF_BLENDMODE_ALPHA);
     
 	ofPopStyle();
     
-    ofSetRectMode(OF_RECTMODE_CENTER);
+    ofSetRectMode(OF_RECTMODE_CENTER);*/
     
-    d.draw(output);
+    d.draw(output,true);
     ofSetHexColor(0x000000);
     ostringstream convertx;   // stream used for the conversion
     convertx << mouseX;
@@ -251,42 +256,7 @@ void testApp::draw(){
     ofDrawBitmapString(xString+","+yString, mouseX,mouseY);
 
         
-    /*bool quantize = true;
-    
-    ofBackground(0, 0, 0);
-    
-    double viewSize = 100;
-    double viewX = 50;
-    double viewY = 50;
-    
-    for(unsigned int i=0; i<evo.getPopulationSize(); i++){
-        unsigned int index = 0;
-        for(unsigned int j=0; j<N; j++){
-            double r = Util::scale(evo[i].gene[index++],0,1,0,255);
-            double g = Util::scale(evo[i].gene[index++],0,1,0,255);
-            double b = Util::scale(evo[i].gene[index++],0,1,0,255);
-            double x = Util::scale(evo[i].gene[index++],0,1,0,viewSize);
-            double y = Util::scale(evo[i].gene[index++],0,1,0,viewSize);
-            double size = Util::scale(evo[i].gene[index++],0,1,0,viewSize/2.0);
-            
-            ofSetColor(r, g, b);
-            ofFill();
-            ofEllipse(viewX + x,viewY + y, size, size);
-        }
         
-        ofNoFill();
-        ofSetColor(255, 255, 255);
-        ofRect(viewX,viewY,viewSize,viewSize);
-        
-        string text;
-        text = keyCommands[i];
-        text += " " + ofToString( evo[i].fitness, 2 );
-        ofSetColor(255,255,255);
-        font.drawString(text, viewX, viewY + viewSize + 25);
-        
-        viewX += viewSize + 10;
-    }*/
-    
 }
 
 //--------------------------------------------------------------

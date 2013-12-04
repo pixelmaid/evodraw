@@ -23,7 +23,7 @@ public:
     
 static double euclidDist(double x1, double y1, double x2, double y2);
         
-static bool pointOnLine(double sx, double sy, double ex, double ey, double x, double y, double gap);
+static int pointOnLine(double pX, double pY, double x1, double y1, double x2, double y2, double m);
   
 static double getSlope(double sx, double sy, double ex, double ey);
     
@@ -36,9 +36,15 @@ static bool isLeft(double x1, double x2);
 static bool isTop(double y1, double y2);
     
 static vector<double> meanSd(vector<double> values, bool forcesd);
-
+static vector<double> normalize(vector<double> values);
+    
 static double angle(double x1, double y1, double x2, double y2);
     
+static double inEllipse(double x, double y, double ex, double ey, double ew, double eh);
+    
+static double inRect(double pX, double pY, double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY, double m);
+
+static double triangleArea(double aX, double aY, double bX, double bY, double cX, double cY);
 private:
   Geom2D();
     

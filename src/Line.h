@@ -43,6 +43,7 @@ public:
             copyBaseVariables( (Line*)&rhs );
         }
         return *this;
+        
     }
     
     
@@ -86,9 +87,33 @@ public:
         
     }
     
+    virtual void checkSelect(double px, double py){
+       int k = Geom2D::pointOnLine(px,py,x1,y1,x2,y2,5);
+        selected = false;
+        if(k==0){
+            selected = true;
+        }
+        relX = px-x1;
+        relY= py-y1;
+    }
+
+    virtual void move(double px, double py){
+        if(selected){
+           double xdiff = x1-(px-relX);
+            double ydiff = y1-(py-relY);
+            x1  = px-relX;
+            y1 = py-relY;
+            x2 -= xdiff;
+            y2-= ydiff;
+        }
+    }
+    
     virtual void draw(ofxVectorGraphics &output, bool dselect, int color) {
+        
         output.setColor(color);
         output.noFill();
+        
+        if(selected) output.setColor(selectedColor);
         output.line(x1, y1, x2,y2);
         output.setColor(0x00FF00);
         output.fill();
