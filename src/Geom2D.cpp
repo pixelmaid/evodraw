@@ -25,13 +25,30 @@ double Geom2D::euclidDist(double x1,double y1, double x2, double y2){
     
 }
 
-int Geom2D::pointOnLine(double pX, double pY, double x1, double y1, double x2, double y2, double gap){
-    double m = getSlope(x1,y1,x2,y2);
-    /*if (m>BIG){
-        std::cout<<INFINITY<<std::endl;
-        return false;
+double Geom2D::distanceToLine(double px, double py, double x1, double y1, double x2, double y2){
+    Vec2D u = Vec2D(x2-x1,y2-y1);
+    Vec2D v = Vec2D(px-x1,py-y1);
+    Vec2D dUV =  Vec2D::projectOnto(u, v);
+    double proPX = x1+dUV.x;
+    double proPY = y1+dUV.y;
+    Vec2D qL = Vec2D(px-proPX, py-proPY);
+    double dist = qL.length();
+    cout<<"distance ="<<dist<<endl;
+    return dist;
+    
+}
 
-    }*/
+
+int Geom2D::pointOnLine(double pX, double pY, double x1, double y1, double x2, double y2, double gap){
+    double area = triangleArea(pX, pY, x1,y1,x2,y2);
+    cout<<"triline area="<<area<<endl;
+    if(area<=gap){
+        return 1;
+    }
+    else return -1;
+    
+    /*double m = getSlope(x1,y1,x2,y2);
+    
     double b = getYIntercept(x1,y1,m);
     double yc = m*pX+b;
     double diff = abs(yc-pY);
@@ -66,7 +83,7 @@ int Geom2D::pointOnLine(double pX, double pY, double x1, double y1, double x2, d
     
     if (diff <=gap && diff !=-2147483648 && inBox)return 0;
     else return -1;
-    
+    */
 }
 
 double Geom2D::getSlope(double sx, double sy, double ex, double ey){

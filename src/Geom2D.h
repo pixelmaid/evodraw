@@ -12,7 +12,7 @@
 #include <iostream>
 #include <math.h>  
 #include "ofMain.h"
-
+#include "Vec2D.h"
 
 #define BIG 1e+15
 #define SMALL 1e-15
@@ -39,6 +39,8 @@ static vector<double> meanSd(vector<double> values, bool forcesd);
 static vector<double> normalize(vector<double> values);
     
 static double angle(double x1, double y1, double x2, double y2);
+    
+    static double distanceToLine(double px, double py, double x1, double y1, double x2, double y2);
     
 static double inEllipse(double x, double y, double ex, double ey, double ew, double eh);
     

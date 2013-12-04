@@ -88,9 +88,12 @@ public:
     }
     
     virtual void checkSelect(double px, double py){
-       int k = Geom2D::pointOnLine(px,py,x1,y1,x2,y2,5);
+       //int k = Geom2D::pointOnLine(px,py,x1,y1,x2,y2,150);
+        double k = Geom2D::distanceToLine(px, py, x1, y1, x2, y2);
+        int r  = Geom2D::inRect(px, py, x1, y1, x2, y1, x2, y2, x1, y2, 0.01);
+        
         selected = false;
-        if(k==0){
+        if(k<=2 && r >=0){
             selected = true;
         }
         relX = px-x1;
@@ -100,7 +103,7 @@ public:
     virtual void move(double px, double py){
         if(selected){
            double xdiff = x1-(px-relX);
-            double ydiff = y1-(py-relY);
+            double ydiff = y1-(py-relY);    
             x1  = px-relX;
             y1 = py-relY;
             x2 -= xdiff;
