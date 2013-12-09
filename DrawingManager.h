@@ -16,6 +16,7 @@
 #include "Rectangle.h"
 #include "ofxVectorGraphics.h"
 #include "ofMain.h"
+#include "Color_Const.h"
 
     
 #define DRAW_M 0
@@ -24,6 +25,8 @@
 #define ELLIPSE_M 3
 #define RECT_M 4
 #define LINE_M 5
+#define SCALE_M 6
+#define PARENT_M 7
 
 
 
@@ -32,10 +35,12 @@ class DrawingManager{
 public:
     
     void mouseDrag(double x, double y){
-        if (mode == DRAW_M) addPoint(x,y);
+        if (mode == DRAW_M); //addPoint(x,y);
         else if (mode == ELLIPSE_M || mode== LINE_M || mode==RECT_M) sizeShape(x,y);
         else if (mode == SELECT_M) checkMove(x,y);
-        //else if (mode == DIRECT_M) checkSelect(x,y,true);
+        else if (mode == DIRECT_M) checkDMove(x,y);
+        else if (mode == SCALE_M) checkScale(x,y);
+        
     }
     
     void mouseMove(double x, double y){
@@ -43,37 +48,71 @@ public:
     }
     
     void mouseDown(double x, double y){
-        if (mode == DRAW_M) addPoint(x,y);
-        else if (mode == SELECT_M) checkSelect(x,y);
-        //else if (mode == DIRECT_M) checkSelect(x,y,true);
+        if (mode == DRAW_M); //addPoint(x,y);
+        else if (mode == SELECT_M || mode == SCALE_M) checkSelect(x,y);
+        else if (mode == DIRECT_M) checkDSelect(x,y);
         else if (mode == ELLIPSE_M || mode== LINE_M || mode==RECT_M) startShape(x,y);
+        
+        if (mode== PARENT_M) parent(x,y);
          
     }
     
     void mouseUp(double x, double y){
         if (mode == DRAW_M) close();
          else if (mode == ELLIPSE_M || mode== LINE_M || mode==RECT_M)endShape(x,y);
+         else if(mode==SCALE_M) deselectShapes();
 
 
     }
     
     
-    void addPoint(double x, double y){
+    /*void addPoint(double x, double y){
      int last = currentShapes.size()-1;
      if(last==-1||currentShapes[last]->closed){
      Shape* s = new Shape();
      currentShapes.push_back(s);
      }
      else {
-     currentShapes[last]->addPoint(x,y);
+         currentShapes[last]->addPoint(x,y);
      
      };
      
-     }
+     }*/
+    
+    
+    void parent(double x, double y){
+        if (_parent == -1){
+        for(int i=0;i<currentShapes.size();i++){
+            bool s=  currentShapes[i]->checkSelect(x, y);
+            if(s) _parent=i;
+            cout<<"parent_selected"<<endl;
+
+            break;
+            }
+        }
+        else {
+            for(int i=0;i<currentShapes.size();i++){
+                    bool s=  currentShapes[i]->checkSelect(x, y);
+                if(s) {
+                    currentShapes[_parent]->AddChildNode(currentShapes[i]);
+                    _parent=-1;
+                    cout<<"parent_child created"<<endl;
+                }
+            }
+        }
+            
+    }
     
     void checkSelect(double x, double y){
         for(int i=0;i<currentShapes.size();i++){
             currentShapes[i]->checkSelect(x, y);
+        };
+    }
+    
+    
+    void checkDSelect(double x, double y){
+        for(int i=0;i<currentShapes.size();i++){
+            currentShapes[i]->checkDSelect(x, y);
         };
     }
     
@@ -83,25 +122,62 @@ public:
         };
     }
     
+    void checkDMove(double x, double y){
+        for(int i=0;i<currentShapes.size();i++){
+            currentShapes[i]->movePoint(x, y);
+        };
+    }
+    
+    void checkScale(double x, double y){
+        for(int i=0;i<currentShapes.size();i++){
+            currentShapes[i]->scale(x, y);
+        };
+    }
+    
+    
+    /*void update(){
+        for(int i=0;i<currentShapes.size();i++){
+            currentShapes[i]->Update();
+        }
+    }*/
+    
      void draw(ofxVectorGraphics &output, bool history){
          bool dselect = false;
-         int rv=100;
+         int rv=70;
          if (mode == SELECT_M ||mode == DIRECT_M ) dselect = true;
          if(history){
-         for(int i = savedDrawings.size()-1;i>=0;i--){
+             int lDp = dP-4;
+             if(lDp<0)lDp=0;
+             
+         for(int i = dP-1;i>=lDp;i--){
               int color = createRGB(255,rv,rv);
              for(int j=0;j<savedDrawings[i].size();j++){
-                savedDrawings[i][j]->draw(output,dselect,color);
+                savedDrawings[i][j]->draw(output);
              }
              rv+=70;
              if(rv>255){
                  rv=255;
              }
          }
+             
+         /*   rv=70;
+             int kDp = dP+4;
+           if(kDp>savedDrawings.size()-1)kDp=savedDrawings.size()-1;
+             for(int i = dP+1;i<=kDp;i++){
+                 int color = createRGB(rv,255,rv);
+                 for(int j=0;j<savedDrawings[i].size();j++){
+                     savedDrawings[i][j]->draw(output,dselect,color);
+                 }
+                 rv+=70;
+                 if(rv>255){
+                     rv=255;
+                 }
+             }*/
+             
          }
 
          for(int i=0;i<currentShapes.size();i++){
-            currentShapes[i]->draw(output,dselect,0x000000);
+             currentShapes[i]->draw(output);
      }
      }
     
@@ -201,20 +277,33 @@ public:
         
     }
     
+    void parentMode(){
+        mode = PARENT_M;
+        
+    }
+    
     void selectMode(){
         mode = SELECT_M;
-        close();
+        //close();
         
     }
     
     void directMode(){
         mode = DIRECT_M;
-        close();
+        //close();
     }
     
-    void saveDrawing(){
+    void scaleMode(){
+        mode = SCALE_M;
+        //close();
+    }
+    
+    void saveDrawing(double w){
         savedDrawings.push_back(currentShapes);
+        weights.push_back(w);
+        cout<<"weight = "<<w<<endl;
         currentShapes.clear();
+        dP++;
     }
     
     void generateKeystone(vector<double>values){
@@ -304,11 +393,13 @@ public:
 
     vector<Shape*> currentShapes;
     vector<vector<Shape*>> savedDrawings;
-
+    vector<double> weights;
     
      private:
     int mode;
+    int dP; //position for current drawing
     bool shapeStart;
+    int _parent = -1;
 };
 
 

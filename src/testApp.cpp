@@ -5,9 +5,9 @@ void testApp::setup(){
     
     //init canvas size
     canvasX =50;
-    canvasWidth = ofGetWidth()-160;
-    canvasY = 0;
-    canvasHeight= ofGetHeight();
+    canvasWidth = ofGetWidth()-200;
+    canvasY = 60;
+    canvasHeight= ofGetHeight()-60;
     snapCounter=0;
     ofEnableSmoothing();
 	ofBackground(0);
@@ -15,7 +15,7 @@ void testApp::setup(){
 	setDrawTools();
     setCanvases();
     
-
+    weight =0;
     
    /* font.loadFont("verdana.ttf", 12);
     
@@ -73,6 +73,12 @@ void testApp::setDrawTools()
     drawTools->addSpacer(dim, 1);
     drawTools->addWidgetDown(new ofxUIImageButton(dim, dim, true, "GUI/images/darrow.png","DARROWBTN"));
     drawTools->addSpacer(dim, 1);
+    drawTools->addWidgetDown(new ofxUIImageButton(dim, dim, true, "GUI/images/scale.png","SCALEBTN"));
+    
+    drawTools->addSpacer(dim, 1);
+    drawTools->addWidgetDown(new ofxUIImageButton(dim, dim, true, "GUI/images/parent.png","PARENTBTN"));
+    
+    drawTools->addSpacer(dim, 1);
     drawTools->addWidgetDown(new ofxUIImageButton(dim, dim, true, "GUI/images/ind.png","INDBTN"));
     drawTools->addSpacer(dim, 1);
     drawTools->addWidgetDown(new ofxUIImageButton(dim, dim, true, "GUI/images/gen.png","GENBTN"));
@@ -106,6 +112,25 @@ void testApp::setCanvases(){
     float dim = 150;
     canvases = new ofxUIScrollableCanvas(ofGetWidth()-dim-10, 0, dim+10, ofGetHeight());
     canvases->setSnapping(false);
+ 
+    
+    
+    drawingSettings= new ofxUICanvas(57,0,ofGetWidth()-215,60);
+    drawingSettings->addWidgetDown(new ofxUILabel("WEIGHT", OFX_UI_FONT_MEDIUM));
+    drawingSettings->addSlider("WEIGHT", -5, 5, weight, dim, 20);
+    
+	ofAddListener(canvases->newGUIEvent,this,&testApp::canvasEvent);
+}
+
+
+
+void testApp::canvasEvent(ofxUIEventArgs &e)
+{
+	string name = e.widget->getName();
+    
+    cout << "got event from: " << name << endl;
+    
+
 }
 
 void testApp::guiEvent(ofxUIEventArgs &e)
@@ -113,7 +138,7 @@ void testApp::guiEvent(ofxUIEventArgs &e)
 	string name = e.widget->getName();
 	int kind = e.widget->getKind();
     
-	cout << "got event from: " << kind << endl;
+	//cout << "got event from: " << kind << endl;
 	
 	if(name == "PENBTN")
 	{
@@ -141,6 +166,20 @@ void testApp::guiEvent(ofxUIEventArgs &e)
 	{
 		d.directMode();
 	}
+    else if(name == "SCALEBTN")
+	{
+		d.scaleMode();
+	}
+    else if(name == "WEIGHT"){
+       ofxUISlider *slider = (ofxUISlider *) e.widget;
+        weight = slider->getScaledValue();
+    }
+    
+    else if(name == "PARENTBTN"){
+        d.parentMode();
+    }
+
+
     
     else if(name == "INDBTN")
 	{
@@ -168,39 +207,7 @@ void testApp::guiEvent(ofxUIEventArgs &e)
         }
 
 	}
-    /*
-	else if(name == "DRAW GRID")
-	{
-		ofxUIButton *button = (ofxUIButton *) e.widget;
-		bdrawGrid = button->getValue();
-	}
-	else if(name == "D_GRID")
-	{
-		ofxUIToggle *toggle = (ofxUIToggle *) e.widget;
-		bdrawGrid = toggle->getValue();
-	}
-    else if(name == "TEXT INPUT")
-    {
-        ofxUITextInput *textinput = (ofxUITextInput *) e.widget;
-        if(textinput->getTriggerType() == OFX_UI_TEXTINPUT_ON_ENTER)
-        {
-            cout << "ON ENTER: ";
-            //            ofUnregisterKeyEvents((testApp*)this);
-        }
-        else if(textinput->getTriggerType() == OFX_UI_TEXTINPUT_ON_FOCUS)
-        {
-            cout << "ON FOCUS: ";
-        }
-        else if(textinput->getTriggerType() == OFX_UI_TEXTINPUT_ON_UNFOCUS)
-        {
-            cout << "ON BLUR: ";
-            //            ofRegisterKeyEvents(this);
-        }
-        string output = textinput->getTextString();
-        cout << output << endl;
-    }*/
-	
-	
+   	
 	
 }
 
@@ -208,18 +215,23 @@ void testApp::saveIndividual(){
     // grab a rectangle at 200,200, width and height of 300,180
    
     
-    snapCounter++;
   
     ofBackground(255);
     d.draw(output, false);
     snapshot.grabScreen(canvasX,canvasY,canvasWidth,canvasHeight);
 
-    d.saveDrawing();
+    d.saveDrawing(weight);
     string fileName = "snapshot_"+ofToString(10000+snapCounter)+".png";
     snapshot.saveImage(fileName);
     //sprintf(snapString, "saved %s", fileName.c_str());
-    canvases->addWidgetDown(new ofxUIImageToggle(150,150, true, fileName,"snapCounter"));
+    ostringstream convert;   // stream used for the conversion
+    convert << snapCounter;
+    
+    string count = convert.str();
+    canvases->addWidgetDown(new ofxUIImageButton(150,150, true, fileName,count));
     canvases->addSpacer(150, 1);
+    snapCounter++;
+
 
     
 }
@@ -227,6 +239,7 @@ void testApp::saveIndividual(){
 
 //--------------------------------------------------------------
 void testApp::update(){
+    //d.update();
 
 }
 
@@ -318,7 +331,7 @@ void testApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button){
-    if(x> canvasX && x<canvasX+canvasWidth){
+   if((x> canvasX && x<canvasX+canvasWidth) &&(y> canvasY && y<canvasY+canvasHeight)){
         
         d.mouseDrag(x,y);
     }
@@ -326,7 +339,7 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-    if(x> canvasX && x<canvasX+canvasWidth){
+    if((x> canvasX && x<canvasX+canvasWidth) &&(y> canvasY && y<canvasY+canvasHeight)){
         
         d.mouseDown(x,y);
     }
@@ -359,4 +372,5 @@ void testApp::exit()
     d.deleteShapes();
 	delete drawTools;
     delete canvases;
+    delete drawingSettings;
 }

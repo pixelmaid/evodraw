@@ -34,7 +34,7 @@ bool ProbModel::evalKeystone(vector< vector<Shape*> > &drawings){
 
         
         keystoneFeatures.push_back(v);
-        vector<double>ms = Geom2D::meanSd(v,true);
+        vector<double>ms = Geom2D::meanSd(v,false);
         keystoneValues.push_back(ms[0]);
         keystoneValues.push_back(ms[1]);
     
@@ -133,7 +133,7 @@ vector<double> kc = Geom2D::getMidpoint(keystoneV[0], keystoneV[1], keystoneV[2]
         
         vector<double> shapefeatures;
         for(int k=0;k<ssF.size();k++){
-            vector<double>ms = Geom2D::meanSd(ssF[k],true);
+            vector<double>ms = Geom2D::meanSd(ssF[k],false);
             shapefeatures.push_back(ms[0]);
             shapefeatures.push_back(ms[1]);
             cout << "mean and sd for shape:"<<ms[0]<<","<<ms[1]<<endl;

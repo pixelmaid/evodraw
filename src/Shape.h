@@ -14,13 +14,16 @@
 #include "ofxVectorGraphics.h"
 #include "Geom2D.h"
 #include <string>
+#include "Node.h"
+#include "Color_Const.h"
 
 #define OVERLAP_DIST 0.5
 #define RESCALE_RES 4
 
-    class Shape{
+class Shape: public Node{
     public:
-        Shape(){
+    Shape():Node(NULL,NULL)
+            {
             closed = false;
             dselected = false;
             selected = false;
@@ -43,6 +46,12 @@
         virtual ~Shape(){
             
         }
+    
+       virtual void Update(void)
+        {
+           Node::Update(); // calls base class' function            }
+        } // Update()
+    
         
         virtual vector<double>centroid(){
             vector<double>c;
@@ -90,6 +99,8 @@
             this->selectedP = shape->selected;
             this->points = shape->points;
             this->type = shape->type;
+            
+            Node:copyBaseVariables(shape);
 
             return true;
         }
@@ -111,7 +122,7 @@
           
         }
         
-       virtual void checkSelect(double x, double y){
+       virtual bool checkSelect(double x, double y){
             selected=false;
             selectedP = -1;
             int numPts = points.size();
@@ -130,29 +141,47 @@
                 
                 
             }
+           return selected;
 
             
         }
         
+        virtual void checkDSelect(double x, double y){
+            selectedP=-1;
+            
+        }
+        
+        
+        
+        virtual void movePoint(double x, double y){
+           if(selectedP!=-1){
+            points[selectedP].x = x;
+            points[selectedP].y = y;
+           }
+        }
         virtual void move(double x, double y){
             
         }
         
-        void deselect(){
+        virtual void scale(double x, double y){
+            
+        }
+        
+       virtual void deselect(){
             selected = false;
-            dselected = false;
+            selectedP = -1;
         }
       
        
-        virtual void draw(ofxVectorGraphics &output, bool dselect, int color){
+        virtual void draw(ofxVectorGraphics &output){
             cout << "draw shape " <<  endl;
             if( points.size() > 0 ){
                 
                 int numPts = points.size();
                 
-                output.setColor(color);
+                output.setColor(Color_Const::deselected);
                 if(selected){
-                    output.setColor(selected);
+                    output.setColor(Color_Const::selected);
 
                 }
                // if(!closed)
@@ -174,7 +203,7 @@
                 }
                 
                 output.endShape();
-                if(dselect){
+               /*if(dselect){
                     for(int i = 0; i < numPts; i++){
                     
                         output.setColor(0x0088EE);
@@ -191,7 +220,7 @@
                             output.rect(points[i].x, points[i].y,5,5);
                         }
                     
-                }
+                }*/
 
             }
             

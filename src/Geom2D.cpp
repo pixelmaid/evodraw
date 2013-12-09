@@ -141,10 +141,10 @@ vector<double> Geom2D::meanSd(vector<double> values, bool forcesd){
     }
     double mean = sum/values.size();
     for(int i=0;i<values.size();i++){
-        double v = (values[i]-mean)*(values[i]-mean);
+        double v = (values[i]-mean)*(values[i]-mean);//)*weight;
         sd_sum += v;
     }
-    double sd = sd_sum/values.size();
+    double sd = sqrt(sd_sum/values.size()-1) ;
 
     result.push_back(mean);
     if(values.size()<10 && forcesd) result.push_back(20);

@@ -53,22 +53,28 @@ public:
     
     //ui
     void guiEvent(ofxUIEventArgs &e);
+    void canvasEvent(ofxUIEventArgs &e);
     void setDrawTools();
     void setCanvases();
     void saveIndividual();
     
     ofxUICanvas *drawTools;
     ofxUIScrollableCanvas *canvases;
+    ofxUICanvas *drawingSettings;
+    
     vector<ofxUIImageButton> canvasImgs;
     bool hideGUI;
     ofImage snapshot;
     int snapCounter;
+    
+    double weight;
     
     //canvas dimensions
     int canvasX;
     int canvasWidth;
     int canvasY;
     int canvasHeight;
+    
     
     
     

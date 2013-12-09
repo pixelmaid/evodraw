@@ -56,7 +56,7 @@ public:
     }
     
     
-    virtual void checkSelect(double px, double py){
+    virtual bool checkSelect(double px, double py){
         double k = Geom2D::inRect(px, py, x, y, x+width, y, x+width, y+height, x, y+height,0.01);
         selected = false;
         cout <<"actual rectArea="<<width*height<<endl;
@@ -67,6 +67,7 @@ public:
         }
         relX = px-x;
         relY= py-y;
+        return selected;
     }
    
     //returns bounding box as a vector (x,y,width,height)
@@ -105,10 +106,38 @@ public:
         }
     }
 
+    virtual void scale(double _x, double _y){
+        
+        if(selected){
+           /*double d1x = relX-x;
+            double d1y = relY-y;
+            double d2x = _x-x;
+            double d2y = _y-y;
+            double diffX = d2x/d1x;
+            double diffY = d2y/d1y;
+            
+            
+            cout<<"d1x ="<<d1x<<" d1y="<<d1y<<"d2x ="<<d2x<<" d2y="<<d2y<<"diffX ="<<diffX<<" diffY="<<diffY<<endl;
+            width+=diffX;
+            height+=diffY;
+     
+            */
+            
+            width = relX;
+            height = relY;
+            relX = _x-x;
+            relY= _y-y;
+        }
+        
+    }
+
     
-   virtual void draw(ofxVectorGraphics &output, bool dselect, int color) {
-        output.setColor(color);
-       if(selected) output.setColor(selectedColor);
+   virtual void draw(ofxVectorGraphics &output) {
+       output.setColor(Color_Const::deselected);
+       if(selected){
+           output.setColor(Color_Const::selected);
+           
+       }
 
         output.noFill();
         output.rect(x, y, width, height);
