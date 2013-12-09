@@ -51,6 +51,48 @@ bool Node::copyBaseVariables(const Node *node){
     std::cout<<"copy node base variables"<<std::endl;
     return true;
 }
+/*
+Node* Node::createInstanceFromString(string const &nodeType){
+    
+    StringNodeMap::iterator iter = getMap()->find( nodeType );
+    if( iter == getMap()->end() ){
+        return NULL;
+    }
+    return iter->second();
+}
+
+Node* Node::createNewInstance() const{
+    return createInstanceFromString( type );
+}*/
+
+
+//here is where it's janked up
+
+static StringNodeMap Node::*getMap() {
+    if( !stringNodeMap ){ stringNodeMap = new StringNodeMap; }
+    
+    return stringNodeMap;
+    
+}
+
+Node* Node::copy(){
+    Node *node = new Node();
+       if( node == NULL ){
+        return NULL;
+    }
+    
+    //Copy this node into the node
+    
+    node->m_Parent = this->m_Parent;
+    node->m_Name = this->m_Name;
+
+    for(int i=0;i<m_Children.size();i++){
+        node->m_Children.push_back(m_Children[i]->copy());
+    }
+    
+    return node;
+
+}
 
 
 void Node::Update(void)

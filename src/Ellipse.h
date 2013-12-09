@@ -114,14 +114,8 @@ public:
 
     }
     
-   virtual void draw(ofxVectorGraphics &output) {
-       output.setColor(Color_Const::deselected);
-       if(selected){
-           output.setColor(Color_Const::selected);
-           
-       }
-
-        output.noFill();
+   virtual void draw(ofxVectorGraphics &output,int color = -1) {
+       setColor(output, color);
         output.ellipse(x, y, width, height);
        // cout << "draw ellipse at " << x << " ," <<y << " ," << width << " ," <<height << endl;
     }

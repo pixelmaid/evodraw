@@ -29,6 +29,8 @@ class Shape: public Node{
             selected = false;
             selectedP = -1;
             type="shape";
+                parentSelected = false;
+                childSelected = false;  
         }
     
         Shape(const Shape &rhs){
@@ -104,6 +106,11 @@ class Shape: public Node{
 
             return true;
         }
+    
+    //deep copy method
+    virtual Shape* copy(){
+        Shape* s = new Shape();
+    }
         
                
       void addPoint(double x, double y){
@@ -170,10 +177,35 @@ class Shape: public Node{
        virtual void deselect(){
             selected = false;
             selectedP = -1;
+            parentSelected = false;
+            childSelected = false;
         }
-      
+    
+    
+    void setColor(ofxVectorGraphics &output, int color){
+        output.noFill();
+        if(color==-1) output.setColor(Color_Const::deselected);
+        else output.setColor(color);
+        output.setLineWidth(Color_Const::regWeight);
+
+        
+        if(selected){
+            output.setColor(Color_Const::selected);
+            
+        }
+        else if(parentSelected){
+            output.setColor(Color_Const::parent);
+            output.setLineWidth(Color_Const::parentWeight);
+        }
+        else if(childSelected){
+            output.setColor(Color_Const::child);
+            output.setLineWidth(Color_Const::childWeight);
+
+        }
+
+    }
        
-        virtual void draw(ofxVectorGraphics &output){
+        virtual void draw(ofxVectorGraphics &output, int color = -1){
             cout << "draw shape " <<  endl;
             if( points.size() > 0 ){
                 
@@ -233,7 +265,8 @@ class Shape: public Node{
         bool selected;
         bool dselected;
         int selectedP;
-        string type; 
+        bool parentSelected;
+        bool childSelected;
         int selectedColor= 0xF20606;
         double relX;
         double relY;

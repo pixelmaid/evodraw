@@ -185,17 +185,10 @@ public:
     
     
     
-    virtual void draw(ofxVectorGraphics &output) {
+    virtual void draw(ofxVectorGraphics &output, int color = -1) {
         
        
-        output.noFill();
-        
-        output.setColor(Color_Const::deselected);
-        if(selected){
-            output.setColor(Color_Const::selected);
-            
-        }
-        
+        setColor(output, color);
         output.line(x1, y1, x2,y2);
          if(selected){
              output.setColor(Color_Const::origin);

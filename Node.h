@@ -10,6 +10,14 @@
 #define __evodraw1__Node__
 #include <vector>
 #include <iostream>
+#include <map>
+#include "GRT.h"
+using namespace std;
+
+
+class Node;
+typedef std::map< string, Node*(*)() > StringNodeMap;
+
 class Node
 {
 public:
@@ -32,13 +40,21 @@ public:
     
     Node* GetChildNodeByName(const char* SearchName);
     
+// all the stuff you had me create
+    string type;
 protected:
-        std::vector<Node*> m_Children;
+    static StringNodeMap *getMap();
+        vector<Node*> m_Children;
     
 private:
     Node* m_Parent;
     const char* m_Name;
+    static StringNodeMap stringNodeMap;
+    static GRT::UINT numNodeInstances;
     
     
-}; // class Node
+    
+};
+
+// class Node
 #endif /* defined(__evodraw1__Node__) */

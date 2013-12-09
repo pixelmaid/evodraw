@@ -84,8 +84,14 @@ public:
         if (_parent == -1){
         for(int i=0;i<currentShapes.size();i++){
             bool s=  currentShapes[i]->checkSelect(x, y);
-            if(s) _parent=i;
-            cout<<"parent_selected"<<endl;
+            if(s) {
+                _parent=i;
+                currentShapes[i]->parentSelected= true;
+                currentShapes[i]->selected = false;
+                cout<<"parent_selected"<<endl;
+
+            }
+        
 
             break;
             }
@@ -95,10 +101,13 @@ public:
                     bool s=  currentShapes[i]->checkSelect(x, y);
                 if(s) {
                     currentShapes[_parent]->AddChildNode(currentShapes[i]);
-                    _parent=-1;
+                    currentShapes[i]->childSelected= true;
+                    currentShapes[i]->selected = false;
                     cout<<"parent_child created"<<endl;
+                    break;
                 }
             }
+            
         }
             
     }
@@ -152,7 +161,7 @@ public:
          for(int i = dP-1;i>=lDp;i--){
               int color = createRGB(255,rv,rv);
              for(int j=0;j<savedDrawings[i].size();j++){
-                savedDrawings[i][j]->draw(output);
+                savedDrawings[i][j]->draw(output,color);
              }
              rv+=70;
              if(rv>255){
@@ -279,31 +288,48 @@ public:
     
     void parentMode(){
         mode = PARENT_M;
+        deselectShapes();
         
     }
     
     void selectMode(){
         mode = SELECT_M;
+        deselectShapes();
+
         //close();
         
     }
     
     void directMode(){
         mode = DIRECT_M;
+        deselectShapes();
+
         //close();
     }
     
     void scaleMode(){
         mode = SCALE_M;
+        deselectShapes();
+
         //close();
     }
     
     void saveDrawing(double w){
-        savedDrawings.push_back(currentShapes);
+        vector<Shape*> copy = currentShapes;
+        savedDrawings.push_back(copy);
         weights.push_back(w);
         cout<<"weight = "<<w<<endl;
-        currentShapes.clear();
+        //currentShapes.clear();
         dP++;
+    }
+    
+    vector<Shape*> copy(vector<Shape*>toCopy){
+        vector<Shape*> copy;
+        for(int i=0;i<toCopy.size();i++){
+            Shape* s = toCopy[i]->copy();
+            copy.push_back(s);
+        }
+        return copy;
     }
     
     void generateKeystone(vector<double>values){

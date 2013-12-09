@@ -22,6 +22,9 @@ public:
     static const int origin = 0x7352FF;
     static const int end = 0xFF7F00;
     static const int solid = 0xffffff;
+    static const int parentWeight = 4;
+    static const int childWeight = 2;
+    static const int regWeight = 1;
 
 };
 
