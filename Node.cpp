@@ -74,7 +74,7 @@ static StringNodeMap Node::*getMap() {
     return stringNodeMap;
     
 }
-
+/*
 Node* Node::copy(){
     Node *node = new Node();
        if( node == NULL ){
@@ -93,7 +93,7 @@ Node* Node::copy(){
     return node;
 
 }
-
+*/
 
 void Node::Update(void)
 {

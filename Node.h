@@ -49,7 +49,7 @@ protected:
 private:
     Node* m_Parent;
     const char* m_Name;
-    static StringNodeMap stringNodeMap;
+    static StringNodeMap* stringNodeMap;
     static GRT::UINT numNodeInstances;
     
     
