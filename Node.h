@@ -21,6 +21,7 @@ typedef std::map< string, Node*(*)() > StringNodeMap;
 class Node
 {
 public:
+    
     Node(Node* Parent = NULL, const char* Name = NULL);
     virtual ~Node(void);
     Node(const Node &rhs);
@@ -40,10 +41,22 @@ public:
     
     Node* GetChildNodeByName(const char* SearchName);
     
-// all the stuff you had me create
+    static Node* createInstanceFromString(string const &nodeType);
+    Node* createNewInstance() const;
+    
+    virtual bool deepCopyFrom(const Node *node){ cout<< "node surface deep copy"<<endl; return false; }
+
+    
     string type;
 protected:
-    static StringNodeMap *getMap();
+    //method to check if map has been intialized, and if not, creates a new instance
+    static StringNodeMap *getMap(){
+        if( !stringNodeMap ){ stringNodeMap = new StringNodeMap; }
+        
+        return stringNodeMap;
+        
+    }
+
         vector<Node*> m_Children;
     
 private:
@@ -54,6 +67,19 @@ private:
     
     
     
+};
+
+template< typename T >  Node* getNewNodeModuleInstance() { return new T; }
+
+//subclass uses this class to "register" itself with the base class.
+//inherits from node classifier to access map
+template< typename T >
+class RegisterNodeModule : Node {
+public:
+    RegisterNodeModule(string const &newNodeModuleName) {
+        getMap()->insert( std::pair<string, Node*(*)()>(newNodeModuleName, &getNewNodeModuleInstance< T > ) );
+        
+    }
 };
 
 // class Node

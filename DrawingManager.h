@@ -315,8 +315,8 @@ public:
     }
     
     void saveDrawing(double w){
-        vector<Shape*> copy = currentShapes;
-        savedDrawings.push_back(copy);
+        vector<Shape*> c = copy(currentShapes);
+        savedDrawings.push_back(c);
         weights.push_back(w);
         cout<<"weight = "<<w<<endl;
         //currentShapes.clear();
@@ -326,10 +326,34 @@ public:
     vector<Shape*> copy(vector<Shape*>toCopy){
         vector<Shape*> copy;
         for(int i=0;i<toCopy.size();i++){
-            Shape* s = toCopy[i]->copy();
+            Shape* s = setShape(toCopy[i]);
             copy.push_back(s);
         }
         return copy;
+    }
+    
+   Shape* setShape(const Shape* shape){
+       Shape* nshape;
+        //Create a new instance of the classifier and then clone the values across from the reference classifier
+       nshape = (Shape*)shape->createNewInstance();
+        
+        if( nshape == NULL ){
+            //errorMessage = "setClassifier(const Classifier classifier) - Classifier Module Not Set!";
+            //errorLog << errorMessage << endl;
+            cout<<"shape not copied"<<endl;
+            
+            return NULL;
+        }
+        
+        //Validate that the classifier was cloned correctly
+        /*if( !nshape->deepCopyFrom( shape ) ){
+            delete nshape;
+            nshape=NULL;
+            cout<<"shape not copied because of deep copy"<<endl;
+            return NULL;
+        }*/
+       nshape->deepCopyFrom(shape);
+       return nshape;
     }
     
     void generateKeystone(vector<double>values){

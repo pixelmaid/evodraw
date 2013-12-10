@@ -12,9 +12,17 @@
 #include "Shape.h"
 #include "Geom2D.h"
 #include <cmath>
+#include "Node.h"
 
 class Line: public Shape{
 public:
+    
+
+    Line(){
+        type = "Line";
+ 
+    }//default constructor
+    
     Line(double _x, double _y):Shape(){
         closed=false;
         dselected = false;
@@ -24,8 +32,9 @@ public:
         y1 = _y;
         x2 = _x;
         y2 = _y;
-        type = "line";
+        type = "Line";
         cout << "created line" << endl;
+        
     }
     
     Line(const Line &rhs){
@@ -228,8 +237,45 @@ public:
     double y2;
     
     
+    bool deepCopyFrom(const Node *node){
+        cout<<"line attempt at deep copy"<<endl;
+        if( node == NULL ) return false;
+        
+        //if( this->type == node->type ){
+            //Clone the AdaBoost values
+            Line *ptr = (Line*)node;
+            
+            //Clear the current weak classifiers
+            //clearWeakNodes();
+            
+            this->x1 = ptr->x1;
+            this->y1= ptr->y1;
+            this->x2 = ptr->x2;
+            this->y2 = ptr->y2;
+            
+            /*if( ptr->weakClassifiers.size() > 0 ){
+                for(UINT i=0; i<ptr->weakClassifiers.size(); i++){
+                    WeakClassifier *weakClassiferPtr = ptr->weakClassifiers[i]->createNewInstance();
+                    weakClassifiers.push_back( weakClassiferPtr );
+                }
+            }*/
+            
+            //Clone the classifier variables
+            
+            cout<<"line deep copy"<<endl;
+            return copyBaseVariables( (Shape*)node );
+        //}
+        //return false;
+    }
+    
+protected:
+    static RegisterNodeModule< Line > registerModule;
+    
+    
 private:
     
 };
+
+
 
 #endif

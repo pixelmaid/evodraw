@@ -7,17 +7,30 @@
 //
 
 #include "Node.h"
+GRT::UINT Node::numNodeInstances = 0;
+
+StringNodeMap* Node::stringNodeMap = new StringNodeMap;
+
+
 
 Node::Node(Node* Parent, const char* Name)
 : m_Name(Name)
 {
     m_Parent = Parent;
+    numNodeInstances++;
 } // Constructor
 
 Node::~Node(void)
 {
     m_Parent = NULL;
     m_Children.clear();
+    if( --numNodeInstances == 0 ){
+        
+        delete stringNodeMap;
+        
+        stringNodeMap = NULL;
+     
+    }
 } // Destructor
 
 
@@ -48,32 +61,34 @@ bool Node::copyBaseVariables(const Node *node){
     
     this->m_Parent = node->m_Parent;
     this->m_Name = node->m_Name;
-    std::cout<<"copy node base variables"<<std::endl;
+    std::cout<< "node copy base variables"<<std::endl;
     return true;
 }
-/*
+
 Node* Node::createInstanceFromString(string const &nodeType){
+    
+    cout<<"creating instance from string"<<endl;
+    StringNodeMap* stringNodeMap = NULL;
+    numNodeInstances=0;
     
     StringNodeMap::iterator iter = getMap()->find( nodeType );
     if( iter == getMap()->end() ){
+        cout<<"returning null in create from string"<<endl;
+
         return NULL;
     }
+    cout<<"returning second"<<endl;
+
     return iter->second();
 }
 
 Node* Node::createNewInstance() const{
     return createInstanceFromString( type );
-}*/
+}
 
 
 //here is where it's janked up
 
-static StringNodeMap Node::*getMap() {
-    if( !stringNodeMap ){ stringNodeMap = new StringNodeMap; }
-    
-    return stringNodeMap;
-    
-}
 /*
 Node* Node::copy(){
     Node *node = new Node();

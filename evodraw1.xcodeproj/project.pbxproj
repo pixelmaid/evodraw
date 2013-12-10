@@ -93,6 +93,7 @@
 		0A80174E183E9A4000D9B9D8 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A801748183E9A4000D9B9D8 /* tinyxmlparser.cpp */; };
 		0A80174F183E9A4000D9B9D8 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A80174A183E9A4000D9B9D8 /* ofxXmlSettings.cpp */; };
 		0AC6358E18557EB00008B7D9 /* Color_Const.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AC6358C18557EB00008B7D9 /* Color_Const.cpp */; };
+		0AC635A21856ACBB0008B7D9 /* Line.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AC635A11856ACBB0008B7D9 /* Line.cpp */; };
 		0AF44C3518523C24003FB7CE /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF44C3318523C24003FB7CE /* Node.cpp */; };
 		603044E656EA8D499FCF7DEA /* ofxVectorGraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 318ABED90EADFB757FFDCCAF /* ofxVectorGraphics.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
@@ -355,6 +356,7 @@
 		0A80174B183E9A4000D9B9D8 /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
 		0AC6358C18557EB00008B7D9 /* Color_Const.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Color_Const.cpp; sourceTree = "<group>"; };
 		0AC6358D18557EB00008B7D9 /* Color_Const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color_Const.h; sourceTree = "<group>"; };
+		0AC635A11856ACBB0008B7D9 /* Line.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Line.cpp; sourceTree = "<group>"; };
 		0AF44C3318523C24003FB7CE /* Node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Node.cpp; path = ../Node.cpp; sourceTree = "<group>"; };
 		0AF44C3418523C24003FB7CE /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Node.h; path = ../Node.h; sourceTree = "<group>"; };
 		11D7A477920A2054FD49C2D2 /* CreEPS_Types.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = CreEPS_Types.hpp; path = ../../../addons/ofxVectorGraphics/libs/CreEPS_Types.hpp; sourceTree = SOURCE_ROOT; };
@@ -1012,6 +1014,7 @@
 				0A167BA41832C440007B5E87 /* DrawingManager.h */,
 				0AC6358C18557EB00008B7D9 /* Color_Const.cpp */,
 				0AC6358D18557EB00008B7D9 /* Color_Const.h */,
+				0AC635A11856ACBB0008B7D9 /* Line.cpp */,
 			);
 			name = drawing;
 			sourceTree = "<group>";
@@ -1419,6 +1422,7 @@
 				0A30CF4C184FB5B500980AFA /* Vec2D.cpp in Sources */,
 				0AF44C3518523C24003FB7CE /* Node.cpp in Sources */,
 				0AC6358E18557EB00008B7D9 /* Color_Const.cpp in Sources */,
+				0AC635A21856ACBB0008B7D9 /* Line.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

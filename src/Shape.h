@@ -22,15 +22,15 @@
 
 class Shape: public Node{
     public:
-    Shape():Node(NULL,NULL)
+    Shape()
             {
             closed = false;
             dselected = false;
             selected = false;
             selectedP = -1;
             type="shape";
-                parentSelected = false;
-                childSelected = false;  
+            parentSelected = false;
+            childSelected = false;  
         }
     
         Shape(const Shape &rhs){
@@ -83,7 +83,7 @@ class Shape: public Node{
         
 
         
-        bool copyBaseVariables(const Shape *shape){
+       bool copyBaseVariables(const Shape *shape){
             
             if( shape == NULL ){
                // errorMessage = "copyBaseVariables(const Classifier *classifier) - Classifier is NULL!";
@@ -101,16 +101,14 @@ class Shape: public Node{
             this->selectedP = shape->selected;
             this->points = shape->points;
             this->type = shape->type;
-            
-            Node:copyBaseVariables(shape);
+            cout<<"shape copy base vars"<<endl;
 
-            return true;
+           
+            return Node::copyBaseVariables(shape);
+
         }
     
-    //deep copy method
-    virtual Shape* copy(){
-        Shape* s = new Shape();
-    }
+   
         
                
       void addPoint(double x, double y){
