@@ -33,7 +33,7 @@ public:
     Line& operator = (const Line &rhs);
     
     //default deconstructor
-    ~Line();
+    virtual ~Line();
     
     //deep copy method
     virtual bool deepCopyFrom(const Node *node);

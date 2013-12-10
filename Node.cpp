@@ -54,9 +54,9 @@ bool Node::copyBaseVariables(const Node *node){
         return false;
     }
     
-    if( !this->copyBaseVariables( node ) ){
+    /*if( !this->copyBaseVariables( node ) ){
         return false;
-    }
+    }*/
     this->m_Children = node->m_Children;
     
     this->m_Parent = node->m_Parent;

@@ -266,6 +266,10 @@ public:
         mode = DRAW_M;
         deselectShapes();
         
+        /*Line* l1 = new Line(0,0,100,100);
+        Line* l2 = new Line();
+        l2->deepCopyFrom(l1);*/
+        
         Line myLine;
         Node *ptr = &myLine;
         Line anotherLine;

@@ -25,6 +25,7 @@ Line::Line(double _x, double _y){
     x2 = _x;
     y2 = _y;
     Line();
+    type = "Line";
 }
 
 //constructor to intialze both start and end points
@@ -34,6 +35,9 @@ Line::Line(double _x1, double _y1, double _x2, double _y2){
     x2 = _x2;
     y2 = _y2;
     Line();
+    type = "Line";
+    cout<<"line type="<<this->getType()<<endl;
+
 }
 
 //default deconstructor
@@ -66,7 +70,8 @@ bool Line::deepCopyFrom(const Node *node){
         return false;
 
     }
-    
+    cout<<"this type="<<this->getType()<<endl;
+    cout<<"node type="<<node->getType()<<endl;
     if( this->getType() == node->getType() ){
         //Clone the values and return
         cout<<"line deep copy success"<<endl;
@@ -83,18 +88,18 @@ bool Line::deepCopyFrom(const Node *node){
 
 //copies over base variables to new instances
 bool Line::copyBaseVariables(const Line *line){
-    
+   
     if( line == NULL ){
         cout<<"line is null, cannot copy base vars"<<endl;
         return false;
     }
     
-    if( !this->copyBaseVariables( line ) ){
+    /*if( !this->copyBaseVariables( line ) ){
         cout<<" line copy failed"<<endl;
         return false;
-    }
+    }*/
     
-    
+   
     this->x1 = line->x1;
     this->y1 = line->y1;
     this->x2=line->x2;
@@ -104,6 +109,7 @@ bool Line::copyBaseVariables(const Line *line){
     
     
     return Shape::copyBaseVariables(line);
+    //return false;
     
 }
 

@@ -48,20 +48,17 @@ bool Shape::copyBaseVariables(const Shape *shape){
         return false;
     }
     
-    if( !this->copyBaseVariables( shape ) ){
+    /*if( !this->copyBaseVariables( shape ) ){
         cout<<" shape copy failed"<<endl;
 
         return false;
-    }
+    }*/
     
     
     this->closed = shape->closed;
     this->selected = shape->selected;
     this->selectedP = shape->selected;
-    this->type = shape->type;
     cout<<"shape copy base vars was successful"<<endl;
-    
-    
     return Node::copyBaseVariables(shape);
     
 }
