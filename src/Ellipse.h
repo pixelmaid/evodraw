@@ -15,7 +15,6 @@ class Ellipse: public Shape{
 public:
     Ellipse(double _x, double _y){
         closed=false;
-        dselected = false;
         selected = false;
         selectedP = -1;
         width=0;
@@ -78,14 +77,15 @@ public:
         return selected;
     }
    
-    virtual void move(double px, double py){
+    virtual bool move(double px, double py){
         if(selected){
             x = px-relX;
             y= py-relY;
         }
+        return true;
     }
     
-    virtual void scale(double _x, double _y){
+    virtual bool scale(double _x, double _y){
         
         if(selected){
             width = relX*2;
@@ -93,6 +93,7 @@ public:
             relX = _x-x;
             relY= _y-y;
         }
+        return true;
         
     }
     
@@ -106,18 +107,20 @@ public:
         
     }
     
-    virtual void size(double _x, double _y){
+    virtual bool size(double _x, double _y){
         width = std::abs(x-_x)*2;
         height = std::abs(y-_y)*2;
         
        // cout << "width and height " << x-_x << " ," <<y-_y << " ," << width << " ," <<height << endl;
+        return true;
 
     }
     
-   virtual void draw(ofxVectorGraphics &output,int color = -1) {
+   virtual bool draw(ofxVectorGraphics &output,int color = -1) {
        setColor(output, color);
         output.ellipse(x, y, width, height);
        // cout << "draw ellipse at " << x << " ," <<y << " ," << width << " ," <<height << endl;
+       return true;
     }
     
     double x;

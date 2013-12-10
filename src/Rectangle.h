@@ -15,7 +15,6 @@ class Rectangle: public Shape{
 public:
     Rectangle(double _x, double _y){
         closed=false;
-        dselected = false;
         selected = false;
         selectedP = -1;
         width=0;
@@ -91,22 +90,24 @@ public:
     }
 
     
-    virtual void size(double _x, double _y){
+    virtual bool size(double _x, double _y){
         width = (_x-x);
         height = (_y-y);
         
        // cout << "width and height " << x-_x << " ," <<y-_y << " ," << width << " ," <<height << endl;
+        return true;
 
     }
     
-    virtual void move(double px, double py){
+    virtual bool move(double px, double py){
         if(selected){
             x = px-relX;
             y= py-relY;
         }
+        return true;
     }
 
-    virtual void scale(double _x, double _y){
+    virtual bool scale(double _x, double _y){
         
         if(selected){
            /*double d1x = relX-x;
@@ -128,21 +129,24 @@ public:
             relX = _x-x;
             relY= _y-y;
         }
+        return true;
         
     }
 
     
-   virtual void draw(ofxVectorGraphics &output,int color = -1) {
+   virtual bool draw(ofxVectorGraphics &output,int color = -1) {
        setColor(output, color);
         output.noFill();
         output.rect(x, y, width, height);
        // cout << "draw Rect at " << x << " ," <<y << " ," << width << " ," <<height << endl;
+       return true;
     }
     
     double x;
     double y;
     double width;
     double height;
+    
 
     
 private:

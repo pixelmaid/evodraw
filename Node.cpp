@@ -87,28 +87,6 @@ Node* Node::createNewInstance() const{
 }
 
 
-//here is where it's janked up
-
-/*
-Node* Node::copy(){
-    Node *node = new Node();
-       if( node == NULL ){
-        return NULL;
-    }
-    
-    //Copy this node into the node
-    
-    node->m_Parent = this->m_Parent;
-    node->m_Name = this->m_Name;
-
-    for(int i=0;i<m_Children.size();i++){
-        node->m_Children.push_back(m_Children[i]->copy());
-    }
-    
-    return node;
-
-}
-*/
 
 void Node::Update(void)
 {

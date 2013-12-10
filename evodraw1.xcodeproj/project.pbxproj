@@ -87,6 +87,7 @@
 		0A167B94182D628E007B5E87 /* WarningLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A167B45182D628E007B5E87 /* WarningLog.cpp */; };
 		0A167BA71832C807007B5E87 /* Geom2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A167BA51832C807007B5E87 /* Geom2D.cpp */; };
 		0A30CF4C184FB5B500980AFA /* Vec2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A30CF4A184FB5B500980AFA /* Vec2D.cpp */; };
+		0A4AFC5C1857775400D62020 /* Shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AFC5B1857775400D62020 /* Shape.cpp */; };
 		0A5A1674184A736E00F71DC9 /* ProbModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A5A1672184A736E00F71DC9 /* ProbModel.cpp */; };
 		0A80174C183E9A4000D9B9D8 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A801745183E9A4000D9B9D8 /* tinyxml.cpp */; };
 		0A80174D183E9A4000D9B9D8 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A801747183E9A4000D9B9D8 /* tinyxmlerror.cpp */; };
@@ -343,6 +344,7 @@
 		0A167BA818357D91007B5E87 /* ShapeIndividual.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShapeIndividual.h; sourceTree = "<group>"; };
 		0A30CF4A184FB5B500980AFA /* Vec2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Vec2D.cpp; path = ../Vec2D.cpp; sourceTree = "<group>"; };
 		0A30CF4B184FB5B500980AFA /* Vec2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vec2D.h; path = ../Vec2D.h; sourceTree = "<group>"; };
+		0A4AFC5B1857775400D62020 /* Shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shape.cpp; sourceTree = "<group>"; };
 		0A5A166718466CB900F71DC9 /* Ellipse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Ellipse.h; sourceTree = "<group>"; };
 		0A5A166D184A583900F71DC9 /* Line.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Line.h; sourceTree = "<group>"; };
 		0A5A166E184A62E500F71DC9 /* Rectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rectangle.h; sourceTree = "<group>"; };
@@ -1006,15 +1008,16 @@
 			isa = PBXGroup;
 			children = (
 				0A167BA31832B879007B5E87 /* Shape.h */,
+				0A4AFC5B1857775400D62020 /* Shape.cpp */,
 				0AF44C3318523C24003FB7CE /* Node.cpp */,
 				0AF44C3418523C24003FB7CE /* Node.h */,
 				0A5A166718466CB900F71DC9 /* Ellipse.h */,
 				0A5A166E184A62E500F71DC9 /* Rectangle.h */,
 				0A5A166D184A583900F71DC9 /* Line.h */,
+				0AC635A11856ACBB0008B7D9 /* Line.cpp */,
 				0A167BA41832C440007B5E87 /* DrawingManager.h */,
 				0AC6358C18557EB00008B7D9 /* Color_Const.cpp */,
 				0AC6358D18557EB00008B7D9 /* Color_Const.h */,
-				0AC635A11856ACBB0008B7D9 /* Line.cpp */,
 			);
 			name = drawing;
 			sourceTree = "<group>";
@@ -1423,6 +1426,7 @@
 				0AF44C3518523C24003FB7CE /* Node.cpp in Sources */,
 				0AC6358E18557EB00008B7D9 /* Color_Const.cpp in Sources */,
 				0AC635A21856ACBB0008B7D9 /* Line.cpp in Sources */,
+				0A4AFC5C1857775400D62020 /* Shape.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

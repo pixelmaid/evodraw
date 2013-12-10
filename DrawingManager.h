@@ -235,7 +235,6 @@ public:
     void close(){
         if(currentShapes.size()>0){
             int last = currentShapes.size()-1;
-            currentShapes[last]->closed=true;
         }
     }
     
@@ -266,6 +265,12 @@ public:
     void drawMode(){
         mode = DRAW_M;
         deselectShapes();
+        
+        Line myLine;
+        Node *ptr = &myLine;
+        Line anotherLine;
+        ptr->deepCopyFrom( (Node*)&anotherLine );
+        cout<<"creating line"<<endl;
 
     }
     
@@ -346,14 +351,13 @@ public:
         }
         
         //Validate that the classifier was cloned correctly
-        /*if( !nshape->deepCopyFrom( shape ) ){
+        if( !nshape->deepCopyFrom( shape ) ){
             delete nshape;
             nshape=NULL;
             cout<<"shape not copied because of deep copy"<<endl;
             return NULL;
-        }*/
-       nshape->deepCopyFrom(shape);
-       return nshape;
+        }
+        return nshape;
     }
     
     void generateKeystone(vector<double>values){
