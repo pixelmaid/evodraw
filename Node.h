@@ -24,6 +24,7 @@ public:
     
     Node(Node* Parent = NULL, const char* Name = NULL);
     virtual ~Node(void);
+    bool clear();
     Node(const Node &rhs);
     Node& operator = (const Node &rhs);
     bool copyBaseVariables(const Node *node);

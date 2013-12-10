@@ -68,15 +68,72 @@ bool Shape::copyBaseVariables(const Shape *shape){
 void Shape::Update(void)
 {
     Node::Update(); // calls base class' function
+    
 }
 
+//recursively deselects children (if any)
+bool Shape::checkChildrenSelect(double x, double y){
+    for (int i=0;i<m_Children.size();i++){
+        if(((Shape*)m_Children[i])->checkSelect(x,y)) return true;
+        
+    }
+    return false;
+}
 
+//recursively deselects children (if any)
+int Shape::checkChildrenDSelect(double x, double y){
+    for (int i=0;i<m_Children.size();i++){
+        int k = ((Shape*)m_Children[i])->checkDSelect(x, y);
+        if(k!=-1) return k;
+    }
+    return -1;
+}
+//deselects all objects (and children)
 bool Shape::deselect(){
     selected = false;
     selectedP = -1;
     parentSelected = false;
     childSelected = false;
+    deselectChildren();
 }
+
+//recursively deselects children (if any)
+bool Shape::deselectChildren(){
+    for (int i=0;i<m_Children.size();i++){
+        ((Shape*)m_Children[i])->deselect();
+        
+    }
+}
+
+//recursively moves children  by point(if any)
+bool Shape::moveChildrenPoint(double x, double y){
+    for (int i=0;i<m_Children.size();i++){
+        if(((Shape*)m_Children[i])->movePoint(x,y)) return true;
+        
+    }
+    return false;
+}
+
+//recursively moves children (if any)
+bool Shape::moveChildren(double x, double y){
+    for (int i=0;i<m_Children.size();i++){
+        if(((Shape*)m_Children[i])->move(x,y)) return true;
+        
+    }
+    return false;
+}
+
+//recursively moves children (if any)
+bool Shape::scaleChildren(double x, double y){
+    for (int i=0;i<m_Children.size();i++){
+        if(((Shape*)m_Children[i])->scale(x,y)) return true;
+        
+    }
+    return false;
+}
+
+
+
 
 //sets color of shape to be drawn
 
@@ -101,6 +158,14 @@ void Shape::setColor(ofxVectorGraphics &output, int color){
         
     }
     
+}
+bool Shape::drawChildren(ofxVectorGraphics &output, int color){
+    for(int i=0;i<m_Children.size();i++){
+        ((Shape*)m_Children[i])->draw(output, color);
+        
+    }
+    return true;
+
 }
 
 

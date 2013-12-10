@@ -121,7 +121,7 @@ void Line::Update(void)
 {
     
     if(NULL != this->GetParentNode()){
-        if(this->GetParentNode()->getType()=="Shape"){
+        
             Shape* s = (Shape*)this->GetParentNode();
             double xdiff = x2-x1;
             double ydiff = y2-y1;
@@ -130,10 +130,10 @@ void Line::Update(void)
             y1= s->getParams()[3];
             x2 = s->getParams()[2]+xdiff;
             y2 = s->getParams()[3]+ydiff;
-            Shape::Update(); // calls base class' function
-        }
+                    
     }
-    
+    Shape::Update(); // calls base class' function
+
 }
 
 //returns midpoint of the line as centroid
@@ -184,7 +184,8 @@ bool Line::checkSelect(double px, double py){
     }
     relX = px-x1;
     relY= py-y1;
-    return selected;
+    if(selected) return selected;
+    else return Shape::checkSelect(px, py);
 }
 
 //checks to see if point has been directly selected with an error range of 5
@@ -193,7 +194,8 @@ int Line::checkDSelect(double _x, double _y){
     selectedP=-1;
     if(abs(x1-_x) <= dist && abs(y1-_y) <=dist) selectedP=0;
     else if (abs(x2-_x) <= dist && abs(y2-_y) <=dist) selectedP = 1;
-    return selectedP;
+    if(selectedP!=-1) return selectedP;
+    else return Shape::checkDSelect(_x, _y);
 }
 
 
@@ -208,6 +210,9 @@ bool Line::move(double px, double py){
         y2-= ydiff;
         this->Update();
         return true;
+    }
+    else{
+        return Shape::move(px,py);
     }
     return false;
 }
@@ -230,9 +235,14 @@ bool Line::movePoint(double _x, double _y){
         x2 = _x;
         y2 = _y;
         this->Update();
+    
         return true;
 
     }
+    else{
+        return Shape::movePoint(_x,_y);
+    }
+
     return false;
 }
 
@@ -274,6 +284,7 @@ bool Line::draw(ofxVectorGraphics &output, int color=-1) {
         output.rect(x2-1.5,y2-1.5,3,3);
         
     }
+    drawChildren(output,color);
     return true;
 }
 

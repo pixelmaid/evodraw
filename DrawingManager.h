@@ -103,6 +103,7 @@ public:
                     currentShapes[_parent]->AddChildNode(currentShapes[i]);
                     currentShapes[i]->childSelected= true;
                     currentShapes[i]->selected = false;
+                    currentShapes.erase(currentShapes.begin() + i );
                     cout<<"parent_child created"<<endl;
                     break;
                 }
@@ -265,17 +266,6 @@ public:
     void drawMode(){
         mode = DRAW_M;
         deselectShapes();
-        
-        /*Line* l1 = new Line(0,0,100,100);
-        Line* l2 = new Line();
-        l2->deepCopyFrom(l1);*/
-        
-        Line myLine;
-        Node *ptr = &myLine;
-        Line anotherLine;
-        ptr->deepCopyFrom( (Node*)&anotherLine );
-        cout<<"creating line"<<endl;
-
     }
     
     void ellipseMode(){
@@ -443,9 +433,13 @@ public:
         savedDrawings.clear();
 
         for (int i=0;i<currentShapes.size();i++){
+            cout<<"deleting shape at "<<i<<endl;
             delete(currentShapes[i]);
+            cout<<"setting NULL shape at "<<i<<endl;
             currentShapes[i]=NULL;
         }
+        cout<<"clearing current shapes"<<endl;
+
         currentShapes.clear();
     }
 

@@ -35,7 +35,6 @@ class Shape: public Node{
     
     // Update method
     virtual void Update(void);
-
     
     //geom functions//
     
@@ -54,23 +53,32 @@ class Shape: public Node{
     //selection functions//
     
     //virtual function for checking selection- always returns false
-    virtual bool checkSelect(double x, double y){return false;}
+    virtual bool checkSelect(double x, double y){return checkChildrenSelect(x,y);}
+    // function for recursively checking children
+    bool checkChildrenSelect(double x, double y);
     //virtual function for checking direct selection - always returns -1
-    virtual int checkDSelect(double x, double y){selectedP=-1; return selectedP;}
+    virtual int checkDSelect(double x, double y){return checkChildrenDSelect(x,y);}
+    // function for recursively checking children
+    int checkChildrenDSelect(double x, double y);
     
     //deselects all elements
     bool deselect();
-  
+    bool deselectChildren();
+
     
     //transformation functions//
     
     //virtual function for moving point - always returns false
-    virtual bool movePoint(double x, double y){return false;};
+    virtual bool movePoint(double x, double y){return moveChildrenPoint(x,y);};
+    virtual bool moveChildrenPoint(double x, double y);
     //virtual function for moving shape - returns false
-    virtual bool move(double x, double y){return false;};
+    virtual bool move(double x, double y){return moveChildren(x,y);};
+    virtual bool moveChildren(double x, double y);
     //virtual function for scaling shape- returns false
-    virtual bool scale(double x, double y){return false;};
-        
+    virtual bool scale(double x, double y){return scaleChildren(x,y);};
+    virtual bool scaleChildren(double x, double y);
+    
+    
     //appearance functions//
     
     //sets color of shape to be drawn
@@ -80,7 +88,7 @@ class Shape: public Node{
     
     //virtual function to draw shape, returns false
     virtual bool draw(ofxVectorGraphics &output, int color = -1){return false;};
-       
+    bool drawChildren(ofxVectorGraphics &output, int color =-1);
     
     //boolean to indicate selection
     bool selected;

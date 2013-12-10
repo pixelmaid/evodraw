@@ -22,8 +22,7 @@ Node::Node(Node* Parent, const char* Name)
 
 Node::~Node(void)
 {
-    m_Parent = NULL;
-    m_Children.clear();
+    clear();
     if( --numNodeInstances == 0 ){
         
         delete stringNodeMap;
@@ -32,6 +31,24 @@ Node::~Node(void)
      
     }
 } // Destructor
+
+bool Node::clear(){
+    cout<<"node clear"<<endl;
+    m_Parent = NULL;
+    
+    for(int i=0;i<m_Children.size();i++){
+        cout<<"node clearing child at "<<i<<endl;
+
+        m_Children[i]->clear();
+        delete  m_Children[i];
+        m_Children[i] = NULL;
+    }
+    
+    m_Children.clear();
+
+    return true;
+}
+
 
 
 Node::Node(const Node &rhs){
