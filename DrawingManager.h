@@ -79,7 +79,7 @@ public:
      
      }*/
     
-    
+    //need to make parenting recursive- and need a solution for what happens when objects with children get parented to larger objects. basically this whole damn thing needs to be recursive. God damn it.
     void parent(double x, double y){
         if (_parent == -1){
         for(int i=0;i<currentShapes.size();i++){
@@ -105,6 +105,7 @@ public:
                     currentShapes[i]->selected = false;
                     currentShapes.erase(currentShapes.begin() + i );
                     cout<<"parent_child created"<<endl;
+                    _parent = -1;
                     break;
                 }
             }

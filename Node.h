@@ -50,7 +50,7 @@ public:
     static Node* createInstanceFromString(string const &nodeType);
     Node* createNewInstance() const;
     
-   virtual bool deepCopyFrom(const Node *node){ cout<< "node surface deep copy"<<endl; return false; }
+    virtual bool deepCopyFrom(const Node *node);
 
     
     string type;

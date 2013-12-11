@@ -37,7 +37,7 @@ bool Node::clear(){
     m_Parent = NULL;
     
     for(int i=0;i<m_Children.size();i++){
-        cout<<"node clearing child at "<<i<<endl;
+        cout<<"node clearing child at "<<endl;
 
         m_Children[i]->clear();
         delete  m_Children[i];
@@ -63,6 +63,38 @@ Node& Node:: operator = (const Node &rhs){
 }
 
 
+bool Node::deepCopyFrom(const Node *node) {
+    cout<<"node deep copy attempt"<<endl;
+
+    if( node == NULL ){
+        return false;
+    }
+    
+    copyBaseVariables(node);
+    for(int i=0;i<node->m_Children.size();i++){    //Recursively deep copy the left child
+        
+        Node* c = node->m_Children[i]->createNewInstance();
+        if(c ==NULL){
+            cout<<"child not copied"<<endl;
+            return false;
+  
+        }
+        //Validate that the classifier was cloned correctly
+        if( !c->deepCopyFrom( node->m_Children[i] ) ){
+            delete c;
+            c=NULL;
+            cout<<"child not copied because of deep copy"<<endl;
+            return false;
+        }
+        this->m_Children.push_back(c);
+        c->m_Parent = this;
+        cout<<"child copy success at "<<i<<endl;
+
+        //this->leftChild->parent = node;
+    }
+    return true;
+}
+
 bool Node::copyBaseVariables(const Node *node){
     
     if( node == NULL ){
@@ -74,9 +106,10 @@ bool Node::copyBaseVariables(const Node *node){
     /*if( !this->copyBaseVariables( node ) ){
         return false;
     }*/
-    this->m_Children = node->m_Children;
+    //this->m_Children = node->m_Children;
+        
     
-    this->m_Parent = node->m_Parent;
+    //this->m_Parent = node->m_Parent;
     this->m_Name = node->m_Name;
     std::cout<< "node copy base variables"<<std::endl;
     return true;

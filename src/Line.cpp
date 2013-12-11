@@ -75,7 +75,8 @@ bool Line::deepCopyFrom(const Node *node){
     if( this->getType() == node->getType() ){
         //Clone the values and return
         cout<<"line deep copy success"<<endl;
-        return copyBaseVariables( (Line*)node );
+        if( copyBaseVariables( (Line*)node ) && Shape::deepCopyFrom(node)) return true;
+        else return false;
     }
     else{
         cout<<"line not deep copied because of type mismatch"<<endl;

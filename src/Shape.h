@@ -28,7 +28,7 @@ class Shape: public Node{
     Shape& operator = (const Shape &rhs);
     virtual ~Shape();
     
-   virtual bool deepCopyFrom(const Node *node){ cout<< "shape surface deep copy"<<endl; return false; }
+    virtual bool deepCopyFrom(const Node *node){ cout<< "shape deep copy attempt"<<endl; return Node::deepCopyFrom(node); }
 
     //copies over base variables to new instances
     virtual bool copyBaseVariables(const Shape *shape);
