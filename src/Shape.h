@@ -36,6 +36,12 @@ class Shape: public Node{
     // Update method
     virtual void Update(void);
     
+    //method to update relative distance to parent
+    void updateRelativeDist();
+    
+    // add child node method
+    virtual bool AddChildNode(Node* ChildNode);
+    
     //geom functions//
     
     //calculates centroid
@@ -107,6 +113,9 @@ class Shape: public Node{
     double relX;
     //double for y relative selection point
     double relY;
+    //double for correctly updating parent 
+    double parentRelX;
+    double parentRelY;
     
     //Module for registering with base class
     static RegisterNodeModule< Shape > registerModule;

@@ -170,7 +170,7 @@ void Node::SetParentNode(Node* NewParent)
     m_Parent = NewParent;
 }; // SetParentNode()
 
-void Node::AddChildNode(Node* ChildNode)
+bool Node::AddChildNode(Node* ChildNode)
 {
     
     std::cout<<"add child node"<<std::endl;
@@ -183,7 +183,9 @@ void Node::AddChildNode(Node* ChildNode)
             printf(" %p \n", ChildNode);
         //}
         m_Children.push_back(ChildNode);
+        return true;
     }
+    else return false;
 }; // AddChildNode()
 
 bool Node::RemoveChildNode(Node* ChildNode)

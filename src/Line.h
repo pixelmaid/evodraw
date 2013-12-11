@@ -43,7 +43,7 @@ public:
     
     //update method
     virtual void Update(void);
-    
+    //virtual bool AddChildNode(Node* ChildNode);
     
     //geom functions //
     

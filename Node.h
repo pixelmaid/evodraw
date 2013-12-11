@@ -33,7 +33,7 @@ public:
     Node* GetParentNode(void) const;
     void SetParentNode(Node* NewParent);
     
-    void AddChildNode(Node* ChildNode);
+    virtual bool AddChildNode(Node* ChildNode);
     bool RemoveChildNode(Node* ChildNode);
     bool RecursiveRemoveChildNode(Node* ChildNode);
     const char* GetNodeName(void) const;

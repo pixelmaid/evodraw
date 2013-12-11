@@ -123,19 +123,46 @@ void Line::Update(void)
     
     if(NULL != this->GetParentNode()){
         
-            Shape* s = (Shape*)this->GetParentNode();
-            double xdiff = x2-x1;
+        Shape* s = (Shape*)this->GetParentNode();
+        vector<double> pC = s->centroid();
+        vector<double> cC = this->centroid();
+
+        double nx = pC[0]+parentRelX;
+        double ny = pC[1]+parentRelY;
+        
+        double dx = nx - cC[0];
+		double dy = ny-cC[1];
+        x1+=dx;
+        y1+=dy;
+        x2+=dx;
+        y2+=dy;
+        
+
+        /*double xdiff = x2-x1;
             double ydiff = y2-y1;
         
-            x1= s->getParams()[2];
-            y1= s->getParams()[3];
-            x2 = s->getParams()[2]+xdiff;
-            y2 = s->getParams()[3]+ydiff;
+          
+             
+            x1= s->getParams()[2]-parentRelX;
+            y1= s->getParams()[3]-parentRelY;
+            x2 = s->getParams()[2]+xdiff-parentRelX/2;
+            y2 = s->getParams()[3]+ydiff-parentRelY/2;*/
                     
     }
     Shape::Update(); // calls base class' function
 
 }
+
+//adds a child node and calculates relative parent values used 
+/*
+bool Shape::AddChildNode(Node* ChildNode){
+    /*  vector<double> pC = this->centroid();
+     vector<double> cC = ((Shape*)ChildNode)->centroid();
+     ((Shape*)ChildNode)->parentRelX = cC[0]-pC[0];
+     ((Shape*)ChildNode)->parentRelY = cC[1]-pC[1];*/
+  /*  return Node::AddChildNode(ChildNode);
+}
+*/
 
 //returns midpoint of the line as centroid
 vector<double> Line::centroid(){
@@ -228,6 +255,7 @@ bool Line::movePoint(double _x, double _y){
     if(selectedP==0){
         x1 = _x;
         y1 = _y;
+        this->updateRelativeDist();
         this->Update();
         return true;
 
@@ -235,6 +263,7 @@ bool Line::movePoint(double _x, double _y){
     else if(selectedP == 1){
         x2 = _x;
         y2 = _y;
+        this->updateRelativeDist();
         this->Update();
     
         return true;

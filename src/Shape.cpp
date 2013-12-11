@@ -67,9 +67,31 @@ bool Shape::copyBaseVariables(const Shape *shape){
 //update method
 void Shape::Update(void)
 {
+    
     Node::Update(); // calls base class' function
     
 }
+void Shape::updateRelativeDist(){
+    if(this->GetParentNode()!=NULL){
+        vector<double> pC = ((Shape*)this->GetParentNode())->centroid();
+        vector<double> cC = this->centroid();
+        this->parentRelX = cC[0]-pC[0];
+        this->parentRelY = cC[1]-pC[1];
+    }
+    for(int i=0;i<m_Children.size();i++){
+         ((Shape*)m_Children[i])->Update();
+        ((Shape*)m_Children[i])->updateRelativeDist();
+    }
+}
+
+bool Shape::AddChildNode(Node* ChildNode){
+    vector<double> pC = this->centroid();
+    vector<double> cC = ((Shape*)ChildNode)->centroid();
+    ((Shape*)ChildNode)->parentRelX = cC[0]-pC[0];
+    ((Shape*)ChildNode)->parentRelY = cC[1]-pC[1];
+    return Node::AddChildNode(ChildNode);
+}
+
 
 //recursively deselects children (if any)
 Shape* Shape::checkChildrenSelect(double x, double y){
