@@ -34,8 +34,8 @@ public:
     void SetParentNode(Node* NewParent);
     
     void AddChildNode(Node* ChildNode);
-    void RemoveChildNode(Node* ChildNode);
-    
+    bool RemoveChildNode(Node* ChildNode);
+    bool RecursiveRemoveChildNode(Node* ChildNode);
     const char* GetNodeName(void) const;
     
     string getType() const{

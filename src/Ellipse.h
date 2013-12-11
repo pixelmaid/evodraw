@@ -65,7 +65,7 @@ public:
         return bb;
     }
     
-    virtual bool checkSelect(double px, double py){
+    virtual Shape* checkSelect(double px, double py){
         double k = Geom2D::inEllipse(px,py,x,y,width/2,height/2);
         selected = false;
         //cout<<"select val="<<k<<endl;
@@ -74,7 +74,8 @@ public:
         }
         relX = px-x;
         relY= py-y;
-        return selected;
+        if(selected) return this;
+        return NULL;
     }
    
     virtual bool move(double px, double py){

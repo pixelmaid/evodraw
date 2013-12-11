@@ -175,7 +175,7 @@ bool Line::size(double _x, double _y){
 * with error value of 0.01
 * sets relX and relY values based on selection point
 */
-bool Line::checkSelect(double px, double py){
+Shape* Line::checkSelect(double px, double py){
     double k = Geom2D::distanceToLine(px, py, x1, y1, x2, y2);
     int r  = Geom2D::inRect(px, py, x1, y1, x2, y1, x2, y2, x1, y2, 0.01);
     
@@ -185,7 +185,7 @@ bool Line::checkSelect(double px, double py){
     }
     relX = px-x1;
     relY= py-y1;
-    if(selected) return selected;
+    if(selected) return this;
     else return Shape::checkSelect(px, py);
 }
 

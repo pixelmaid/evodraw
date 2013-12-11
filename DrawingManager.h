@@ -81,12 +81,12 @@ public:
     
     //need to make parenting recursive- and need a solution for what happens when objects with children get parented to larger objects. basically this whole damn thing needs to be recursive. God damn it.
     void parent(double x, double y){
-        if (_parent == -1){
+        if (_parent ==NULL){
         for(int i=0;i<currentShapes.size();i++){
-            bool s=  currentShapes[i]->checkSelect(x, y);
-            if(s) {
-                _parent=i;
-                currentShapes[i]->parentSelected= true;
+            Shape* s=  currentShapes[i]->checkSelect(x, y);
+            if(s!=NULL) {
+                _parent=s;
+                s->parentSelected= true;
                 currentShapes[i]->selected = false;
                 cout<<"parent_selected"<<endl;
 
@@ -98,20 +98,44 @@ public:
         }
         else {
             for(int i=0;i<currentShapes.size();i++){
-                    bool s=  currentShapes[i]->checkSelect(x, y);
-                if(s) {
-                    currentShapes[_parent]->AddChildNode(currentShapes[i]);
-                    currentShapes[i]->childSelected= true;
-                    currentShapes[i]->selected = false;
-                    currentShapes.erase(currentShapes.begin() + i );
+                    Shape* s=  currentShapes[i]->checkSelect(x, y);
+                if(s!=NULL && s!=_parent) {
+                    if(removeChild(s)){
+                    _parent->AddChildNode(s);
+                    s->childSelected= true;
+                    s->selected = false;
+                    
                     cout<<"parent_child created"<<endl;
-                    _parent = -1;
+                    _parent = NULL;
                     break;
                 }
             }
             
         }
-            
+            _parent = NULL;
+
+        }
+        
+    }
+    
+    bool removeChild(Shape* c){
+        for(int i=0;i<currentShapes.size();i++){
+            if(currentShapes[i]==c){
+                currentShapes.erase(currentShapes.begin() + i );
+                cout<<"child to be removed found in current shapes "<<i<<endl;
+                return true;
+                break;
+                
+            }
+
+            else if (currentShapes[i]->RecursiveRemoveChildNode(c)){
+            cout<<"child to be removed found in child of current shapes"<<endl;
+          
+            return true;
+            break;
+            }
+        };
+        return false;
     }
     
     void checkSelect(double x, double y){
@@ -442,6 +466,7 @@ public:
         cout<<"clearing current shapes"<<endl;
 
         currentShapes.clear();
+        _parent = NULL;
     }
 
     vector<Shape*> currentShapes;
@@ -452,7 +477,7 @@ public:
     int mode;
     int dP; //position for current drawing
     bool shapeStart;
-    int _parent = -1;
+    Shape* _parent;
 };
 
 

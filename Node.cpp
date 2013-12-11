@@ -186,7 +186,7 @@ void Node::AddChildNode(Node* ChildNode)
     }
 }; // AddChildNode()
 
-void Node::RemoveChildNode(Node* ChildNode)
+bool Node::RemoveChildNode(Node* ChildNode)
 {
     if(NULL != ChildNode && !m_Children.empty())
     {
@@ -196,10 +196,40 @@ void Node::RemoveChildNode(Node* ChildNode)
             {
                 m_Children.erase(m_Children.begin() + i);
                 break; // break the for loop
+                return true;
             }
         }
     }
+    return false;
 }; // RemoveChildNode()
+
+
+bool Node::RecursiveRemoveChildNode(Node* ChildNode)
+{
+    if(NULL != ChildNode && !m_Children.empty())
+    {
+        for(size_t i = 0; i < m_Children.size(); ++i)
+        {
+            if(m_Children[i] == ChildNode)
+            {
+                m_Children.erase(m_Children.begin() + i);
+                cout<<"node found child to remove at "<<i<<endl;
+                return true;
+                break; // break the for loop
+            }
+            else{
+                cout<<"not found looking in children"<<i<<endl;
+                if(m_Children[i]->RecursiveRemoveChildNode(ChildNode)){
+                    return true;
+                    break;
+
+                }
+            }
+        }
+    }
+    cout<<"node child not found"<<endl;
+    return false;
+}
 
 const char* Node::GetNodeName(void) const
 {

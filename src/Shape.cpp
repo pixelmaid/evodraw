@@ -72,12 +72,12 @@ void Shape::Update(void)
 }
 
 //recursively deselects children (if any)
-bool Shape::checkChildrenSelect(double x, double y){
+Shape* Shape::checkChildrenSelect(double x, double y){
     for (int i=0;i<m_Children.size();i++){
-        if(((Shape*)m_Children[i])->checkSelect(x,y)) return true;
+        if(((Shape*)m_Children[i])->checkSelect(x,y)!=NULL) return ((Shape*)m_Children[i])->checkSelect(x,y);
         
     }
-    return false;
+    return NULL;
 }
 
 //recursively deselects children (if any)

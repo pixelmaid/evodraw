@@ -53,9 +53,9 @@ class Shape: public Node{
     //selection functions//
     
     //virtual function for checking selection- always returns false
-    virtual bool checkSelect(double x, double y){return checkChildrenSelect(x,y);}
+    virtual Shape* checkSelect(double x, double y){return checkChildrenSelect(x,y);}
     // function for recursively checking children
-    bool checkChildrenSelect(double x, double y);
+   Shape* checkChildrenSelect(double x, double y);
     //virtual function for checking direct selection - always returns -1
     virtual int checkDSelect(double x, double y){return checkChildrenDSelect(x,y);}
     // function for recursively checking children

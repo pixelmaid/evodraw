@@ -55,7 +55,7 @@ public:
     }
     
     
-    virtual bool checkSelect(double px, double py){
+    virtual Shape* checkSelect(double px, double py){
         double k = Geom2D::inRect(px, py, x, y, x+width, y, x+width, y+height, x, y+height,0.01);
         selected = false;
         cout <<"actual rectArea="<<width*height<<endl;
@@ -66,7 +66,8 @@ public:
         }
         relX = px-x;
         relY= py-y;
-        return selected;
+        if(selected) return this;
+        return NULL;
     }
    
     //returns bounding box as a vector (x,y,width,height)

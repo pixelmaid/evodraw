@@ -62,7 +62,7 @@ public:
     //selection functions //
     
     //checks to see if line has been selected
-    virtual bool checkSelect(double px, double py);
+    virtual Shape* checkSelect(double px, double py);
     
     //checks to see if point has been directly selected
     virtual int checkDSelect(double _x, double _y);
