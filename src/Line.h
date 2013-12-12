@@ -45,6 +45,9 @@ public:
     virtual void Update(void);
     //virtual bool AddChildNode(Node* ChildNode);
     
+    //virtual bool updateRelativeDist();
+    
+    
     //geom functions //
     
     //returns centroid
@@ -84,15 +87,7 @@ public:
     
     
 protected:
-    //start x
-    double x1;
-    //start y
-    double y1;
-    //end x
-    double x2;
-    //end y
-    double y2;
-
+    
     //Module to register type with base class
     static RegisterNodeModule< Line > registerModule;
     

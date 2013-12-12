@@ -18,6 +18,7 @@
 #include "Node.h"
 #include "Color_Const.h"
 
+
 #define OVERLAP_DIST 0.5
 #define RESCALE_RES 4
 
@@ -37,7 +38,10 @@ class Shape: public Node{
     virtual void Update(void);
     
     //method to update relative distance to parent
-    void updateRelativeDist();
+    virtual bool updateRelativeDist();
+    
+    //method to set parametric relationship between parent and child
+    bool setParentChildRels();
     
     // add child node method
     virtual bool AddChildNode(Node* ChildNode);
@@ -113,9 +117,22 @@ class Shape: public Node{
     double relX;
     //double for y relative selection point
     double relY;
-    //double for correctly updating parent 
+    
+    double cX;
+    double cY;
+    double x1;
+    double x2;
+    double y1;
+    double y2;
+    
+    //pointer to double for correctly updating parent 
     double parentRelX;
     double parentRelY;
+    //pointer to doubles for correctly calculating relative distance between shape and parent
+    double* cPX;
+    double* cPY;
+    double* pCX;
+    double* pCY;
     
     //Module for registering with base class
     static RegisterNodeModule< Shape > registerModule;

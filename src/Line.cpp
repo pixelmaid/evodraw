@@ -124,7 +124,7 @@ void Line::Update(void)
     if(NULL != this->GetParentNode()){
         
         Shape* s = (Shape*)this->GetParentNode();
-        vector<double> pC = s->centroid();
+        /*vector<double> pC = s->centroid();
         vector<double> cC = this->centroid();
 
         double nx = pC[0]+parentRelX;
@@ -135,23 +135,34 @@ void Line::Update(void)
         x1+=dx;
         y1+=dy;
         x2+=dx;
-        y2+=dy;
+        y2+=dy;*/
         
 
-        /*double xdiff = x2-x1;
-            double ydiff = y2-y1;
         
-          
-             
-            x1= s->getParams()[2]-parentRelX;
-            y1= s->getParams()[3]-parentRelY;
-            x2 = s->getParams()[2]+xdiff-parentRelX/2;
-            y2 = s->getParams()[3]+ydiff-parentRelY/2;*/
+       /* double xdiff = x2-x1;
+        double ydiff = y2-y1;
+        
+        
+        
+        x1= s->getParams()[2];
+        y1= s->getParams()[3];
+        x2 = s->getParams()[2]+xdiff;
+        y2 = s->getParams()[3]+ydiff;*/
+        
+        double nx = *pCX + parentRelX;
+        double ny = *pCY + parentRelY;
+        double dx = nx - *cPX;
+		double dy = ny- *cPY;
+        x1+=dx;
+        y1+=dy;
+        x2+=dx;
+        y2+=dy;
                     
     }
     Shape::Update(); // calls base class' function
 
 }
+
 
 //adds a child node and calculates relative parent values used 
 /*
@@ -166,7 +177,11 @@ bool Shape::AddChildNode(Node* ChildNode){
 
 //returns midpoint of the line as centroid
 vector<double> Line::centroid(){
-    return Geom2D::getMidpoint(x1,y1,x2,y2);
+    
+    vector<double> c = Geom2D::getMidpoint(x1,y1,x2,y2);
+    cX = c[0];
+    cY = c[1];
+    return c;
 }
 
 //returns bounding box as a vector (x,y,width,height)

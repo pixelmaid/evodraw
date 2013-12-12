@@ -19,6 +19,7 @@ Shape::Shape(){
         selectedP = -1;
         parentSelected = false;
         childSelected = false;
+        
         type="Shape";
 }
 //default deconstructor
@@ -58,9 +59,17 @@ bool Shape::copyBaseVariables(const Shape *shape){
     this->closed = shape->closed;
     this->selected = shape->selected;
     this->selectedP = shape->selected;
-    cout<<"shape copy base vars was successful"<<endl;
-    return Node::copyBaseVariables(shape);
+    this->parentRelX = shape->parentRelX;
+    this->parentRelY = shape->parentRelY;
+    this->relX = shape->relY;
+    this->relY = shape->relY;
     
+    
+    cout<<"shape copy base vars was successful"<<endl;
+    bool success = Node::copyBaseVariables(shape);
+    this->setParentChildRels();
+    this->updateRelativeDist();
+    return (success);
 }
 
 
@@ -71,25 +80,44 @@ void Shape::Update(void)
     Node::Update(); // calls base class' function
     
 }
-void Shape::updateRelativeDist(){
+
+bool Shape::updateRelativeDist(){
     if(this->GetParentNode()!=NULL){
-        vector<double> pC = ((Shape*)this->GetParentNode())->centroid();
-        vector<double> cC = this->centroid();
-        this->parentRelX = cC[0]-pC[0];
-        this->parentRelY = cC[1]-pC[1];
+
+        if(cPX != NULL && cPY!=NULL && pCX!=NULL && pCY!=NULL){
+            parentRelX = *cPX - *pCX;
+            parentRelY = *cPY - *pCY;
+            return true;
+        }
     }
-    for(int i=0;i<m_Children.size();i++){
-         ((Shape*)m_Children[i])->Update();
-        ((Shape*)m_Children[i])->updateRelativeDist();
-    }
+    return false;
 }
 
 bool Shape::AddChildNode(Node* ChildNode){
-    vector<double> pC = this->centroid();
-    vector<double> cC = ((Shape*)ChildNode)->centroid();
-    ((Shape*)ChildNode)->parentRelX = cC[0]-pC[0];
-    ((Shape*)ChildNode)->parentRelY = cC[1]-pC[1];
-    return Node::AddChildNode(ChildNode);
+    bool set= Node::AddChildNode(ChildNode);
+    if(set){
+        ((Shape*)ChildNode)->setParentChildRels();
+        return ((Shape*)ChildNode)->updateRelativeDist();
+       
+    }
+    else return false;
+
+
+}
+
+//method to set parametric relationship between parent and child
+bool Shape::setParentChildRels(){
+    if(this->GetParentNode()!=NULL){
+        Shape* p = (Shape*)this->GetParentNode();
+        
+        pCX= &p->x2;
+        pCY =&p->y2;
+    
+        cPX = &this->x1;
+        cPY = &this->y1;
+        return true;
+    }
+    return false;
 }
 
 
