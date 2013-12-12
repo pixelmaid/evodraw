@@ -35,7 +35,12 @@ static bool isLeft(double x1, double x2);
     
 static bool isTop(double y1, double y2);
     
+
 static vector<double> meanSd(vector<double> values, bool forcesd);
+    
+static double weightedMean(vector<double> values, vector<double> weights);
+    
+static double standardDev(vector<double> values, double mean);
 static vector<double> normalize(vector<double> values);
     
 static double angle(double x1, double y1, double x2, double y2);

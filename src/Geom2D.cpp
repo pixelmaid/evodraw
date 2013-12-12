@@ -141,7 +141,7 @@ vector<double> Geom2D::meanSd(vector<double> values, bool forcesd){
     }
     double mean = sum/values.size();
     for(int i=0;i<values.size();i++){
-        double v = (values[i]-mean)*(values[i]-mean);//)*weight;
+        double v = (values[i]-mean)*(values[i]-mean);
         sd_sum += v;
     }
     double sd = sqrt(sd_sum/values.size()-1) ;
@@ -154,6 +154,20 @@ vector<double> Geom2D::meanSd(vector<double> values, bool forcesd){
     
     return result;
     
+    
+}
+//assumes weights have already been normalized
+double Geom2D::weightedMean(vector<double> values, vector<double> weights){
+    
+    if(values.size()!=weights.size()) return NULL;
+    
+    else{
+        double sum =0;
+        for(int i=0;i<values.size();i++){
+            sum+= values[i]*weights[i];
+        }
+        return sum;
+    }
     
 }
 
@@ -170,6 +184,16 @@ vector<double> Geom2D::normalize(vector<double> values){
     }
     return result;
     
+}
+
+double Geom2D::standardDev(vector<double> values, double mean){
+    double sd_sum=0;
+    for(int i=0;i<values.size();i++){
+        double v = (values[i]-mean)*(values[i]-mean);
+        sd_sum += v;
+    }
+    double sd = sqrt(sd_sum/values.size()-1) ;
+    return sd;
 }
 
 double Geom2D::angle(double x1, double y1, double x2, double y2){

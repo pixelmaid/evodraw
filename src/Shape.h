@@ -110,6 +110,18 @@ class Shape: public Node{
     bool childSelected;	
     
     
+    //parameters
+    double x1;
+    double x2;
+    double y1;
+    double y2;
+    
+    //relative distance between shape and parent
+    double parentRelX;
+    double parentRelY;
+    
+    double weight;
+    
    protected:
     //whether shape is open or closed (consider removing?)
     bool closed;
@@ -120,19 +132,14 @@ class Shape: public Node{
     
     double cX;
     double cY;
-    double x1;
-    double x2;
-    double y1;
-    double y2;
-    
-    //pointer to double for correctly updating parent 
-    double parentRelX;
-    double parentRelY;
+ 
     //pointer to doubles for correctly calculating relative distance between shape and parent
     double* cPX;
     double* cPY;
     double* pCX;
     double* pCY;
+    
+ 
     
     //Module for registering with base class
     static RegisterNodeModule< Shape > registerModule;
