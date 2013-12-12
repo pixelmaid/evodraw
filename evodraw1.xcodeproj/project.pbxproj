@@ -338,18 +338,18 @@
 		0A167B45182D628E007B5E87 /* WarningLog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WarningLog.cpp; sourceTree = "<group>"; };
 		0A167B46182D628E007B5E87 /* WarningLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WarningLog.h; sourceTree = "<group>"; };
 		0A167BA31832B879007B5E87 /* Shape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shape.h; sourceTree = "<group>"; };
-		0A167BA41832C440007B5E87 /* DrawingManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DrawingManager.h; path = ../DrawingManager.h; sourceTree = "<group>"; };
+		0A167BA41832C440007B5E87 /* DrawingManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrawingManager.h; sourceTree = "<group>"; };
 		0A167BA51832C807007B5E87 /* Geom2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Geom2D.cpp; sourceTree = "<group>"; };
 		0A167BA61832C807007B5E87 /* Geom2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geom2D.h; sourceTree = "<group>"; };
 		0A167BA818357D91007B5E87 /* ShapeIndividual.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShapeIndividual.h; sourceTree = "<group>"; };
-		0A30CF4A184FB5B500980AFA /* Vec2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Vec2D.cpp; path = ../Vec2D.cpp; sourceTree = "<group>"; };
-		0A30CF4B184FB5B500980AFA /* Vec2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vec2D.h; path = ../Vec2D.h; sourceTree = "<group>"; };
+		0A30CF4A184FB5B500980AFA /* Vec2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vec2D.cpp; sourceTree = "<group>"; };
+		0A30CF4B184FB5B500980AFA /* Vec2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec2D.h; sourceTree = "<group>"; };
 		0A4AFC5B1857775400D62020 /* Shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shape.cpp; sourceTree = "<group>"; };
 		0A5A166718466CB900F71DC9 /* Ellipse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Ellipse.h; sourceTree = "<group>"; };
 		0A5A166D184A583900F71DC9 /* Line.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Line.h; sourceTree = "<group>"; };
 		0A5A166E184A62E500F71DC9 /* Rectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rectangle.h; sourceTree = "<group>"; };
-		0A5A1672184A736E00F71DC9 /* ProbModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ProbModel.cpp; path = ../ProbModel.cpp; sourceTree = "<group>"; };
-		0A5A1673184A736E00F71DC9 /* ProbModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProbModel.h; path = ../ProbModel.h; sourceTree = "<group>"; };
+		0A5A1672184A736E00F71DC9 /* ProbModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProbModel.cpp; sourceTree = "<group>"; };
+		0A5A1673184A736E00F71DC9 /* ProbModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProbModel.h; sourceTree = "<group>"; };
 		0A801745183E9A4000D9B9D8 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml.cpp; sourceTree = "<group>"; };
 		0A801746183E9A4000D9B9D8 /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml.h; sourceTree = "<group>"; };
 		0A801747183E9A4000D9B9D8 /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlerror.cpp; sourceTree = "<group>"; };
@@ -359,8 +359,8 @@
 		0AC6358C18557EB00008B7D9 /* Color_Const.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Color_Const.cpp; sourceTree = "<group>"; };
 		0AC6358D18557EB00008B7D9 /* Color_Const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color_Const.h; sourceTree = "<group>"; };
 		0AC635A11856ACBB0008B7D9 /* Line.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Line.cpp; sourceTree = "<group>"; };
-		0AF44C3318523C24003FB7CE /* Node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Node.cpp; path = ../Node.cpp; sourceTree = "<group>"; };
-		0AF44C3418523C24003FB7CE /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Node.h; path = ../Node.h; sourceTree = "<group>"; };
+		0AF44C3318523C24003FB7CE /* Node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Node.cpp; sourceTree = "<group>"; };
+		0AF44C3418523C24003FB7CE /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
 		11D7A477920A2054FD49C2D2 /* CreEPS_Types.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = CreEPS_Types.hpp; path = ../../../addons/ofxVectorGraphics/libs/CreEPS_Types.hpp; sourceTree = SOURCE_ROOT; };
 		15C99204FF4D8D72AD034B63 /* ofxUINumberDialer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUINumberDialer.h; path = ../../../addons/ofxUI/src/ofxUINumberDialer.h; sourceTree = SOURCE_ROOT; };
 		15E69017B5DB282EF100EE15 /* ofxUICustomImageButton.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUICustomImageButton.h; path = ../../../addons/ofxUI/src/ofxUICustomImageButton.h; sourceTree = SOURCE_ROOT; };
@@ -1039,7 +1039,8 @@
 				0A801744183E9A4000D9B9D8 /* libs */,
 				0A801749183E9A4000D9B9D8 /* src */,
 			);
-			path = ofxXmlSettings;
+			name = ofxXmlSettings;
+			path = ../../../addons/ofxXmlSettings;
 			sourceTree = "<group>";
 		};
 		0A801744183E9A4000D9B9D8 /* libs */ = {
