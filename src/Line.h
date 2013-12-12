@@ -45,6 +45,9 @@ public:
     virtual void Update(void);
     //virtual bool AddChildNode(Node* ChildNode);
     
+    //method to reverse engineer constrained part based on shape generation.
+    virtual bool calcConstrainedPoint();
+    
     //virtual bool updateRelativeDist();
     
     

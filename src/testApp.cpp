@@ -199,16 +199,25 @@ void testApp::guiEvent(ofxUIEventArgs &e)
             
            // probModel.evalKeystone(d.savedDrawings);
             //probModel.generateKeystoneValues();
-           vector <vector <double> > values = probModel.analyzeDrawing(d.savedDrawings);
-            
-            
-           cout << "total vals:" <<values.size()<<endl;
-            d.generateShapes(values);
+           probModel.populateFeatureTree(d.savedDrawings);
+            generateNewIndividual();
         }
 
 	}
    	
 	
+}
+
+bool testApp::generateNewIndividual(){
+    vector<Shape*> newDrawing= probModel.generateDrawing();
+    if(newDrawing.size()!=0){
+        if(d.addDrawing(newDrawing)) return true;
+        else return false;
+    }
+    else{
+    return false;
+    }
+
 }
 
 void testApp::saveIndividual(){
@@ -290,20 +299,7 @@ void testApp::keyPressed(int key){
     }*/
 }
 
-void testApp::evolvePopulation(){
-    
-    //Evolve the current population
-    evo.evolvePopulation();
-    
-    //Store the population in the history
-    history.push_back( evo.getPopulation() );
-    
-    //Reset the population fitness
-    for(unsigned int i=0; i<evo.getPopulationSize(); i++){
-        evo[i].fitness = 1;
-    }
-    
-}
+
 
 //--------------------------------------------------------------
 void testApp::keyReleased(int key){

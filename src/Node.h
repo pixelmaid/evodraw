@@ -27,7 +27,7 @@ public:
     bool clear();
     Node(const Node &rhs);
     Node& operator = (const Node &rhs);
-    bool copyBaseVariables(const Node *node);
+    virtual bool copyBaseVariables(const Node *node);
     virtual void Update(void);
     
     Node* GetParentNode(void) const;
@@ -54,6 +54,8 @@ public:
 
     
     string type;
+    vector<Node*> m_Children;
+
 protected:
     //method to check if map has been intialized, and if not, creates a new instance
     static StringNodeMap *getMap(){
@@ -63,7 +65,6 @@ protected:
         
     }
 
-        vector<Node*> m_Children;
     
 private:
     Node* m_Parent;

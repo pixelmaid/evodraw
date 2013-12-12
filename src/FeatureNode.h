@@ -13,9 +13,22 @@
 #include "Node.h"
 #include "Shape.h"
 #include "Geom2D.h"
-
+#include "Line.h"
 class FeatureNode:Node{
 public:
+    
+    FeatureNode();
+    
+    virtual ~FeatureNode();
+    bool clear();
+    
+    FeatureNode(const FeatureNode &rhs);
+    FeatureNode& operator = (const FeatureNode &rhs);
+    
+    
+    virtual bool copyBaseVariables(const Node *node);
+    
+    bool createChildrenFromShape(Shape* s);
     
     //stores all the features of the shape passed to the function
     bool getShapeFeatures(Shape* s);
@@ -48,7 +61,7 @@ private:
     //vector<double> y2Weight;
     
     //type of node
-    vector <int> type;
+    vector <int> types;
     
     //relative distance between shape and parent
     vector<double> parentRelX;
@@ -69,6 +82,9 @@ private:
     double pXStd;
     double pYM;
     double pYStd;
+    
+    //random generator for gaussian
+    GRT::Random random;
     
    
 

@@ -6,6 +6,7 @@
 #include "DrawingManager.h"
 #include "ofxUI.h"
 #include "ProbModel.h"
+#include "Shape.h"
 using namespace GRT;
 
 #define SHAPE_FEATURE_SIZE 6
@@ -57,6 +58,7 @@ public:
     void setDrawTools();
     void setCanvases();
     void saveIndividual();
+    bool generateNewIndividual();
     
     ofxUICanvas *drawTools;
     ofxUIScrollableCanvas *canvases;

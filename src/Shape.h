@@ -40,6 +40,10 @@ class Shape: public Node{
     //method to update relative distance to parent
     virtual bool updateRelativeDist();
     
+    //method to reverse engineer constrained part based on shape generation.
+    virtual bool calcConstrainedPoint(){return false;}
+
+    
     //method to set parametric relationship between parent and child
     bool setParentChildRels();
     

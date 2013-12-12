@@ -33,11 +33,11 @@ Node::~Node(void)
 } // Destructor
 
 bool Node::clear(){
-    cout<<"node clear"<<endl;
+    //cout<<"node clear"<<endl;
     m_Parent = NULL;
     
     for(int i=0;i<m_Children.size();i++){
-        cout<<"node clearing child at "<<endl;
+        //cout<<"node clearing child at "<<i<<endl;
 
         m_Children[i]->clear();
         delete  m_Children[i];
@@ -147,11 +147,11 @@ void Node::Update(void)
             if(NULL != m_Children[i])
             {
                 m_Children[i]->Update();
-                std::cout<<"child at "<<i<<" updating"<<std::endl;
+                //std::cout<<"child at "<<i<<" updating"<<std::endl;
             }
         }
     }
-    std::cout<<"node is updating"<<std::endl;
+   // std::cout<<"node is updating"<<std::endl;
 } // Update()
 
 

@@ -15,6 +15,7 @@
 #include "Geom2D.h"
 #include <math.h>
 #include "GRT.h"
+#include "FeatureNode.h"
 class ProbModel{
 
 public:
@@ -23,33 +24,24 @@ public:
     
     ~ProbModel();
     
-    bool evalKeystone(vector< vector<Shape*> > &drawings);
-    vector <double> generateKeystoneValues();
-    vector <vector <double> > generateShapeValues();
-    bool evalRelativeDrawing(vector<double> keystoneV,vector< vector<Shape*> > &drawings);
-    
-    vector <vector <double> >   analyzeDrawing(vector <vector <Shape*> > &drawings);
-    
-    //stores average features for keystone
-    vector <double> keystoneValues;
-    
-    //total number of shapes in a drawing
-    int shapeNum;
-    //total number of shapes in drawing minus keystone
-    int nonKNum;
-    //number of features in the keystone
-    int keystoneFeatureNum;
-    
-    GRT::Random random;
-    
-    //stores probabilities for lookup table
-    vector< vector< double > > lookup;
-    
-    //stores values for drawing
-    vector<int> dType;
+    bool clear();
         
-private:
+    vector<Shape*> generateDrawing();
     
+    //builds the intial feature tree
+    bool buildFeatureTree(vector<Shape*> drawing);
+  
+    
+    //populates feature tree with values across all drawings
+    bool populateFeatureTree(vector<vector<Shape*>>drawings);
+    
+    FeatureNode* recurseTree(FeatureNode* pN, Shape* pS, int pos);
+    
+private:
+    //vector of feature trees for storing features of drawings
+    vector<FeatureNode*> fnodes;
+    //records number of shapes in the drawing for error checking purposes.
+    int shapeNum;
 };
 
 

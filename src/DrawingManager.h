@@ -345,6 +345,11 @@ public:
         //currentShapes.clear();
         dP++;
     }
+    bool addDrawing(vector<Shape*> &drawing){
+        clearAll();
+        currentShapes = drawing;
+        return true;
+    }
     
     vector<Shape*> copy(vector<Shape*>toCopy){
         vector<Shape*> copy;
@@ -378,74 +383,6 @@ public:
         return nshape;
     }
     
-    void generateKeystone(vector<double>values){
-       for(int i=0;i<values.size();i++){
-            cout<<"keystone "<<i<<" = "<<values[i]<<endl;
-        }
-        Shape* s;
-        
-        switch ((int)values[values.size()-1]) {
-            case 0:
-                s = new Ellipse(values[0],values[1]);
-                ((Ellipse*)s)->width = values[2];
-                ((Ellipse*)s)->height = values[3];
-                
-                break;
-            case 1:
-                s = new Rectangle(values[0],values[1]);
-                ((Rectangle*)s)->width = values[2];
-                ((Rectangle*)s)->height = values[3];
-                break;
-            case 2:
-                 s = new Line(values[0],values[1]);
-                s->size(values[2],values[3]);
-                break;
-                
-            default:
-                break;
-        }
-        
-        
-        currentShapes.push_back(s);
-    }
-    
-    void generateShapes(vector <vector <double> > values){
-        clearAll();
-        vector<double> k = values[0];
-        generateKeystone(k);
-        vector<double> kc = Geom2D::getMidpoint(k[0],k[1],k[2],k[3]);
-        for(int i=1;i<values.size();i++){
-            Shape* s;
-            double  x1 = kc[0]+values[i][0]*-1;
-            double  y1= kc[1]+values[i][1]*-1;
-            double x2= kc[0]+values[i][2]*-1;
-            double y2= kc[1]+values[i][3]*-1;
-            switch ((int)values[i][values[i].size()-1]) {
-                case 0:
-                    s = new Ellipse(x1,y1);
-                    ((Ellipse*)s)->width = x2;
-                    ((Ellipse*)s)->height = y2;
-                    
-                    break;
-                case 1:
-               
-                    s = new Rectangle(x1,y1);
-                    ((Rectangle*)s)->width = x2;
-                    ((Rectangle*)s)->height = y2;
-                    break;
-                case 2:
-                   
-                    s = new Line(x1,y1);
-                    s->size(x2,y2);
-                    break;
-               
-            }
-            currentShapes.push_back(s);
-
-        }
-       
-        
-    }
     
     void deleteShapes(){
         for (int i=0;i<savedDrawings.size();i++){

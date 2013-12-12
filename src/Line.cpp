@@ -122,33 +122,7 @@ void Line::Update(void)
 {
     
     if(NULL != this->GetParentNode()){
-        
-        Shape* s = (Shape*)this->GetParentNode();
-        /*vector<double> pC = s->centroid();
-        vector<double> cC = this->centroid();
-
-        double nx = pC[0]+parentRelX;
-        double ny = pC[1]+parentRelY;
-        
-        double dx = nx - cC[0];
-		double dy = ny-cC[1];
-        x1+=dx;
-        y1+=dy;
-        x2+=dx;
-        y2+=dy;*/
-        
-
-        
-       /* double xdiff = x2-x1;
-        double ydiff = y2-y1;
-        
-        
-        
-        x1= s->getParams()[2];
-        y1= s->getParams()[3];
-        x2 = s->getParams()[2]+xdiff;
-        y2 = s->getParams()[3]+ydiff;*/
-        
+                
         double nx = *pCX + parentRelX;
         double ny = *pCY + parentRelY;
         double dx = nx - *cPX;
@@ -162,9 +136,19 @@ void Line::Update(void)
     Shape::Update(); // calls base class' function
 
 }
+//method to reverse engineer constrained part based on shape generation.
+bool Line::calcConstrainedPoint(){
+    
+    double nx = *pCX + parentRelX;
+    double ny = *pCY + parentRelY;
+    double dx = nx - *cPX;
+    double dy = ny- *cPY;
+    x1+=dx;
+    y1+=dy;
+    return true;
 
-
-//adds a child node and calculates relative parent values used 
+}
+//adds a child node and calculates relative parent values used
 /*
 bool Shape::AddChildNode(Node* ChildNode){
     /*  vector<double> pC = this->centroid();

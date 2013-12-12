@@ -21,6 +21,7 @@ Shape::Shape(){
         childSelected = false;
         
         type="Shape";
+    weight=1;
 }
 //default deconstructor
 Shape::~Shape(){
@@ -92,6 +93,7 @@ bool Shape::updateRelativeDist(){
     }
     return false;
 }
+
 
 bool Shape::AddChildNode(Node* ChildNode){
     bool set= Node::AddChildNode(ChildNode);
