@@ -137,8 +137,16 @@ bool FeatureNode::getShapeFeatures(Shape* s){
 
 //calculates normalized mean and standard deviation for each group of features;
 bool FeatureNode::calculateMeanStd(){
-    vector<double> nweights = Geom2D::normalize(weights);
     
+    cout<<"weights are:"<<endl;
+    for(int i=0;i<weights.size();i++){
+        cout<<i<<"="<<weights[i]<<endl;
+    }
+    vector<double> nweights = Geom2D::normalize(weights);
+    cout<<"normalized weights are:"<<endl;
+    for(int i=0;i<nweights.size();i++){
+        cout<<i<<"="<<nweights[i]<<endl;
+    }
     vector<double>x1ms = indMeanSD(x1,nweights);
     x1M = x1ms[0];
     x1Std = x1ms[1];

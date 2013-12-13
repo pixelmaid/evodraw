@@ -338,9 +338,12 @@ public:
     }
     
     void saveDrawing(double w){
+        for(int i=0;i<currentShapes.size();i++){
+            currentShapes[i]->setWeight(w);
+        }
         vector<Shape*> c = copy(currentShapes);
         savedDrawings.push_back(c);
-        weights.push_back(w);
+        //weights.push_back(w);
         cout<<"weight = "<<w<<endl;
         //currentShapes.clear();
         dP++;

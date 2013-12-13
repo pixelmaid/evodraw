@@ -43,6 +43,9 @@ class Shape: public Node{
     //method to reverse engineer constrained part based on shape generation.
     virtual bool calcConstrainedPoint(){return false;}
 
+    //recursively sets weights for shape and children
+    bool setWeight(double w);
+    
     
     //method to set parametric relationship between parent and child
     bool setParentChildRels();
@@ -123,8 +126,8 @@ class Shape: public Node{
     //relative distance between shape and parent
     double parentRelX;
     double parentRelY;
-    
     double weight;
+
     
    protected:
     //whether shape is open or closed (consider removing?)
@@ -147,6 +150,8 @@ class Shape: public Node{
     
     //Module for registering with base class
     static RegisterNodeModule< Shape > registerModule;
+
+private:
 
 
 

@@ -21,7 +21,7 @@ Shape::Shape(){
         childSelected = false;
         
         type="Shape";
-    weight=1;
+        weight=1;
 }
 //default deconstructor
 Shape::~Shape(){
@@ -64,7 +64,7 @@ bool Shape::copyBaseVariables(const Shape *shape){
     this->parentRelY = shape->parentRelY;
     this->relX = shape->relY;
     this->relY = shape->relY;
-    
+    this->weight = shape->weight;
     
     cout<<"shape copy base vars was successful"<<endl;
     bool success = Node::copyBaseVariables(shape);
@@ -92,6 +92,15 @@ bool Shape::updateRelativeDist(){
         }
     }
     return false;
+}
+
+//recursively sets weights for shape and children
+bool Shape::setWeight(double w){
+    weight = w;
+    for(int i=0;i<m_Children.size();i++){
+        ((Shape*)m_Children[i])->setWeight(w);
+    }
+    return true;
 }
 
 

@@ -11,11 +11,11 @@ void testApp::setup(){
     snapCounter=0;
     ofEnableSmoothing();
 	ofBackground(0);
-	
+	weight =1.0;
 	setDrawTools();
     setCanvases();
     
-    weight =0;
+    
     
    /* font.loadFont("verdana.ttf", 12);
     
@@ -117,8 +117,9 @@ void testApp::setCanvases(){
     
     drawingSettings= new ofxUICanvas(57,0,ofGetWidth()-215,60);
     drawingSettings->addWidgetDown(new ofxUILabel("WEIGHT", OFX_UI_FONT_MEDIUM));
-    drawingSettings->addSlider("WEIGHT", -5, 5, weight, dim, 20);
-    
+    drawingSettings->addSlider("WEIGHT", 0.0, 2.0, weight, dim, 20);
+    ofAddListener(drawingSettings->newGUIEvent,this,&testApp::guiEvent);
+
 	ofAddListener(canvases->newGUIEvent,this,&testApp::canvasEvent);
 }
 
@@ -172,7 +173,9 @@ void testApp::guiEvent(ofxUIEventArgs &e)
 	}
     else if(name == "WEIGHT"){
        ofxUISlider *slider = (ofxUISlider *) e.widget;
-        weight = slider->getScaledValue();
+        weight = slider->getValue();
+        cout<<"setting weight ="<<weight<<endl;
+
     }
     
     else if(name == "PARENTBTN"){
@@ -228,7 +231,7 @@ void testApp::saveIndividual(){
     ofBackground(255);
     d.draw(output, false);
     snapshot.grabScreen(canvasX,canvasY,canvasWidth,canvasHeight);
-
+    cout<<"saving weight ="<<weight<<endl;
     d.saveDrawing(weight);
     string fileName = "snapshot_"+ofToString(10000+snapCounter)+".png";
     snapshot.saveImage(fileName);
