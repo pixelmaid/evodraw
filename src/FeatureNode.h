@@ -14,6 +14,8 @@
 #include "Shape.h"
 #include "Geom2D.h"
 #include "Line.h"
+#include "Ellipse.h"
+#include <math.h>
 class FeatureNode:Node{
 public:
     
@@ -61,7 +63,7 @@ private:
     //vector<double> y2Weight;
     
     //type of node
-    vector <int> types;
+    vector <double> types;
     
     //relative distance between shape and parent
     vector<double> parentRelX;
@@ -82,6 +84,8 @@ private:
     double pXStd;
     double pYM;
     double pYStd;
+    double tM;
+    double tStd;
     
     //random generator for gaussian
     GRT::Random random;

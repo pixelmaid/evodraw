@@ -170,6 +170,10 @@ bool FeatureNode::calculateMeanStd(){
     vector<double>pYms = indMeanSD(parentRelY,nweights);
     pYM = pYms[0];
     pYStd = pYms[1];
+    
+    vector<double>tms = indMeanSD(types,nweights);
+    tM = tms[0];
+    tStd = tms[1];
 }
 
 Shape* FeatureNode::generateShape(Shape *parent){
@@ -180,6 +184,7 @@ Shape* FeatureNode::generateShape(Shape *parent){
     double _y2 =  random.getRandomNumberGauss(y2M,y2Std);
     double _parentRelX =  random.getRandomNumberGauss(pXM,pXStd);
     double _parentRelY =  random.getRandomNumberGauss(pYM,pYStd);
+    int type = round(random.getRandomNumberGauss(tM,tStd));
     cout<<"_x1="<<_x1<<"_y1="<<_y1<<"_x2="<<_x2<<"_y2="<<_y2<<"_pRx="<<_parentRelX<<"_pRy="<<_parentRelY<<endl;
 
     Shape* s;
@@ -190,7 +195,8 @@ Shape* FeatureNode::generateShape(Shape *parent){
         cout<<"no parent, created new shape"<<endl;
     }
     else{
-        s = new Line(_x1,_y1,_x2,_y2);
+        if(type==0) s = new Line(_x1,_y1,_x2,_y2);
+        else if(type == 1) s = new Ellipse(_x2,_y2,_x1,_y1);
         parent->AddChildNode(s);
            s->parentRelX = _parentRelX;
             s->parentRelY = _parentRelY;
