@@ -14,7 +14,7 @@ void testApp::setup(){
 	weight =1.0;
 	setDrawTools();
     setCanvases();
-    numExamples = 1;
+    numExamples = 2;
     
     
     
@@ -117,7 +117,7 @@ void testApp::setCanvases(){
     
     
     drawingSettings= new ofxUICanvas(57,0,ofGetWidth()-215,60);
-    drawingSettings->addWidgetDown(new ofxUILabel("WEIGHT", OFX_UI_FONT_MEDIUM));
+    drawingSettings->addWidgetDown(new ofxUILabel("weight", OFX_UI_FONT_MEDIUM));
     drawingSettings->addSlider("WEIGHT", 0.0, 2.0, weight, dim, 20);
     ofAddListener(drawingSettings->newGUIEvent,this,&testApp::guiEvent);
 
@@ -128,9 +128,17 @@ void testApp::setCanvases(){
 
 void testApp::canvasEvent(ofxUIEventArgs &e)
 {
-	string name = e.widget->getName();
+    ofxUIImageButton *btn = (ofxUIImageButton *)e.widget;
+    int trigger = btn->getValue();
+	 if(trigger ==1){
+    string name = e.widget->getName();
     
-    //cout << "got event from: " << name << endl;
+    cout << "got event from: " << name << endl;
+    
+    int index = atoi(name.c_str() );
+     d.switchDrawing(index,((ofxUISlider*)(drawingSettings->getWidget("WEIGHT")))->getScaledValue());
+    ((ofxUISlider*)(drawingSettings->getWidget("WEIGHT")))->setValue(d.getWeight());
+     }
     
 
 }
@@ -174,7 +182,7 @@ void testApp::guiEvent(ofxUIEventArgs &e)
 	}
     else if(name == "WEIGHT"){
        ofxUISlider *slider = (ofxUISlider *) e.widget;
-        weight = slider->getValue();
+        weight = slider->getScaledValue();
         //cout<<"setting weight ="<<weight<<endl;
 
     }

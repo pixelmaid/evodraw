@@ -141,12 +141,14 @@ public:
     
     //saving, adding and copying (the troublemakers)
     void saveDrawing(double w);
-    bool addDrawing();
+    void setWeight(double w);
+    double getWeight();
+    bool switchDrawing(int num, double weight);
     vector<Shape*> copy(vector<Shape*>toCopy);
     Shape* setShape(const Shape* shape);
     
     
-    vector<Shape*> currentShapes;
+    vector< Shape* > *currentShapes = NULL; 
     vector<vector<Shape*>> savedDrawings;
     vector<double> weights;
     
@@ -156,6 +158,8 @@ public:
     bool shapeStart;
     Shape* _parent;
     bool treeBuilt;
+    //controls if user is looking at indexed drawing or current drawing
+    bool indexed;
     
     //vector of feature trees for storing features of drawings
     vector<FeatureNode*> fnodes;

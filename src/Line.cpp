@@ -123,11 +123,11 @@ void Line::Update(void)
 {
     
     if(NULL != this->GetParentNode()){
-                
-        double nx = *pCX + parentRelX;
-        double ny = *pCY + parentRelY;
-        double dx = nx - *cPX;
-		double dy = ny- *cPY;
+        Shape* parent = (Shape*)this->GetParentNode();
+        double nx = parent->x2 + parentRelX;
+        double ny = parent->y2 + parentRelY;
+        double dx = nx - x1;
+		double dy = ny- y1;
         x1+=dx;
         y1+=dy;
         x2+=dx;

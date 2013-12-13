@@ -273,8 +273,8 @@ Shape* FeatureNode::generateShape(Shape *parent){
             s->size(_x2,_y2);
         }
 
-        parent->AddChildNode(s);
-           s->parentRelX = _parentRelX;
+            parent->AddChildNode(s);
+            s->parentRelX = _parentRelX;
             s->parentRelY = _parentRelY;
             s->calcConstrainedPoint();
             s->x2= _x2;

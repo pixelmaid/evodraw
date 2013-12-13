@@ -123,10 +123,11 @@ void Ellipse::Update(void)
     
     if(NULL != this->GetParentNode()){
         
-        double nx = *pCX + parentRelX;
-        double ny = *pCY + parentRelY;
-        double dx = nx - *cPX;
-		double dy = ny- *cPY;
+        Shape* parent = (Shape*)this->GetParentNode();
+        double nx = parent->x2 + parentRelX;
+        double ny = parent->y2 + parentRelY;
+        double dx = nx - x1;
+		double dy = ny- y1;
         x2+=dx;
         y2+=dy;
        // x2+=dx;
@@ -171,7 +172,7 @@ Shape* Ellipse::checkSelect(double px, double py){
     double k = Geom2D::inEllipse(px,py,x2,y2,x1/2,y1/2);
     selected = false;
     //cout<<"select val="<<k<<endl;
-    if(k<=1.05&&k>=0.95){
+    if(k<=1.5&&k>=0.5){
         selected = true;
     }
     relX = px-x2;
