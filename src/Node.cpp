@@ -64,7 +64,7 @@ Node& Node:: operator = (const Node &rhs){
 
 
 bool Node::deepCopyFrom(const Node *node) {
-    cout<<"node deep copy attempt"<<endl;
+    //cout<<"node deep copy attempt"<<endl;
 
     if( node == NULL ){
         return false;
@@ -75,7 +75,7 @@ bool Node::deepCopyFrom(const Node *node) {
         
         Node* c = node->m_Children[i]->createNewInstance();
         if(c ==NULL){
-            cout<<"child not copied"<<endl;
+            //cout<<"child not copied"<<endl;
             return false;
   
         }
@@ -83,12 +83,12 @@ bool Node::deepCopyFrom(const Node *node) {
         if( !c->deepCopyFrom( node->m_Children[i] ) ){
             delete c;
             c=NULL;
-            cout<<"child not copied because of deep copy"<<endl;
+            //cout<<"child not copied because of deep copy"<<endl;
             return false;
         }
         this->m_Children.push_back(c);
         c->m_Parent = this;
-        cout<<"child copy success at "<<i<<endl;
+        //cout<<"child copy success at "<<i<<endl;
 
         //this->leftChild->parent = node;
     }
@@ -111,7 +111,7 @@ bool Node::copyBaseVariables(const Node *node){
     
     //this->m_Parent = node->m_Parent;
     this->m_Name = node->m_Name;
-    std::cout<< "node copy base variables"<<std::endl;
+    //std::cout<< "node copy base variables"<<std::endl;
     return true;
 }
 
@@ -127,7 +127,7 @@ Node* Node::createInstanceFromString(string const &nodeType){
 
         return NULL;
     }
-    cout<<"returning second"<<endl;
+    //cout<<"returning second"<<endl;
 
     return iter->second();
 }
@@ -173,7 +173,7 @@ void Node::SetParentNode(Node* NewParent)
 bool Node::AddChildNode(Node* ChildNode)
 {
     
-    std::cout<<"add child node"<<std::endl;
+    //std::cout<<"add child node"<<std::endl;
     if(NULL != ChildNode)
     {
         //if(NULL != ChildNode->GetParentNode())
@@ -215,12 +215,12 @@ bool Node::RecursiveRemoveChildNode(Node* ChildNode)
             if(m_Children[i] == ChildNode)
             {
                 m_Children.erase(m_Children.begin() + i);
-                cout<<"node found child to remove at "<<i<<endl;
+                //cout<<"node found child to remove at "<<i<<endl;
                 return true;
                 break; // break the for loop
             }
             else{
-                cout<<"not found looking in children"<<i<<endl;
+                //cout<<"not found looking in children"<<i<<endl;
                 if(m_Children[i]->RecursiveRemoveChildNode(ChildNode)){
                     return true;
                     break;
@@ -229,7 +229,7 @@ bool Node::RecursiveRemoveChildNode(Node* ChildNode)
             }
         }
     }
-    cout<<"node child not found"<<endl;
+    //cout<<"node child not found"<<endl;
     return false;
 }
 

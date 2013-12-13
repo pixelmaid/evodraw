@@ -121,6 +121,7 @@ bool FeatureNode::copyBaseVariables(const Node *node){
     this->pYM=fNode->pYM;
     this->pYStd=fNode->pYStd;
     this->types = fNode->types;
+    this->weights = fNode->weights;
     this->x1= fNode->x1;
     this->x2 = fNode->x2;
     this->y1 = fNode->y1;
@@ -134,7 +135,7 @@ bool FeatureNode::copyBaseVariables(const Node *node){
 
 
 bool FeatureNode::clearNodeData(){
-    this->x1M =0;
+    /*this->x1M =0;
     this->x1Std = 0;
     this->x2M=0;
     this->x2Std=0;
@@ -145,7 +146,7 @@ bool FeatureNode::clearNodeData(){
     this->pXM=0;
     this->pXStd=0;
     this->pYM=0;
-    this->pYStd=0;
+    this->pYStd=0;*/
     this->types.clear();
     this->x1.clear();
     this->x2.clear();
@@ -153,9 +154,10 @@ bool FeatureNode::clearNodeData(){
     this->y2.clear();
     this->parentRelX.clear();
     this->parentRelY.clear();
-    /*for(int i=0;i<m_Children.size();i++){
+    this->weights.clear();
+    for(int i=0;i<m_Children.size();i++){
         ((FeatureNode*)m_Children[i])->clearNodeData();
-    }*/
+    }
     
 }
 //recursive function to build feature tree- called by probmodel

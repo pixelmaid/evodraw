@@ -57,16 +57,16 @@ bool DrawingManager::buildFeatureTree(){
         FeatureNode* f = new FeatureNode();
         f->createChildrenFromShape(savedDrawings[0][i]);
         fnodes.push_back(f);
-        cout<<"created a feature node at "<<i<<endl;
+        //cout<<"created a feature node at "<<i<<endl;
         
     }
     treeBuilt = true;
-    cout<<"completed building feature tree"<<endl;
+    //cout<<"completed building feature tree"<<endl;
 }
 
 
 void DrawingManager::generateDrawing(){
-    cout<<"fnodes size="<<fnodes.size()<<endl;
+    //cout<<"fnodes size="<<fnodes.size()<<endl;
     if(fnodes.size()>0){
        for(int i=0;i<fnodes.size();i++){
             Shape* gShape = fnodes[i]->generateShape(NULL);
@@ -109,12 +109,12 @@ void DrawingManager::deleteShapes(){
     savedDrawings.clear();
     
     for (int i=0;i<currentShapes.size();i++){
-        cout<<"deleting shape at "<<i<<endl;
+        //cout<<"deleting shape at "<<i<<endl;
         delete(currentShapes[i]);
-        cout<<"setting NULL shape at "<<i<<endl;
+        //cout<<"setting NULL shape at "<<i<<endl;
         currentShapes[i]=NULL;
     }
-    cout<<"clearing current shapes"<<endl;
+    //cout<<"clearing current shapes"<<endl;
     
     currentShapes.clear();
     _parent = NULL;
@@ -280,7 +280,7 @@ void DrawingManager::parent(double x, double y){
                 _parent=s;
                 s->parentSelected= true;
                 currentShapes[i]->selected = false;
-                cout<<"parent_selected"<<endl;
+                //cout<<"parent_selected"<<endl;
                 
             }
             
@@ -297,7 +297,7 @@ void DrawingManager::parent(double x, double y){
                     s->childSelected= true;
                     s->selected = false;
                     
-                    cout<<"parent_child created"<<endl;
+                    //cout<<"parent_child created"<<endl;
                     _parent = NULL;
                     break;
                 }
@@ -314,14 +314,14 @@ bool DrawingManager::removeChild(Shape* c){
     for(int i=0;i<currentShapes.size();i++){
         if(currentShapes[i]==c){
             currentShapes.erase(currentShapes.begin() + i );
-            cout<<"child to be removed found in current shapes "<<i<<endl;
+            //cout<<"child to be removed found in current shapes "<<i<<endl;
             return true;
             break;
             
         }
         
         else if (currentShapes[i]->RecursiveRemoveChildNode(c)){
-            cout<<"child to be removed found in child of current shapes"<<endl;
+            //cout<<"child to be removed found in child of current shapes"<<endl;
             
             return true;
             break;
@@ -379,7 +379,7 @@ Shape* DrawingManager::setShape(const Shape* shape){
     if( nshape == NULL ){
         //errorMessage = "setClassifier(const Classifier classifier) - Classifier Module Not Set!";
         //errorLog << errorMessage << endl;
-        cout<<"shape not copied"<<endl;
+        //cout<<"shape not copied"<<endl;
         
         return NULL;
     }
@@ -388,7 +388,7 @@ Shape* DrawingManager::setShape(const Shape* shape){
     if( !nshape->deepCopyFrom( shape ) ){
         delete nshape;
         nshape=NULL;
-        cout<<"shape not copied because of deep copy"<<endl;
+        //cout<<"shape not copied because of deep copy"<<endl;
         return NULL;
     }
     return nshape;

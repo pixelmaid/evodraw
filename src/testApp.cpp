@@ -130,7 +130,7 @@ void testApp::canvasEvent(ofxUIEventArgs &e)
 {
 	string name = e.widget->getName();
     
-    cout << "got event from: " << name << endl;
+    //cout << "got event from: " << name << endl;
     
 
 }
@@ -175,7 +175,7 @@ void testApp::guiEvent(ofxUIEventArgs &e)
     else if(name == "WEIGHT"){
        ofxUISlider *slider = (ofxUISlider *) e.widget;
         weight = slider->getValue();
-        cout<<"setting weight ="<<weight<<endl;
+        //cout<<"setting weight ="<<weight<<endl;
 
     }
     
@@ -189,7 +189,7 @@ void testApp::guiEvent(ofxUIEventArgs &e)
 	{
         ofxUIImageButton *btn = (ofxUIImageButton *)e.widget;
        int trigger = btn->getValue();
-        cout << "trigger was: " << trigger << endl;
+        //cout << "trigger was: " << trigger << endl;
         if(trigger ==1) saveIndividual();
         
 		
@@ -198,11 +198,10 @@ void testApp::guiEvent(ofxUIEventArgs &e)
 	{
         ofxUIImageButton *btn = (ofxUIImageButton *)e.widget;
         int trigger = btn->getValue();
-        cout << "trigger was: " << trigger << endl;
+        //cout << "trigger was: " << trigger << endl;
         if(trigger ==1){
             
             d.populateFeatureTree();
-           //probModel.populateFeatureTree(d.savedDrawings);
             generateNewIndividual();
         }
 
@@ -217,7 +216,7 @@ bool testApp::generateNewIndividual(){
         d.generateDrawing();
         //probModel.generateDrawing(d.currentShapes);
         ////d.addDrawing(newDrawing);
-        //saveIndividual();
+        saveIndividual();
         
     }
     
@@ -230,7 +229,7 @@ void testApp::saveIndividual(){
     ofBackground(255);
     d.draw(output, false);
     snapshot.grabScreen(canvasX,canvasY,canvasWidth,canvasHeight);
-    cout<<"saving weight ="<<weight<<endl;
+    //cout<<"saving weight ="<<weight<<endl;
     d.saveDrawing(weight);
     string fileName = "snapshot_"+ofToString(10000+snapCounter)+".png";
     snapshot.saveImage(fileName);

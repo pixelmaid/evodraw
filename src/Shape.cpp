@@ -45,7 +45,7 @@ Shape& Shape::operator = (const Shape &rhs){
 bool Shape::copyBaseVariables(const Shape *shape){
     
     if( shape == NULL ){
-        cout<<"shape is null, cannot copy base vars"<<endl;
+        //cout<<"shape is null, cannot copy base vars"<<endl;
 
         return false;
     }
@@ -66,7 +66,7 @@ bool Shape::copyBaseVariables(const Shape *shape){
     this->relY = shape->relY;
     this->weight = shape->weight;
     
-    cout<<"shape copy base vars was successful"<<endl;
+    //cout<<"shape copy base vars was successful"<<endl;
     bool success = Node::copyBaseVariables(shape);
     this->setParentChildRels();
     this->updateRelativeDist();
@@ -95,7 +95,7 @@ bool Shape::updateRelativeDist(){
 }
 
 bool Shape::walkDrawing(Shape* s){
-    cout<<"walking drawing"<<endl;
+    //cout<<"walking drawing"<<endl;
     //this->copyBaseVariables(s);
     for(int i=0;i<m_Children.size();i++){
        ((Shape*)m_Children[i])->walkDrawing(((Shape*)s->m_Children[i]));
@@ -115,13 +115,13 @@ bool Shape::setWeight(double w){
 bool Shape::AddChildNode(Node* ChildNode){
     bool set= Node::AddChildNode(ChildNode);
     if(set){
-        cout<<"num of children="<<this->m_Children.size()<<endl;
+        //cout<<"num of children="<<this->m_Children.size()<<endl;
        ((Shape*)ChildNode)->setParentChildRels();
         return ((Shape*)ChildNode)->updateRelativeDist();
        
     }
     else {
-        cout<<"node add child node failed"<<endl;
+        //cout<<"node add child node failed"<<endl;
         return false;
     }
 

@@ -63,11 +63,11 @@ Line& Line::operator = (const Line &rhs){
 
 //deep copy method
 bool Line::deepCopyFrom(const Node *node){
-    cout<<"line deep copy attempt"<<endl;
+    //cout<<"line deep copy attempt"<<endl;
 
     
     if( node == NULL ){
-        cout<<"line not deep copied because node = NULL"<<endl;
+        //cout<<"line not deep copied because node = NULL"<<endl;
         return false;
 
     }
@@ -75,12 +75,12 @@ bool Line::deepCopyFrom(const Node *node){
     //cout<<"node type="<<node->getType()<<endl;
     if( this->getType() == node->getType() ){
         //Clone the values and return
-        cout<<"line deep copy success"<<endl;
+        //cout<<"line deep copy success"<<endl;
         if( copyBaseVariables( (Line*)node ) && Shape::deepCopyFrom(node)) return true;
         else return false;
     }
     else{
-        cout<<"line not deep copied because of type mismatch"<<endl;
+        //cout<<"line not deep copied because of type mismatch"<<endl;
   
     }
     return false;
@@ -92,7 +92,7 @@ bool Line::deepCopyFrom(const Node *node){
 bool Line::copyBaseVariables(const Line *line){
    
     if( line == NULL ){
-        cout<<"line is null, cannot copy base vars"<<endl;
+        //cout<<"line is null, cannot copy base vars"<<endl;
         return false;
     }
     
@@ -107,7 +107,7 @@ bool Line::copyBaseVariables(const Line *line){
     this->x2=line->x2;
     this->y2=line->y2;
     
-    cout<<"line copy base vars was successful"<<endl;
+    //cout<<"line copy base vars was successful"<<endl;
     
     
     return Shape::copyBaseVariables(line);
