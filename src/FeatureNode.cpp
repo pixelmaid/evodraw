@@ -122,13 +122,15 @@ bool FeatureNode::getShapeFeatures(Shape* s){
     weights.push_back(s->weight);
     type.push_back(typeCheck(s->type));
     
+    
     cout<<"x1="<<s->x1<<", y1="<<s->y1<<", x2="<<s->x2<<", y2="<<s->y2<<", pRx="<<s->parentRelX<<", pRy="<<s->parentRelY<<endl;
-       
+    cout<<"type="<<s->type<<endl;
     
     for(int i=0;i<s->m_Children.size();i++){
-        cout<<"added shape features at child "<<i<<endl;
+        cout<<"trying to add shape features at child "<<i<<endl;
+        cout<<"x1="<<((Shape*)m_Children[i])->x1<<", y1="<<((Shape*)m_Children[i])->y1<<", x2="<<((Shape*)m_Children[i])->x2<<", y2="<<((Shape*)m_Children[i])->y2<<", pRx="<<((Shape*)m_Children[i])->parentRelX<<", pRy="<<((Shape*)m_Children[i])->parentRelY<<endl;
 
-         ((FeatureNode*)this->m_Children[i])->getShapeFeatures((Shape*)m_Children[i]);
+         ((FeatureNode*)this->m_Children[i])->getShapeFeatures((Shape*)s->m_Children[i]);
     }
                     
 }
@@ -182,7 +184,7 @@ Shape* FeatureNode::generateShape(Shape *parent){
     else{
         s = new Line(_x1,_y1,_x2,_y2);
         parent->AddChildNode(s);
-            s->parentRelX = _parentRelX;
+           s->parentRelX = _parentRelX;
             s->parentRelY = _parentRelY;
             s->calcConstrainedPoint();
             s->x2= _x2;
