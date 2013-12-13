@@ -107,11 +107,15 @@ bool Shape::setWeight(double w){
 bool Shape::AddChildNode(Node* ChildNode){
     bool set= Node::AddChildNode(ChildNode);
     if(set){
-        ((Shape*)ChildNode)->setParentChildRels();
+        cout<<"num of children="<<this->m_Children.size()<<endl;
+       ((Shape*)ChildNode)->setParentChildRels();
         return ((Shape*)ChildNode)->updateRelativeDist();
        
     }
-    else return false;
+    else {
+        cout<<"node add child node failed"<<endl;
+        return false;
+    }
 
 
 }

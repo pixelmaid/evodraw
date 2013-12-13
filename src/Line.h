@@ -76,7 +76,7 @@ public:
     //transformation functions//
     
     //scale method (right now there is no scaling for lines)
-    virtual bool scale(double _x, double _y){ return false;};
+    virtual bool scale(double _x, double _y){  return Shape::scale(_x,_y);};
     
     //move function
     virtual bool move(double px, double py);

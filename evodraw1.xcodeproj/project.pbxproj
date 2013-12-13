@@ -94,6 +94,7 @@
 		0A80174E183E9A4000D9B9D8 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A801748183E9A4000D9B9D8 /* tinyxmlparser.cpp */; };
 		0A80174F183E9A4000D9B9D8 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A80174A183E9A4000D9B9D8 /* ofxXmlSettings.cpp */; };
 		0ABB0A03185A169800780813 /* FeatureNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB0A01185A169800780813 /* FeatureNode.cpp */; };
+		0ABB0A10185ACE5C00780813 /* Ellipse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB0A0E185ACE5B00780813 /* Ellipse.cpp */; };
 		0AC6358E18557EB00008B7D9 /* Color_Const.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AC6358C18557EB00008B7D9 /* Color_Const.cpp */; };
 		0AC635A21856ACBB0008B7D9 /* Line.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AC635A11856ACBB0008B7D9 /* Line.cpp */; };
 		0AF44C3518523C24003FB7CE /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF44C3318523C24003FB7CE /* Node.cpp */; };
@@ -346,7 +347,6 @@
 		0A30CF4A184FB5B500980AFA /* Vec2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vec2D.cpp; sourceTree = "<group>"; };
 		0A30CF4B184FB5B500980AFA /* Vec2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec2D.h; sourceTree = "<group>"; };
 		0A4AFC5B1857775400D62020 /* Shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shape.cpp; sourceTree = "<group>"; };
-		0A5A166718466CB900F71DC9 /* Ellipse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Ellipse.h; sourceTree = "<group>"; };
 		0A5A166D184A583900F71DC9 /* Line.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Line.h; sourceTree = "<group>"; };
 		0A5A166E184A62E500F71DC9 /* Rectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rectangle.h; sourceTree = "<group>"; };
 		0A5A1672184A736E00F71DC9 /* ProbModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProbModel.cpp; sourceTree = "<group>"; };
@@ -359,6 +359,8 @@
 		0A80174B183E9A4000D9B9D8 /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
 		0ABB0A01185A169800780813 /* FeatureNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FeatureNode.cpp; sourceTree = "<group>"; };
 		0ABB0A02185A169800780813 /* FeatureNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeatureNode.h; sourceTree = "<group>"; };
+		0ABB0A0E185ACE5B00780813 /* Ellipse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ellipse.cpp; sourceTree = "<group>"; };
+		0ABB0A0F185ACE5B00780813 /* Ellipse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ellipse.h; sourceTree = "<group>"; };
 		0AC6358C18557EB00008B7D9 /* Color_Const.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Color_Const.cpp; sourceTree = "<group>"; };
 		0AC6358D18557EB00008B7D9 /* Color_Const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color_Const.h; sourceTree = "<group>"; };
 		0AC635A11856ACBB0008B7D9 /* Line.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Line.cpp; sourceTree = "<group>"; };
@@ -1016,7 +1018,8 @@
 				0ABB0A01185A169800780813 /* FeatureNode.cpp */,
 				0ABB0A02185A169800780813 /* FeatureNode.h */,
 				0AF44C3418523C24003FB7CE /* Node.h */,
-				0A5A166718466CB900F71DC9 /* Ellipse.h */,
+				0ABB0A0E185ACE5B00780813 /* Ellipse.cpp */,
+				0ABB0A0F185ACE5B00780813 /* Ellipse.h */,
 				0A5A166E184A62E500F71DC9 /* Rectangle.h */,
 				0A5A166D184A583900F71DC9 /* Line.h */,
 				0AC635A11856ACBB0008B7D9 /* Line.cpp */,
@@ -1434,6 +1437,7 @@
 				0AC635A21856ACBB0008B7D9 /* Line.cpp in Sources */,
 				0A4AFC5C1857775400D62020 /* Shape.cpp in Sources */,
 				0ABB0A03185A169800780813 /* FeatureNode.cpp in Sources */,
+				0ABB0A10185ACE5C00780813 /* Ellipse.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

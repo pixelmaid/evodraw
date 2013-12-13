@@ -73,8 +73,8 @@ bool Line::deepCopyFrom(const Node *node){
         return false;
 
     }
-    cout<<"this type="<<this->getType()<<endl;
-    cout<<"node type="<<node->getType()<<endl;
+    //cout<<"this type="<<this->getType()<<endl;
+    //cout<<"node type="<<node->getType()<<endl;
     if( this->getType() == node->getType() ){
         //Clone the values and return
         cout<<"line deep copy success"<<endl;
@@ -151,16 +151,7 @@ bool Line::calcConstrainedPoint(){
     return true;
 
 }
-//adds a child node and calculates relative parent values used
-/*
-bool Shape::AddChildNode(Node* ChildNode){
-    /*  vector<double> pC = this->centroid();
-     vector<double> cC = ((Shape*)ChildNode)->centroid();
-     ((Shape*)ChildNode)->parentRelX = cC[0]-pC[0];
-     ((Shape*)ChildNode)->parentRelY = cC[1]-pC[1];*/
-  /*  return Node::AddChildNode(ChildNode);
-}
-*/
+
 
 //returns midpoint of the line as centroid
 vector<double> Line::centroid(){

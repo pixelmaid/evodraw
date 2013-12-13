@@ -11,13 +11,12 @@
     
 #include <iostream>
 #include "Shape.h"
-#include "Ellipse.h"
 #include "Line.h"
 #include "Rectangle.h"
 #include "ofxVectorGraphics.h"
 #include "ofMain.h"
 #include "Color_Const.h"
-
+#include "Ellipse.h"
     
 #define DRAW_M 0
 #define SELECT_M 1
