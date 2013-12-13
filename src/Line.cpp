@@ -36,8 +36,6 @@ Line::Line(double _x1, double _y1, double _x2, double _y2){
     y2 = _y2;
     Line();
     type = "Line";
-    cout<<"Line init x1="<<this->x1<<", y1="<<this->y1<<", x2="<<this->x2<<", y2="<<this->y2<<endl;
-
     //cout<<"line type="<<this->getType()<<endl;
     
 

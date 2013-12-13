@@ -176,9 +176,9 @@ public:
     
      void draw(ofxVectorGraphics &output, bool history){
          bool dselect = false;
-         int rv=70;
+        int rv=70;
          if (mode == SELECT_M ||mode == DIRECT_M ) dselect = true;
-         if(history){
+          /*if(history){
              int lDp = dP-4;
              if(lDp<0)lDp=0;
              
@@ -191,7 +191,7 @@ public:
              if(rv>255){
                  rv=255;
              }
-         }
+         }*/
              
          /*   rv=70;
              int kDp = dP+4;
@@ -207,7 +207,7 @@ public:
                  }
              }*/
              
-         }
+         //}
 
          for(int i=0;i<currentShapes.size();i++){
              currentShapes[i]->draw(output);
@@ -339,6 +339,7 @@ public:
     void saveDrawing(double w){
         for(int i=0;i<currentShapes.size();i++){
             currentShapes[i]->setWeight(w);
+            cout<<"saving: x1="<<currentShapes[i]->x1<<", x2="<<currentShapes[i]->x2<<", y1="<<currentShapes[i]->x2<<", y2="<<currentShapes[i]->x2<<", pRx="<<currentShapes[i]->parentRelX<<", pRY="<<currentShapes[i]->parentRelY<<", type="<<currentShapes[i]->type<<", weight="<<currentShapes[i]->weight<<endl;
         }
         vector<Shape*> c = copy(currentShapes);
         savedDrawings.push_back(c);
@@ -347,11 +348,23 @@ public:
         //currentShapes.clear();
         dP++;
     }
-    bool addDrawing(vector<Shape*> &drawing){
-        clearAll();
-        currentShapes = drawing;
+   bool addDrawing(){
+        currentShapes.clear();
+       Line* l = new Line(100,100);
+       l->size(200,200);
+       currentShapes.push_back(l);
+        /*for(int i=0;i<drawing.size();i++){
+            currentShapes.push_back(setShape(drawing[i]));
+           delete drawing[i];
+           drawing[i]=NULL;
+        }
+        
+        
+        drawing.clear();*/
         return true;
     }
+    
+
     
     vector<Shape*> copy(vector<Shape*>toCopy){
         vector<Shape*> copy;

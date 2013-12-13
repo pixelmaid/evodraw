@@ -14,6 +14,7 @@ void testApp::setup(){
 	weight =1.0;
 	setDrawTools();
     setCanvases();
+    numExamples = 1;
     
     
     
@@ -200,8 +201,7 @@ void testApp::guiEvent(ofxUIEventArgs &e)
         cout << "trigger was: " << trigger << endl;
         if(trigger ==1){
             
-           // probModel.evalKeystone(d.savedDrawings);
-            //probModel.generateKeystoneValues();
+          
            probModel.populateFeatureTree(d.savedDrawings);
             generateNewIndividual();
         }
@@ -212,21 +212,20 @@ void testApp::guiEvent(ofxUIEventArgs &e)
 }
 
 bool testApp::generateNewIndividual(){
-    vector<Shape*> newDrawing= probModel.generateDrawing();
-    if(newDrawing.size()!=0){
-        if(d.addDrawing(newDrawing)) return true;
-        else return false;
+    for(int i=0;i<numExamples;i++){
+        //d.clearAll();
+        d.addDrawing();
+        //probModel.generateDrawing(d.currentShapes);
+        ////d.addDrawing(newDrawing);
+        //saveIndividual();
+        
     }
-    else{
-    return false;
-    }
-
+    
 }
 
 void testApp::saveIndividual(){
     // grab a rectangle at 200,200, width and height of 300,180
-   
-    
+
   
     ofBackground(255);
     d.draw(output, false);

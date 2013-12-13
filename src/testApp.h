@@ -70,6 +70,7 @@ public:
     int snapCounter;
     
     double weight;
+    int numExamples;
     
     //canvas dimensions
     int canvasX;

@@ -26,6 +26,13 @@ FeatureNode::FeatureNode(){
 
 FeatureNode::~FeatureNode(){
     clear();
+    for(int i=0;i<m_Children.size();i++){
+        m_Children[i]->clear();
+        delete m_Children[i];
+        m_Children[i]=NULL;
+    }
+
+    m_Children.clear();
 }
 
 bool FeatureNode::clear(){
@@ -94,6 +101,32 @@ bool FeatureNode::copyBaseVariables(const Node *node){
     return (success);
 }
 
+
+bool FeatureNode::clearNodeData(){
+    this->x1M =0;
+    this->x1Std = 0;
+    this->x2M=0;
+    this->x2Std=0;
+    this->y1M=0;
+    this->y1Std=0;
+    this->y2M=0;
+    this->y2Std=0;
+    this->pXM=0;
+    this->pXStd=0;
+    this->pYM=0;
+    this->pYStd=0;
+    this->types.clear();
+    this->x1.clear();
+    this->x2.clear();
+    this->y1.clear();
+    this->y2.clear();
+    this->parentRelX.clear();
+    this->parentRelY.clear();
+    for(int i=0;i<m_Children.size();i++){
+        ((FeatureNode*)m_Children[i])->clearNodeData();
+    }
+    
+}
 //recursive function to build feature tree- called by probmodel
 bool FeatureNode::createChildrenFromShape(Shape* s){
     cout<<"trying to create children from shape "<<endl;
@@ -112,6 +145,7 @@ bool FeatureNode::createChildrenFromShape(Shape* s){
 //stores feature values of a given shape recursively
 bool FeatureNode::getShapeFeatures(Shape* s){
     
+    cout<<"shape = null: "<<s<<endl;
     x1.push_back(s->x1);
     y1.push_back(s->y1);
     x2.push_back(s->x2);
@@ -120,7 +154,7 @@ bool FeatureNode::getShapeFeatures(Shape* s){
     parentRelX.push_back(s->parentRelX);
     parentRelY.push_back(s->parentRelY);
     weights.push_back(s->weight);
-    type.push_back(typeCheck(s->type));
+    types.push_back(typeCheck(s->type));
     
     
     cout<<"x1="<<s->x1<<", y1="<<s->y1<<", x2="<<s->x2<<", y2="<<s->y2<<", pRx="<<s->parentRelX<<", pRy="<<s->parentRelY<<endl;
@@ -184,19 +218,28 @@ Shape* FeatureNode::generateShape(Shape *parent){
     double _y2 =  random.getRandomNumberGauss(y2M,y2Std);
     double _parentRelX =  random.getRandomNumberGauss(pXM,pXStd);
     double _parentRelY =  random.getRandomNumberGauss(pYM,pYStd);
-    int type = round(random.getRandomNumberGauss(tM,tStd));
-    cout<<"_x1="<<_x1<<"_y1="<<_y1<<"_x2="<<_x2<<"_y2="<<_y2<<"_pRx="<<_parentRelX<<"_pRy="<<_parentRelY<<endl;
+    int _type = round(tM);
+    cout<<"_x1="<<_x1<<"_y1="<<_y1<<"_x2="<<_x2<<"_y2="<<_y2<<"_pRx="<<_parentRelX<<"_pRy="<<_parentRelY<<"_type="<<_type<<endl;
 
     Shape* s;
     cout<<"attempting to generate shape"<<endl;
 
     if(parent == NULL){
-        s = new Line(_x1,_y1,_x2,_y2);
+        if(_type == 1) s = new Ellipse(_x2,_y2,_x1,_y1);
+        else{
+            s = new Line(_x1,_y1);
+            s->size(_x2,_y2);
+        }
+
         cout<<"no parent, created new shape"<<endl;
     }
     else{
-        if(type==0) s = new Line(_x1,_y1,_x2,_y2);
-        else if(type == 1) s = new Ellipse(_x2,_y2,_x1,_y1);
+        if(_type == 1) s = new Ellipse(_x2,_y2,_x1,_y1);
+        else{
+            s = new Line(_x1,_y1);
+            s->size(_x2,_y2);
+        }
+
         parent->AddChildNode(s);
            s->parentRelX = _parentRelX;
             s->parentRelY = _parentRelY;
@@ -243,10 +286,10 @@ int FeatureNode::typeCheck(string t){
         return 0;
     }
     else if(t=="Rectangle"){
-        return 1;
+        return 2;
     }
     else if(t=="Ellipse"){
-        return 2;
+        return 1;
     }
     else{
         return -1;

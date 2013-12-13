@@ -94,6 +94,14 @@ bool Shape::updateRelativeDist(){
     return false;
 }
 
+bool Shape::walkDrawing(Shape* s){
+    cout<<"walking drawing"<<endl;
+    //this->copyBaseVariables(s);
+    for(int i=0;i<m_Children.size();i++){
+       ((Shape*)m_Children[i])->walkDrawing(((Shape*)s->m_Children[i]));
+    }
+}
+
 //recursively sets weights for shape and children
 bool Shape::setWeight(double w){
     weight = w;

@@ -25,15 +25,18 @@ public:
     ~ProbModel();
     
     bool clear();
-        
+    
+    //recursively clears data from nodes
+    bool clearNodeData();
+    
     vector<Shape*> generateDrawing();
     
     //builds the intial feature tree
-    bool buildFeatureTree(vector<Shape*> drawing);
+    bool buildFeatureTree(vector<Shape*> &drawing);
   
     
     //populates feature tree with values across all drawings
-    bool populateFeatureTree(vector<vector<Shape*>>drawings);
+    bool populateFeatureTree(vector<vector<Shape*>> &drawings);
     
     FeatureNode* recurseTree(FeatureNode* pN, Shape* pS, int pos);
     
@@ -42,6 +45,7 @@ private:
     vector<FeatureNode*> fnodes;
     //records number of shapes in the drawing for error checking purposes.
     int shapeNum;
+    bool treeBuilt;
 };
 
 

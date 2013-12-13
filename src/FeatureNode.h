@@ -32,6 +32,9 @@ public:
     
     bool createChildrenFromShape(Shape* s);
     
+    //recursively clears data from nodes
+    bool clearNodeData();
+    
     //stores all the features of the shape passed to the function
     bool getShapeFeatures(Shape* s);
     //calculates new values for the mean and standard dev based on current feature values
