@@ -95,11 +95,13 @@ void DrawingManager::clearAll(){
 }
 
 void DrawingManager::clearLast(){
-    /*if(savedDrawings[savedDrawings.size()-1].size()!=0){
-        delete(currentShapes[currentShapes.size()-1]);
-        currentShapes[currentShapes.size()-1]=NULL;
-        currentShapes.pop_back();
-    }*/
+     
+    if(savedDrawings[savedDrawings.size()-1].size()!=0){
+       int last =savedDrawings.size()-1;
+        delete(savedDrawings[last][savedDrawings[last].size()-1]);
+        savedDrawings[last][savedDrawings[last].size()-1]=NULL;
+        savedDrawings[last].pop_back();
+    }
 }
 
 
@@ -250,8 +252,11 @@ void DrawingManager::endShape(int x, int y){
 }
 
 void DrawingManager::close(){
+    if(currentShapes!=NULL){
+
     if(currentShapes->size()>0){
         int last = currentShapes->size()-1;
+    }
     }
 }
 

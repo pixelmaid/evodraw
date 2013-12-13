@@ -117,8 +117,11 @@ void testApp::setCanvases(){
     
     
     drawingSettings= new ofxUICanvas(57,0,ofGetWidth()-215,60);
-    drawingSettings->addWidgetDown(new ofxUILabel("weight", OFX_UI_FONT_MEDIUM));
+    drawingSettings->addWidgetDown(new ofxUILabel("Weight", OFX_UI_FONT_MEDIUM));
+    drawingSettings->addWidgetRight(new ofxUILabel("          Population Size", OFX_UI_FONT_MEDIUM));
     drawingSettings->addSlider("WEIGHT", 0.0, 2.0, weight, dim, 20);
+    
+    drawingSettings->addWidgetRight(new ofxUISlider("NUMB", 1, 10, 2, dim, 20));
     ofAddListener(drawingSettings->newGUIEvent,this,&testApp::guiEvent);
 
 	ofAddListener(canvases->newGUIEvent,this,&testApp::canvasEvent);
@@ -186,7 +189,12 @@ void testApp::guiEvent(ofxUIEventArgs &e)
         //cout<<"setting weight ="<<weight<<endl;
 
     }
-    
+    else if(name == "NUMB"){
+        ofxUISlider *slider = (ofxUISlider *) e.widget;
+        numExamples = round(slider->getScaledValue());
+        //cout<<"setting weight ="<<weight<<endl;
+        
+    }
     else if(name == "PARENTBTN"){
         d.parentMode();
     }
@@ -219,6 +227,7 @@ void testApp::guiEvent(ofxUIEventArgs &e)
 }
 
 bool testApp::generateNewIndividual(){
+    cout<<"numExamples ="<<numExamples<<endl;
     for(int i=0;i<numExamples;i++){
         //d.clearAll();
         d.generateDrawing();
