@@ -17,6 +17,7 @@
 #include "ofMain.h"
 #include "Color_Const.h"
 #include "Ellipse.h"
+#include "FeatureNode.h"
     
 #define DRAW_M 0
 #define SELECT_M 1
@@ -33,259 +34,35 @@ class DrawingManager{
     
 public:
     
-    void mouseDrag(double x, double y){
-        if (mode == DRAW_M); //addPoint(x,y);
-        else if (mode == ELLIPSE_M || mode== LINE_M || mode==RECT_M) sizeShape(x,y);
-        else if (mode == SELECT_M) checkMove(x,y);
-        else if (mode == DIRECT_M) checkDMove(x,y);
-        else if (mode == SCALE_M) checkScale(x,y);
-        
-    }
+    DrawingManager();
     
-    void mouseMove(double x, double y){
-        
-    }
+    ~DrawingManager();
     
-    void mouseDown(double x, double y){
-        if (mode == DRAW_M); //addPoint(x,y);
-        else if (mode == SELECT_M || mode == SCALE_M) checkSelect(x,y);
-        else if (mode == DIRECT_M) checkDSelect(x,y);
-        else if (mode == ELLIPSE_M || mode== LINE_M || mode==RECT_M) startShape(x,y);
-        
-        if (mode== PARENT_M) parent(x,y);
-         
-    }
+   
+    //model methods
+     void generateDrawing();
+    //builds the intial feature tree
+    bool buildFeatureTree();
+    //populates feature tree with values across all drawings
+    bool populateFeatureTree();
+    bool clearNodeData();
     
-    void mouseUp(double x, double y){
-        if (mode == DRAW_M) close();
-         else if (mode == ELLIPSE_M || mode== LINE_M || mode==RECT_M)endShape(x,y);
-         else if(mode==SCALE_M) deselectShapes();
-
-
-    }
+    //cleanup methods
+    bool clearModel();
+    void clearAll();
+    void clearLast();
+    void deleteShapes();
     
+    //mouse event detection
+    void mouseDrag(double x, double y);
     
-    /*void addPoint(double x, double y){
-     int last = currentShapes.size()-1;
-     if(last==-1||currentShapes[last]->closed){
-     Shape* s = new Shape();
-     currentShapes.push_back(s);
-     }
-     else {
-         currentShapes[last]->addPoint(x,y);
-     
-     };
-     
-     }*/
+    void mouseMove(double x, double y){}
     
-    void parent(double x, double y){
-        if (_parent ==NULL){
-        for(int i=0;i<currentShapes.size();i++){
-            Shape* s=  currentShapes[i]->checkSelect(x, y);
-            if(s!=NULL) {
-                _parent=s;
-                s->parentSelected= true;
-                currentShapes[i]->selected = false;
-                cout<<"parent_selected"<<endl;
-
-            }
-        
-
-            break;
-            }
-        }
-        else {
-            for(int i=0;i<currentShapes.size();i++){
-                    Shape* s=  currentShapes[i]->checkSelect(x, y);
-                if(s!=NULL && s!=_parent) {
-                    if(removeChild(s)){
-                    _parent->AddChildNode(s);
-                    s->childSelected= true;
-                    s->selected = false;
-                    
-                    cout<<"parent_child created"<<endl;
-                    _parent = NULL;
-                    break;
-                }
-            }
-            
-        }
-            _parent = NULL;
-
-        }
-        
-    }
+    void mouseDown(double x, double y);    
     
-    bool removeChild(Shape* c){
-        for(int i=0;i<currentShapes.size();i++){
-            if(currentShapes[i]==c){
-                currentShapes.erase(currentShapes.begin() + i );
-                cout<<"child to be removed found in current shapes "<<i<<endl;
-                return true;
-                break;
-                
-            }
-
-            else if (currentShapes[i]->RecursiveRemoveChildNode(c)){
-            cout<<"child to be removed found in child of current shapes"<<endl;
-          
-            return true;
-            break;
-            }
-        };
-        return false;
-    }
+    void mouseUp(double x, double y);
     
-    void checkSelect(double x, double y){
-        for(int i=0;i<currentShapes.size();i++){
-            currentShapes[i]->checkSelect(x, y);
-        };
-    }
-    
-    
-    void checkDSelect(double x, double y){
-        for(int i=0;i<currentShapes.size();i++){
-            currentShapes[i]->checkDSelect(x, y);
-        };
-    }
-    
-    void checkMove(double x, double y){
-        for(int i=0;i<currentShapes.size();i++){
-            currentShapes[i]->move(x, y);
-        };
-    }
-    
-    void checkDMove(double x, double y){
-        for(int i=0;i<currentShapes.size();i++){
-            currentShapes[i]->movePoint(x, y);
-        };
-    }
-    
-    void checkScale(double x, double y){
-        for(int i=0;i<currentShapes.size();i++){
-            currentShapes[i]->scale(x, y);
-        };
-    }
-    
-    
-    /*void update(){
-        for(int i=0;i<currentShapes.size();i++){
-            currentShapes[i]->Update();
-        }
-    }*/
-    
-     void draw(ofxVectorGraphics &output, bool history){
-         bool dselect = false;
-        int rv=70;
-         if (mode == SELECT_M ||mode == DIRECT_M ) dselect = true;
-          /*if(history){
-             int lDp = dP-4;
-             if(lDp<0)lDp=0;
-             
-         for(int i = dP-1;i>=lDp;i--){
-              int color = createRGB(255,rv,rv);
-             for(int j=0;j<savedDrawings[i].size();j++){
-                savedDrawings[i][j]->draw(output,color);
-             }
-             rv+=70;
-             if(rv>255){
-                 rv=255;
-             }
-         }*/
-             
-         /*   rv=70;
-             int kDp = dP+4;
-           if(kDp>savedDrawings.size()-1)kDp=savedDrawings.size()-1;
-             for(int i = dP+1;i<=kDp;i++){
-                 int color = createRGB(rv,255,rv);
-                 for(int j=0;j<savedDrawings[i].size();j++){
-                     savedDrawings[i][j]->draw(output,dselect,color);
-                 }
-                 rv+=70;
-                 if(rv>255){
-                     rv=255;
-                 }
-             }*/
-             
-         //}
-
-         for(int i=0;i<currentShapes.size();i++){
-             currentShapes[i]->draw(output);
-     }
-     }
-    
-    
-    unsigned long createRGB(int r, int g, int b)
-    {
-        return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
-    }
-    
-    //these methods control the creation of regular shapes
-    
-    void startShape(int x, int y){
-        //cout << "start ellipse at " << x << " ," <<y << endl;
-        Shape* s;
-        switch (mode)
-        {
-            case ELLIPSE_M:
-                s = new Ellipse(x,y);
-                break;
-            case LINE_M:
-                s = new Line(x,y);
-                break;
-            case RECT_M:
-                s = new Rectangle(x,y);
-                break;
-        }
-        currentShapes.push_back(s);
-        shapeStart = true;
-        
-    }
-    
-    void sizeShape(int x, int y){
-       if(shapeStart){
-           currentShapes[currentShapes.size()-1]->size(x,y);
-       }
-
-    }
-    
-    void endShape(int x, int y){
-        if(shapeStart){
-            shapeStart = false;
-        }
-  
-    }
-    
-    void close(){
-        if(currentShapes.size()>0){
-            int last = currentShapes.size()-1;
-        }
-    }
-    
-    void deselectShapes(){
-        for(int i=0;i<currentShapes.size();i++){
-            currentShapes[i]->deselect();
-        }
-    }
-
-    
-    void clearAll(){
-        for (int i=0;i<currentShapes.size();i++){
-            delete(currentShapes[i]);
-            currentShapes[i]=NULL;
-        }
-        currentShapes.clear();
-    }
-    
-    void clearLast(){
-        if(currentShapes.size()!=0){
-            delete(currentShapes[currentShapes.size()-1]);
-            currentShapes[currentShapes.size()-1]=NULL;
-            currentShapes.pop_back();
-        }
-    }
-    
-    
+    //mode toggles
     void drawMode(){
         mode = DRAW_M;
         deselectShapes();
@@ -294,7 +71,7 @@ public:
     void ellipseMode(){
         mode = ELLIPSE_M;
         deselectShapes();
-       
+        
     }
     void lineMode(){
         mode = LINE_M;
@@ -317,7 +94,7 @@ public:
     void selectMode(){
         mode = SELECT_M;
         deselectShapes();
-
+        
         //close();
         
     }
@@ -325,101 +102,50 @@ public:
     void directMode(){
         mode = DIRECT_M;
         deselectShapes();
-
+        
         //close();
     }
     
     void scaleMode(){
         mode = SCALE_M;
         deselectShapes();
-
+        
         //close();
     }
     
-    void saveDrawing(double w){
-        for(int i=0;i<currentShapes.size();i++){
-            currentShapes[i]->setWeight(w);
-            cout<<"saving: x1="<<currentShapes[i]->x1<<", x2="<<currentShapes[i]->x2<<", y1="<<currentShapes[i]->x2<<", y2="<<currentShapes[i]->x2<<", pRx="<<currentShapes[i]->parentRelX<<", pRY="<<currentShapes[i]->parentRelY<<", type="<<currentShapes[i]->type<<", weight="<<currentShapes[i]->weight<<endl;
-        }
-        vector<Shape*> c = copy(currentShapes);
-        savedDrawings.push_back(c);
-        //weights.push_back(w);
-        cout<<"weight = "<<w<<endl;
-        //currentShapes.clear();
-        dP++;
-    }
-   bool addDrawing(){
-        currentShapes.clear();
-       Line* l = new Line(100,100);
-       l->size(200,200);
-       currentShapes.push_back(l);
-        /*for(int i=0;i<drawing.size();i++){
-            currentShapes.push_back(setShape(drawing[i]));
-           delete drawing[i];
-           drawing[i]=NULL;
-        }
-        
-        
-        drawing.clear();*/
-        return true;
+    //selection detection
+    void checkSelect(double x, double y);
+    void checkDSelect(double x, double y);
+    void checkMove(double x, double y);
+    void checkDMove(double x, double y);
+    void checkScale(double x, double y);
+    void deselectShapes();
+    
+    //these methods control the creation of regular shapes
+    void startShape(int x, int y);
+    void sizeShape(int x, int y);
+    void endShape(int x, int y);
+    void close();
+    
+    //drawing
+    void draw(ofxVectorGraphics &output, bool history);
+    
+    unsigned long createRGB(int r, int g, int b)
+    {
+        return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
     }
     
-
+    //parent child handling
+    void parent(double x, double y);
+    bool removeChild(Shape* c);
     
-    vector<Shape*> copy(vector<Shape*>toCopy){
-        vector<Shape*> copy;
-        for(int i=0;i<toCopy.size();i++){
-            Shape* s = setShape(toCopy[i]);
-            copy.push_back(s);
-        }
-        return copy;
-    }
-    
-   Shape* setShape(const Shape* shape){
-       Shape* nshape;
-        //Create a new instance of the classifier and then clone the values across from the reference classifier
-       nshape = (Shape*)shape->createNewInstance();
-        
-        if( nshape == NULL ){
-            //errorMessage = "setClassifier(const Classifier classifier) - Classifier Module Not Set!";
-            //errorLog << errorMessage << endl;
-            cout<<"shape not copied"<<endl;
-            
-            return NULL;
-        }
-        
-        //Validate that the classifier was cloned correctly
-        if( !nshape->deepCopyFrom( shape ) ){
-            delete nshape;
-            nshape=NULL;
-            cout<<"shape not copied because of deep copy"<<endl;
-            return NULL;
-        }
-        return nshape;
-    }
+    //saving, adding and copying (the troublemakers)
+    void saveDrawing(double w);
+    bool addDrawing();
+    vector<Shape*> copy(vector<Shape*>toCopy);
+    Shape* setShape(const Shape* shape);
     
     
-    void deleteShapes(){
-        for (int i=0;i<savedDrawings.size();i++){
-            for(int j=0;j<savedDrawings[i].size();j++){
-                delete(savedDrawings[i][j]);
-                    savedDrawings[i][j]=NULL;
-            }
-        }
-        savedDrawings.clear();
-
-        for (int i=0;i<currentShapes.size();i++){
-            cout<<"deleting shape at "<<i<<endl;
-            delete(currentShapes[i]);
-            cout<<"setting NULL shape at "<<i<<endl;
-            currentShapes[i]=NULL;
-        }
-        cout<<"clearing current shapes"<<endl;
-
-        currentShapes.clear();
-        _parent = NULL;
-    }
-
     vector<Shape*> currentShapes;
     vector<vector<Shape*>> savedDrawings;
     vector<double> weights;
@@ -429,6 +155,10 @@ public:
     int dP; //position for current drawing
     bool shapeStart;
     Shape* _parent;
+    bool treeBuilt;
+    
+    //vector of feature trees for storing features of drawings
+    vector<FeatureNode*> fnodes;
 };
 
 

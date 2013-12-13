@@ -201,8 +201,8 @@ void testApp::guiEvent(ofxUIEventArgs &e)
         cout << "trigger was: " << trigger << endl;
         if(trigger ==1){
             
-          
-           probModel.populateFeatureTree(d.savedDrawings);
+            d.populateFeatureTree();
+           //probModel.populateFeatureTree(d.savedDrawings);
             generateNewIndividual();
         }
 
@@ -214,7 +214,7 @@ void testApp::guiEvent(ofxUIEventArgs &e)
 bool testApp::generateNewIndividual(){
     for(int i=0;i<numExamples;i++){
         //d.clearAll();
-        d.addDrawing();
+        d.generateDrawing();
         //probModel.generateDrawing(d.currentShapes);
         ////d.addDrawing(newDrawing);
         //saveIndividual();

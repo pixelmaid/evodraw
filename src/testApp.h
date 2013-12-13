@@ -5,7 +5,6 @@
 #include "ofxVectorGraphics.h"
 #include "DrawingManager.h"
 #include "ofxUI.h"
-#include "ProbModel.h"
 #include "Shape.h"
 using namespace GRT;
 
@@ -45,9 +44,7 @@ public:
     ofImage image;
     Random random;
     
-    //probCalc
-    ProbModel probModel;
-    
+   
     //graphics
     ofxVectorGraphics output;
     DrawingManager d;

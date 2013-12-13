@@ -16,7 +16,7 @@
 #include "Line.h"
 #include "Ellipse.h"
 #include <math.h>
-class FeatureNode:Node{
+class FeatureNode: public Node{
 public:
     
     FeatureNode();
@@ -27,6 +27,8 @@ public:
     FeatureNode(const FeatureNode &rhs);
     FeatureNode& operator = (const FeatureNode &rhs);
     
+    
+    virtual bool deepCopyFrom(const Node *node);
     
     virtual bool copyBaseVariables(const Node *node);
     
@@ -93,7 +95,9 @@ private:
     //random generator for gaussian
     GRT::Random random;
     
-   
+    //Module for registering with base class
+    static RegisterNodeModule< FeatureNode > registerModule;
+
 
     //other features you might need eventually
     /*

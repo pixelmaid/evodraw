@@ -8,6 +8,10 @@
 
 #include "FeatureNode.h"
 
+//register feature node with base class
+RegisterNodeModule< FeatureNode > FeatureNode::registerModule("FeatureNode");
+
+
 FeatureNode::FeatureNode(){
     x1M =0;
     x1Std = 0;
@@ -21,6 +25,7 @@ FeatureNode::FeatureNode(){
     pXStd=0;
     pYM=0;
     pYStd=0;
+    type="FeatureNode";
 
 }
 
@@ -69,6 +74,32 @@ FeatureNode& FeatureNode:: operator = (const FeatureNode &rhs){
     return *this;
 
 }
+
+//deep copy method
+bool FeatureNode::deepCopyFrom(const Node *node){
+    cout<<"feature node deep copy attempt"<<endl;
+    
+    
+    if( node == NULL ){
+        cout<<"feature not deep copied because node = NULL"<<endl;
+        return false;
+        
+    }
+    //cout<<"this type="<<this->getType()<<endl;
+    //cout<<"node type="<<node->getType()<<endl;
+    if( this->getType() == node->getType() ){
+        //Clone the values and return
+        cout<<"feature deep copy success"<<endl;
+        if( copyBaseVariables( (FeatureNode*)node ) && Node::deepCopyFrom(node)) return true;
+        else return false;
+    }
+    else{
+        cout<<"feature node not deep copied because of type mismatch"<<endl;
+        
+    }
+    return false;
+}
+
 
 bool FeatureNode::copyBaseVariables(const Node *node){
     if( node == NULL ){
@@ -122,9 +153,9 @@ bool FeatureNode::clearNodeData(){
     this->y2.clear();
     this->parentRelX.clear();
     this->parentRelY.clear();
-    for(int i=0;i<m_Children.size();i++){
+    /*for(int i=0;i<m_Children.size();i++){
         ((FeatureNode*)m_Children[i])->clearNodeData();
-    }
+    }*/
     
 }
 //recursive function to build feature tree- called by probmodel
