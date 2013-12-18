@@ -51,6 +51,9 @@ public:
     bool clearModel();
     void clearAll();
     void clearLast();
+    //clears last drawing on canvas, or last in stack of saved drawings
+    void clearLastSaved();
+    
     void deleteShapes();
     
     //mouse event detection

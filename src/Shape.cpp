@@ -86,8 +86,8 @@ bool Shape::updateRelativeDist(){
     if(this->GetParentNode()!=NULL){
 
         if(cPX != NULL && cPY!=NULL && pCX!=NULL && pCY!=NULL){
-            parentRelX = *cPX - *pCX;
-            parentRelY = *cPY - *pCY;
+            parentRelX = x1 - ((Shape*)(this->GetParentNode()))->x2 ;
+            parentRelY = y1 - ((Shape*)(this->GetParentNode()))->y2 ;
             return true;
         }
     }
@@ -121,7 +121,7 @@ bool Shape::AddChildNode(Node* ChildNode){
        
     }
     else {
-        //cout<<"node add child node failed"<<endl;
+        cout<<"node add child node failed"<<endl;
         return false;
     }
 

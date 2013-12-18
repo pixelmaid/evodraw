@@ -54,7 +54,7 @@ public:
     void canvasEvent(ofxUIEventArgs &e);
     void setDrawTools();
     void setCanvases();
-    void saveIndividual();
+    void saveIndividual(bool saveDraw);
     bool generateNewIndividual();
     
     ofxUICanvas *drawTools;

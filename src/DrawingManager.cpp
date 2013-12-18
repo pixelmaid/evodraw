@@ -66,24 +66,7 @@ bool DrawingManager::buildFeatureTree(){
 }
 
 
-void DrawingManager::generateDrawing(){
-    //cout<<"fnodes size="<<fnodes.size()<<endl;
-    vector<Shape*> drawing;
-    if(fnodes.size()>0){
-       for(int i=0;i<fnodes.size();i++){
-            Shape* gShape = fnodes[i]->generateShape(NULL);
-           //delete currentShapes[i];
-           drawing.push_back(gShape);
-            //currentShapes[i]->y1=100;
-            //currentShapes[i]->y2=200;
-           //delete gShape;
-           //gShape = NULL;
-        }
-    }
-    savedDrawings.push_back(drawing);
-    currentShapes=&savedDrawings[savedDrawings.size()-1];
-    
-}
+
 
 //cleanup methods
 void DrawingManager::clearAll(){
@@ -95,13 +78,21 @@ void DrawingManager::clearAll(){
 }
 
 void DrawingManager::clearLast(){
-     
-    if(savedDrawings[savedDrawings.size()-1].size()!=0){
+    //if(savedDrawings.size()!=0){
+    if(savedDrawings[savedDrawings.size()-1].size()>0){
        int last =savedDrawings.size()-1;
         delete(savedDrawings[last][savedDrawings[last].size()-1]);
         savedDrawings[last][savedDrawings[last].size()-1]=NULL;
         savedDrawings[last].pop_back();
+      
     }
+  
+   // }
+}
+
+void DrawingManager::clearLastSaved(){
+    savedDrawings.pop_back();
+    currentShapes=  &savedDrawings[savedDrawings.size()-1];
 }
 
 
@@ -371,17 +362,36 @@ bool DrawingManager::removeChild(Shape* c){
     return false;
 }
 
+
+void DrawingManager::generateDrawing(){
+    //cout<<"fnodes size="<<fnodes.size()<<endl;
+    deselectShapes();
+    
+    vector<Shape*> drawing;
+    if(fnodes.size()>0){
+        for(int i=0;i<fnodes.size();i++){
+            Shape* gShape = fnodes[i]->generateShape(NULL);
+            //delete currentShapes[i];
+            drawing.push_back(gShape);
+            //currentShapes[i]->y1=100;
+            //currentShapes[i]->y2=200;
+            //delete gShape;
+            //gShape = NULL;
+        }
+    }
+    savedDrawings.push_back(drawing);
+    currentShapes=&savedDrawings[savedDrawings.size()-1];
+    
+}
 //saving, adding and copying (the troublemakers)
 void DrawingManager::saveDrawing(double w){
     deselectShapes();
     int last = savedDrawings.size()-1;
     for(int i=0;i<savedDrawings[last].size();i++){
        savedDrawings[last][i]->setWeight(w);
-        //cout<<"saving: x1="<<currentShapes[i]->x1<<", x2="<<currentShapes[i]->x2<<", y1="<<currentShapes[i]->x2<<", y2="<<currentShapes[i]->x2<<", pRx="<<currentShapes[i]->parentRelX<<", pRY="<<currentShapes[i]->parentRelY<<", type="<<currentShapes[i]->type<<", weight="<<currentShapes[i]->weight<<endl;
     }
     vector<Shape*> c = copy(savedDrawings[last]);
     savedDrawings.push_back(c);
-    //weights.push_back(w);
     cout<<"weight = "<<w<<endl;
     currentShapes=  &savedDrawings[savedDrawings.size()-1];
     indexed = false;

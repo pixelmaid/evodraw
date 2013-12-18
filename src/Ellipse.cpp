@@ -114,6 +114,19 @@ bool Ellipse::copyBaseVariables(const Ellipse *ellipse){
     
 }
 
+bool Ellipse::updateRelativeDist(){
+    if(this->GetParentNode()!=NULL){
+        
+        if(cPX != NULL && cPY!=NULL && pCX!=NULL && pCY!=NULL){
+            parentRelX = x2 - ((Shape*)(this->GetParentNode()))->x2 ;
+            parentRelY = y2 - ((Shape*)(this->GetParentNode()))->y2 ;
+            return true;
+        }
+    }
+    return false;
+}
+
+
 /*update method for  ellipse
  *calculates relative positioning for ellipse based on current
  *position of parent shape
@@ -126,8 +139,8 @@ void Ellipse::Update(void)
         Shape* parent = (Shape*)this->GetParentNode();
         double nx = parent->x2 + parentRelX;
         double ny = parent->y2 + parentRelY;
-        double dx = nx - x1;
-		double dy = ny- y1;
+        double dx = nx - x2;
+		double dy = ny- y2;
         x2+=dx;
         y2+=dy;
        // x2+=dx;
@@ -205,9 +218,8 @@ bool Ellipse::scale(double _x, double _y){
         y1 = relY*2;
         relX = _x-x2;
         relY= _y-y2;
-        //this->Update();
     }
-    else{ return Shape::movePoint(_x,_y);}
+    else{ return Shape::scale(_x,_y);}
     
 }
 

@@ -50,7 +50,7 @@ public:
     //method to reverse engineer constrained part based on shape generation.
     virtual bool calcConstrainedPoint();
     
-    //virtual bool updateRelativeDist();
+    virtual bool updateRelativeDist();
     
     
     //geom functions //

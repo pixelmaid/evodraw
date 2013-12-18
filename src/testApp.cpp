@@ -14,7 +14,7 @@ void testApp::setup(){
 	weight =1.0;
 	setDrawTools();
     setCanvases();
-    numExamples = 2;
+    numExamples = 4;
     
     
     
@@ -121,7 +121,7 @@ void testApp::setCanvases(){
     drawingSettings->addWidgetRight(new ofxUILabel("          Population Size", OFX_UI_FONT_MEDIUM));
     drawingSettings->addSlider("WEIGHT", 0.0, 2.0, weight, dim, 20);
     
-    drawingSettings->addWidgetRight(new ofxUISlider("NUMB", 1, 10, 2, dim, 20));
+    drawingSettings->addWidgetRight(new ofxUISlider("NUMB", 1, 10, 4, dim, 20));
     ofAddListener(drawingSettings->newGUIEvent,this,&testApp::guiEvent);
 
 	ofAddListener(canvases->newGUIEvent,this,&testApp::canvasEvent);
@@ -206,7 +206,7 @@ void testApp::guiEvent(ofxUIEventArgs &e)
         ofxUIImageButton *btn = (ofxUIImageButton *)e.widget;
        int trigger = btn->getValue();
         //cout << "trigger was: " << trigger << endl;
-        if(trigger ==1) saveIndividual();
+        if(trigger ==1) saveIndividual(true);
         
 		
 	}
@@ -227,19 +227,26 @@ void testApp::guiEvent(ofxUIEventArgs &e)
 }
 
 bool testApp::generateNewIndividual(){
+    d.clearLastSaved();
+
     cout<<"numExamples ="<<numExamples<<endl;
+    cout<<"total population before generation= "<<d.savedDrawings.size()<<endl;
+    cout<<"adding:"<<numExamples<<endl;
+
     for(int i=0;i<numExamples;i++){
         //d.clearAll();
         d.generateDrawing();
         //probModel.generateDrawing(d.currentShapes);
         ////d.addDrawing(newDrawing);
-        saveIndividual();
-        
+        if(i<numExamples-1) saveIndividual(false);
+        else saveIndividual(true);
     }
+    
+    cout<<"total population = "<<d.savedDrawings.size()<<endl;
     
 }
 
-void testApp::saveIndividual(){
+void testApp::saveIndividual(bool saveDraw){
     // grab a rectangle at 200,200, width and height of 300,180
 
   
@@ -247,7 +254,9 @@ void testApp::saveIndividual(){
     d.draw(output, false);
     snapshot.grabScreen(canvasX,canvasY,canvasWidth,canvasHeight);
     //cout<<"saving weight ="<<weight<<endl;
-    d.saveDrawing(weight);
+    if(saveDraw){
+        d.saveDrawing(weight);
+    }
     string fileName = "snapshot_"+ofToString(10000+snapCounter)+".png";
     snapshot.saveImage(fileName);
     //sprintf(snapString, "saved %s", fileName.c_str());
